@@ -27,8 +27,8 @@ usage() {
     echo "  -h, --help       显示此帮助信息"
     echo ""
     echo "架构选择:"
-    echo "  x86_64           使用 bin/ybt_ctrl 和 lib/"
-    echo "  aarch64/arm64    使用 bin/ybt_ctrl 和 lib/（package_robot_dev.sh 按目标架构生成）"
+    echo "  x86_64           优先使用 bin/ybt_ctrl 和 lib/"
+    echo "  aarch64/arm64    优先使用 bin_rk3588/ybt_ctrl 和 lib_rk3588/"
 }
 
 while [[ $# -gt 0 ]]; do
@@ -98,9 +98,18 @@ else
     case "${HOST_ARCH}" in
         x86_64)
             ARCH_LABEL="x86_64"
+            DEFAULT_BIN_DIR="${PROJECT_ROOT}/bin"
+            DEFAULT_LIB_DIR="${PROJECT_ROOT}/lib"
             ;;
         aarch64|arm64)
             ARCH_LABEL="RK3588/aarch64"
+            if [ -d "${PROJECT_ROOT}/bin_rk3588" ] || [ -d "${PROJECT_ROOT}/lib_rk3588" ]; then
+                DEFAULT_BIN_DIR="${PROJECT_ROOT}/bin_rk3588"
+                DEFAULT_LIB_DIR="${PROJECT_ROOT}/lib_rk3588"
+            else
+                DEFAULT_BIN_DIR="${PROJECT_ROOT}/bin"
+                DEFAULT_LIB_DIR="${PROJECT_ROOT}/lib"
+            fi
             ;;
         *)
             echo "错误: 不支持的系统架构: ${HOST_ARCH}"
@@ -109,9 +118,9 @@ else
             ;;
     esac
     if [ -z "${CONTROLLER_EXE}" ]; then
-        CONTROLLER_EXE="${PROJECT_ROOT}/bin/ybt_ctrl"
+        CONTROLLER_EXE="${DEFAULT_BIN_DIR}/ybt_ctrl"
     fi
-    LIB_DIR="${PROJECT_ROOT}/lib"
+    LIB_DIR="${DEFAULT_LIB_DIR}"
 fi
 
 if [ ! -f "${CONFIG_FILE}" ]; then

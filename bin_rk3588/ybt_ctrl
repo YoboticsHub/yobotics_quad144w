@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+BIN_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PACKAGE_ROOT="$(cd "${BIN_DIR}/.." && pwd)"
+
+export LD_LIBRARY_PATH="${PACKAGE_ROOT}/lib_rk3588:${LD_LIBRARY_PATH:-}"
+exec "${BIN_DIR}/ybt_ctrl.bin" "$@"

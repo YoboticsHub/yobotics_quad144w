@@ -2,7 +2,7 @@
 
 > quad144w/Y20W 16 维轮足机器人 RL 控制开发包，支持 MuJoCo 仿真、实机控制、LCM 外部算法接入、WebRTC 远程视频/控制服务，以及 Yobotics SDK 示例。
 
-本文档作为二次开发入口，适用于源码仓库和 `scripts/package_robot_dev.sh` 生成的 `yobotics_quad144w` 独立开发包。源码仓库中控制器二进制和运行库通常位于构建目录；独立开发包中会整理为 `bin/` 与 `lib/`。
+本文档作为二次开发入口，适用于当前 `yobotics_quad144w` 开发包。控制器入口和运行库已按平台放在 `bin/`、`bin_rk3588/`、`lib/` 与 `lib_rk3588/` 中；源码构建环境也可使用 `build/` 或 `build_lib/` 下的控制器产物。
 
 ## 能力概览
 
@@ -82,7 +82,7 @@ bash scripts/start_mujoco.sh --config config_sim.yaml --headless
 
 - `config_sim.yaml` 中 `simulation.enable_mujoco: true`
 - `simulation.mujoco.xml_path: resources_sim/robots/quad144w/scene_terrain.xml`
-- `robot_parameters.urdf_path: resources_sim/robots/quad144w/urdf/sduog144_V2_s.urdf`
+- `safety_checker.urdf_path: resources_sim/robots/quad144w/urdf/sduog144_V2_s.urdf`
 - `motor_communication.type: "lcm"`
 
 按 `Ctrl+C` 可停止 MuJoCo 和控制器进程。
@@ -114,7 +114,7 @@ bash scripts/start_mujoco.sh --config config_sim.yaml --headless
 sudo bash scripts/run_robot_controller.sh --config config.yaml
 ```
 
-脚本默认使用 `eth0` 配置 LCM 多播网络。若现场网卡不同，使用：
+脚本默认使用 `eth0` 作为 LCM 网卡参数。若现场网卡不同，使用：
 
 ```bash
 sudo bash scripts/run_robot_controller.sh --config config.yaml --iface <网卡名>
@@ -128,8 +128,9 @@ LCM_IFACE=<网卡名> sudo -E bash scripts/run_robot_controller.sh --config conf
 
 脚本会自动设置 `LD_LIBRARY_PATH`：
 
-- 源码/开发环境：使用 `build/` 或 `build_lib/` 下的控制器和库。
-- 独立开发包：使用包内 `bin/ybt_ctrl` 和 `lib/`。
+- x86_64：优先使用包内 `bin/ybt_ctrl` 和 `lib/`。
+- RK3588/aarch64：可使用包内 `bin_rk3588/ybt_ctrl` 和 `lib_rk3588/`；如果现场包只保留目标架构，也可使用 `bin/ybt_ctrl` 和 `lib/`。
+- 源码/开发环境：没有包内入口时，使用 `build/` 或 `build_lib/` 下的控制器和库。
 
 ### 3. 可选：启动 WebRTC 服务
 
@@ -155,6 +156,8 @@ ws://<robot_ip>:8765
 - 控制器日志默认写入 `log/robot_log.txt`。
 - 检查 LCM 通道和消息频率：`bash scripts/monitor_lcm.sh --no-gui`。
 - 图形化查看 LCM：`bash scripts/launch_lcm_spy.sh`。
+- 实机状态 MuJoCo 可视化：`bash scripts/start_hardware_viewer.sh`。
+- 查看 RL/电机 CSV 日志：`python3 scripts/data_viewer.py` 或 `python3 scripts/motor_trace_viewer.py log/motor_trace.csv`。
 - 如果收不到状态，优先检查 LCM 网卡、SPI/IMU/电机连接、`config.yaml` 通道和权限。
 - 前台运行时按 `Ctrl+C` 停止控制器；WebRTC 使用 `control_publisher.py` 时可输入 `e` 停止子进程并退出。
 
@@ -166,14 +169,14 @@ ws://<robot_ip>:8765
 - `resources/`：实机配置使用的 quad144w 机器人资源。
 - `resources_sim/`：仿真配置使用的 quad144w 机器人资源。
 - `mujoco_sim/`：MuJoCo 仿真 Python 模块。
-- `scripts/`：环境配置、控制器启动、LCM 监控、网络配置和打包脚本。
+- `scripts/`：环境配置、控制器启动、LCM 监控、网络配置、硬件 Viewer、日志查看等工具脚本。
 - `external_algorithms/`：`DEVELOPMENT` 模式外部算法接入框架。
 - `WebRTC_server/`：WebRTC 视频与远程控制服务。
 - `yobotics_sdk/`：客户侧 SDK、HTTP 控制服务和示例程序。
 - `lcm-types/`：LCM 协议定义及 Python/C++/Java 生成代码。
 - `build/`：源码构建目录，包含控制器二进制和构建产物。
-- `build/yobotics_quad144w/` 或 `build-rk3588/yobotics_quad144w/`：默认独立开发包输出目录，取决于所选构建目录。
-- `bin/`、`lib/`：独立开发包中的控制器入口和运行库目录，源码仓库默认不一定存在。
+- `bin/`、`lib/`：x86_64 控制器入口和运行库目录。
+- `bin_rk3588/`、`lib_rk3588/`：RK3588/aarch64 控制器入口和运行库目录。
 
 ## 各模式说明
 
@@ -201,7 +204,7 @@ ws://<robot_ip>:8765
 - `development`：外部算法开发模式的 robot_id、状态通道、命令通道和退出自检阈值。
 - `gamepad.device_type`：控制输入类型，实机默认 `at9s`，仿真默认 `hybrid`。
 - `gamepad.lcm_control_channel` / `gamepad.lcm_state_channel`：上位机/WebRTC/SDK 控制与状态通道。
-- `robot_parameters.urdf_path`：机器人 URDF 路径。
+- `safety_checker.urdf_path`：机器人 URDF 路径。
 - `safety_checker`：姿态、关节、硬件丢失等安全检查配置。
 
 SPI 板型示例：
@@ -234,60 +237,23 @@ python3 external_algorithms/wave_algorithm/run_algorithm.py --config external_al
 
 更多 16 维轮足动作布局、ONNX actor/encoder 和正弦波规则控制说明见 [external_algorithms/README.md](./external_algorithms/README.md)。
 
-## 打包部署
+## 开发包校验
 
-RK3588/aarch64 交叉编译和部署的完整流程见 [RK3588_BUILD_GUIDE.md](./RK3588_BUILD_GUIDE.md)。
-
-如需生成不携带完整源码构建目录的独立开发包，先完成一次构建并确认存在：
+当前仓库已包含常用 x86_64 与 RK3588/aarch64 入口和运行库。部署到机器人前可先在目标目录做快速校验：
 
 ```bash
-build/user/YBT_Controller/ybt_ctrl
-```
-
-然后在项目根目录运行：
-
-```bash
-bash scripts/package_robot_dev.sh
-```
-
-常用选项：
-
-```bash
-# x86_64 本机构建
-bash scripts/package_robot_dev.sh --arch x86_64
-
-# 指定构建目录和输出目录
-bash scripts/package_robot_dev.sh --build-dir build --output-dir /tmp/yobotics_quad144w
-
-# RK3588/aarch64 构建目录存在后使用
-bash scripts/build_rk3588.sh
-bash scripts/send_to_board_rk3588.sh ybt@192.168.1.134
-bash scripts/package_robot_dev.sh --arch rk3588 --build-dir build-rk3588
-```
-
-默认输出目录取决于构建目录：
-
-```bash
-build/yobotics_quad144w
-build-rk3588/yobotics_quad144w
-```
-
-开发包快速验证：
-
-```bash
-cd build/yobotics_quad144w
 file bin/ybt_ctrl.bin
 LD_LIBRARY_PATH=$PWD/lib ldd bin/ybt_ctrl.bin
 ```
 
-如果 `ldd` 中项目内部库（如 `librobot.so`、`libbiomimetics.so`、`libonnxruntime.so.1`）没有 `not found`，说明包内依赖基本完整。
+如果使用 RK3588/aarch64 目录，将命令中的 `bin/` 和 `lib/` 替换为 `bin_rk3588/` 与 `lib_rk3588/`。如果 `ldd` 中项目内部库（如 `librobot.so`、`libbiomimetics.so`、`libonnxruntime.so.1`）没有 `not found`，说明包内依赖基本完整。
 
 ## 开发入口
 
 - [external_algorithms/README.md](./external_algorithms/README.md)：开发模式外部算法接入说明。
 - [WebRTC_server/README.md](./WebRTC_server/README.md)：远程视频、DataChannel 控制和 LCM 转发说明。
 - [yobotics_sdk/README.md](./yobotics_sdk/README.md)：SDK、HTTP 控制接口和示例程序说明。
-- [scripts/README_ROBOT_DEV.md](./scripts/README_ROBOT_DEV.md)：机器人开发/部署脚本说明。
+- [scripts/README.md](./scripts/README.md)：脚本入口、参数和排查说明。
 - `lcm-types/`：查看控制协议和消息字段。
 - `user/YBT_Controller/FSM_States/`：控制状态机和各模式实现。
 

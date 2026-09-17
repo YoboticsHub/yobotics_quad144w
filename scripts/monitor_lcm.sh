@@ -16,6 +16,41 @@ NC='\033[0m' # No Color
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 
+# 解析命令行参数。放在运行前检查之前，保证 --help 在缺少网络/Python 依赖时也可用。
+LCM_URL=""
+USE_NO_GUI=""
+
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        --lcm-url)
+            LCM_URL="$2"
+            shift 2
+            ;;
+        --no-gui)
+            USE_NO_GUI="--no-gui"
+            shift
+            ;;
+        -h|--help)
+            echo "用法: $0 [选项]"
+            echo ""
+            echo "选项:"
+            echo "  --lcm-url URL    指定 LCM URL (默认: 使用默认 URL)"
+            echo "  --no-gui         禁用 GUI，使用文本模式"
+            echo "  -h, --help       显示此帮助信息"
+            echo ""
+            echo "功能:"
+            echo "  自动检测所有 LCM 通道并显示通道名称和频率"
+            echo "  支持机器人姿态可视化（GUI模式）"
+            exit 0
+            ;;
+        *)
+            echo "未知选项: $1"
+            echo "使用 --help 查看帮助"
+            exit 1
+            ;;
+    esac
+done
+
 # 检查网络接口多播支持
 check_multicast_support() {
     echo "检查网络接口多播支持..."
@@ -111,41 +146,6 @@ if [ ! -f "$LCM_TYPES_DIR/quad_joint_command_t.py" ] || \
         echo "警告: 未找到 generate_lcm_types.sh，将使用原始数据处理"
     fi
 fi
-
-# 解析命令行参数
-LCM_URL=""
-USE_NO_GUI=""
-
-while [[ $# -gt 0 ]]; do
-    case $1 in
-        --lcm-url)
-            LCM_URL="$2"
-            shift 2
-            ;;
-        --no-gui)
-            USE_NO_GUI="--no-gui"
-            shift
-            ;;
-        -h|--help)
-            echo "用法: $0 [选项]"
-            echo ""
-            echo "选项:"
-            echo "  --lcm-url URL    指定 LCM URL (默认: 使用默认 URL)"
-            echo "  --no-gui         禁用 GUI，使用文本模式"
-            echo "  -h, --help       显示此帮助信息"
-            echo ""
-            echo "功能:"
-            echo "  自动检测所有 LCM 通道并显示通道名称和频率"
-            echo "  支持机器人姿态可视化（GUI模式）"
-            exit 0
-            ;;
-        *)
-            echo "未知选项: $1"
-            echo "使用 --help 查看帮助"
-            exit 1
-            ;;
-    esac
-done
 
 # 构建命令
 CMD="$PYTHON_CMD $SCRIPT_DIR/monitor_lcm.py"
