@@ -39,10 +39,10 @@ const std::string ROBOT_SDK_TOPIC_STATE = "state_estimator" ;
 const std::string ROBOT_SDK_SPORT = "QUAD_ROBOT_CONTROL_Y20W" ; 
 const std::string ROBOT_SDK_POWER_STATE = "POWER_STATE" ;
 const std::string ROBOT_SDK_TOPIC_QUAD_STATE = "QUAD_ROBOT_STATE_Y20W";
-const std::string ROBOT_SDK_TOPIC_LEG_CONTROL_DATA = "leg_control_data";
-const std::string ROBOT_SDK_TOPIC_LEG_CONTROL_COMMAND = "leg_control_command";
-const std::string ROBOT_SDK_TOPIC_DEVELOPMENT_STATE = "Y15_development_state";
-const std::string ROBOT_SDK_TOPIC_DEVELOPMENT_COMMAND = "Y15_development_command";
+const std::string ROBOT_SDK_TOPIC_LEG_CONTROL_DATA = "Y20W_QUAD_JOINT_STATE";
+const std::string ROBOT_SDK_TOPIC_LEG_CONTROL_COMMAND = "Y20W_QUAD_JOINT_COMMAND";
+const std::string ROBOT_SDK_TOPIC_DEVELOPMENT_STATE = "Y20W_development_state";
+const std::string ROBOT_SDK_TOPIC_DEVELOPMENT_COMMAND = "Y20W_development_command";
 const std::string ROBOT_SDK_NAV = "UPPER_dogNAV_1";
 const std::string ROBOT_SDK_NAV_STATE = "UPPER_dogNAV_STATE_1";
 

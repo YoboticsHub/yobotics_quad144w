@@ -6,7 +6,7 @@ struct development_command_t
     // 控制标志
     int32_t enable_development_mode;  // 1=开始开发模式, 0=结束开发模式
     
-    // 所有关节的期望角度（关节顺序 : LF(hip->thigh->calf)->RF->LR->RR 12维）
+    // 12 个腿关节和 4 个轮关节，顺序为 LF/RF/LR/RR。
     float joint_des_q[12];
     float joint_des_q_supplement[4];
     
@@ -27,4 +27,3 @@ struct development_command_t
     float joint_des_kd_supplement[4];
 
 }
-

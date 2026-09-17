@@ -1,10 +1,10 @@
 struct quad_joint_command_t 
 {
-    // 16个主关节期望角度（关节顺序 : LF(hip->thigh->calf->wheel)->RF->LR->RR）
+    // 12 个腿关节和 4 个轮关节，顺序为 LF/RF/LR/RR。
     float joint_des_q[12];
     float joint_des_q_supplement[4];
 
-    // 12个主关节期望速度
+    // 12 个腿关节期望速度和 4 个轮关节期望速度
     float joint_des_qd[12];
     float joint_des_qd_supplement[4];
 

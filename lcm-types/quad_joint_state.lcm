@@ -1,6 +1,6 @@
 struct quad_joint_state_t
 {
-    // 16个主关节状态
+    // 12 个腿关节和 4 个轮关节状态
     float joint_q[12];
     float joint_q_supplement[4];
 

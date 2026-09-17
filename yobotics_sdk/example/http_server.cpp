@@ -28,13 +28,13 @@ const std::string kDefaultToken = "Y20W_Robot_Secure_Token_123";
 const std::string kTokenPrefix = "Bearer ";
 const char* kDefaultLcmUrl = "udpm://239.255.76.67:7667?ttl=255";
 
-enum E15Mode {
-    E15_MODE_PASSIVE = 0,
-    E15_MODE_DAMP,
-    E15_MODE_RECOVERY_STAND,
-    E15_MODE_STAND_DOWN,
-    E15_MODE_RL_WALK,
-    E15_MODE_DEVELOPMENT
+enum Y20WMode {
+    Y20W_MODE_PASSIVE = 0,
+    Y20W_MODE_DAMP,
+    Y20W_MODE_RECOVERY_STAND,
+    Y20W_MODE_STAND_DOWN,
+    Y20W_MODE_RL_WALK,
+    Y20W_MODE_DEVELOPMENT
 };
 
 struct RobotStateCache {
@@ -62,7 +62,7 @@ struct NavCommandTracker {
 };
 
 struct MotionCommand {
-    E15Mode mode = E15_MODE_DAMP;
+    Y20WMode mode = Y20W_MODE_DAMP;
     bool nav_enabled = false;
     float vx = 0.0f;
     float vy = 0.0f;
@@ -120,31 +120,31 @@ T clamp_value(T value, T min_value, T max_value) {
     return value;
 }
 
-const char* mode_to_string(E15Mode mode) {
+const char* mode_to_string(Y20WMode mode) {
     switch (mode) {
-    case E15_MODE_PASSIVE: return "passive";
-    case E15_MODE_DAMP: return "damp";
-    case E15_MODE_RECOVERY_STAND: return "recovery_stand";
-    case E15_MODE_STAND_DOWN: return "stand_down";
-    case E15_MODE_RL_WALK: return "rl_walk";
-    case E15_MODE_DEVELOPMENT: return "development";
+    case Y20W_MODE_PASSIVE: return "passive";
+    case Y20W_MODE_DAMP: return "damp";
+    case Y20W_MODE_RECOVERY_STAND: return "recovery_stand";
+    case Y20W_MODE_STAND_DOWN: return "stand_down";
+    case Y20W_MODE_RL_WALK: return "rl_walk";
+    case Y20W_MODE_DEVELOPMENT: return "development";
     default: return "unknown";
     }
 }
 
-bool parse_mode_string(const std::string& mode_str, E15Mode& out_mode) {
-    if (mode_str == "passive") out_mode = E15_MODE_PASSIVE;
-    else if (mode_str == "damp") out_mode = E15_MODE_DAMP;
-    else if (mode_str == "recovery_stand") out_mode = E15_MODE_RECOVERY_STAND;
-    else if (mode_str == "stand_down") out_mode = E15_MODE_STAND_DOWN;
-    else if (mode_str == "rl_walk") out_mode = E15_MODE_RL_WALK;
-    else if (mode_str == "development") out_mode = E15_MODE_DEVELOPMENT;
+bool parse_mode_string(const std::string& mode_str, Y20WMode& out_mode) {
+    if (mode_str == "passive") out_mode = Y20W_MODE_PASSIVE;
+    else if (mode_str == "damp") out_mode = Y20W_MODE_DAMP;
+    else if (mode_str == "recovery_stand") out_mode = Y20W_MODE_RECOVERY_STAND;
+    else if (mode_str == "stand_down") out_mode = Y20W_MODE_STAND_DOWN;
+    else if (mode_str == "rl_walk") out_mode = Y20W_MODE_RL_WALK;
+    else if (mode_str == "development") out_mode = Y20W_MODE_DEVELOPMENT;
     else return false;
     return true;
 }
 
-bool is_motion_mode(E15Mode mode) {
-    return mode == E15_MODE_RL_WALK || mode == E15_MODE_DEVELOPMENT;
+bool is_motion_mode(Y20WMode mode) {
+    return mode == Y20W_MODE_RL_WALK || mode == Y20W_MODE_DEVELOPMENT;
 }
 
 void normalize_motion_command(MotionCommand& command) {
@@ -586,12 +586,12 @@ void control_loop() {
             std::lock_guard<std::mutex> lock(g_sport_mutex);
             g_sport_client.EnableLCMControl();
             switch (command.mode) {
-            case E15_MODE_PASSIVE: g_sport_client.Passive(); break;
-            case E15_MODE_DAMP: g_sport_client.Damp(); break;
-            case E15_MODE_RECOVERY_STAND: g_sport_client.RecoveryStand(); break;
-            case E15_MODE_STAND_DOWN: g_sport_client.StandDown(); break;
-            case E15_MODE_RL_WALK: g_sport_client.RLWalk(); break;
-            case E15_MODE_DEVELOPMENT: g_sport_client.Development(); break;
+            case Y20W_MODE_PASSIVE: g_sport_client.Passive(); break;
+            case Y20W_MODE_DAMP: g_sport_client.Damp(); break;
+            case Y20W_MODE_RECOVERY_STAND: g_sport_client.RecoveryStand(); break;
+            case Y20W_MODE_STAND_DOWN: g_sport_client.StandDown(); break;
+            case Y20W_MODE_RL_WALK: g_sport_client.RLWalk(); break;
+            case Y20W_MODE_DEVELOPMENT: g_sport_client.Development(); break;
             }
 
             if (is_motion_mode(command.mode)) {
@@ -630,7 +630,7 @@ void handle_motion_request(const Request& req, Response& res) {
                 return;
             }
 
-            E15Mode parsed_mode;
+            Y20WMode parsed_mode;
             if (!parse_mode_string(body["mode"].get<std::string>(), parsed_mode)) {
                 set_json_response(res, 400, {
                     {"code", 400},
@@ -697,7 +697,7 @@ void handle_nav_enable_request(const Request& req, Response& res) {
         }
 
         next_command.nav_enabled = body["nav_enabled"].get<bool>();
-        if (next_command.nav_enabled && next_command.mode != E15_MODE_RL_WALK) {
+        if (next_command.nav_enabled && next_command.mode != Y20W_MODE_RL_WALK) {
             set_json_response(res, 400, {
                 {"code", 400},
                 {"msg", "nav enable requires rl_walk mode"}
@@ -918,7 +918,7 @@ int main() {
     svr.Post("/control/nav", handle_nav_request);
     svr.Post("/control/stop", handle_stop_request);
 
-    std::cout << "[INFO] E15 HTTP server starting at http://"
+    std::cout << "[INFO] Y20W HTTP server starting at http://"
               << http_host << ":" << http_port << std::endl;
     std::cout << "[INFO] Authorization token env: ROBOT_HTTP_TOKEN" << std::endl;
     std::cout << "[INFO] LCM URL: " << resolve_lcm_url() << std::endl;

@@ -88,7 +88,7 @@ LCM_IFACE=<网卡名> sudo -E bash scripts/run_robot_controller.sh --config conf
 
 ### `run_controller.sh`
 
-保留原项目开发环境启动入口，主要面向源码树中的 `build/` 或 `build_lib/` 结构。独立开发包中优先使用 `run_robot_controller.sh`。
+保留的源码树兼容入口。当前二次开发包不包含控制器源码，日常运行请使用 `run_robot_controller.sh`。
 
 ### `run_human_debug.sh`
 
@@ -107,7 +107,7 @@ bash scripts/start_mujoco.sh --config config_sim.yaml --headless
 
 仿真依赖 `config_sim.yaml`、`resources_sim/`、`mujoco_sim/`、`actor_model/` 和 `lcm-types/`。
 
-如果提示找不到控制器，先确认开发包内存在 `bin/ybt_ctrl`，或源码环境中已经编译出 `build/user/YBT_Controller/ybt_ctrl`。
+如果提示找不到控制器，先确认开发包内存在 `bin/ybt_ctrl`，并具有执行权限。
 
 ### `start_hardware_viewer.sh` / `hardware_mujoco_viewer.py`
 

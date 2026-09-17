@@ -6,6 +6,7 @@ struct sport_client_state_t
     float h;
     int32_t state;
     int32_t fault;
+    float env[3];
 }
     
         

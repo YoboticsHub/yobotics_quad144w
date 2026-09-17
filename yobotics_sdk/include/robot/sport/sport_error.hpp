@@ -1,5 +1,5 @@
-#ifndef __MIT_ROBOT_E15_SPORT_ERROR_HPP__
-#define __MIT_ROBOT_E15_SPORT_ERROR_HPP__
+#ifndef __YOBOTICS_ROBOT_Y20W_SPORT_ERROR_HPP__
+#define __YOBOTICS_ROBOT_Y20W_SPORT_ERROR_HPP__
 
 #include <decl.hpp>
 

@@ -5,7 +5,6 @@ struct sport_client_cmd_t
     float   euler_angles[3];
     float   body_height;
     float   step_height;
+    int32_t variable[3];
     int32_t  api;
 }
-  
-      

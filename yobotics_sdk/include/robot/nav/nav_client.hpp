@@ -1,5 +1,5 @@
-#ifndef __MIT_ROBOT_E15_NAV_CLIENT_HPP__
-#define __MIT_ROBOT_E15_NAV_CLIENT_HPP__
+#ifndef __YOBOTICS_ROBOT_Y20W_NAV_CLIENT_HPP__
+#define __YOBOTICS_ROBOT_Y20W_NAV_CLIENT_HPP__
 
 #include <decl.hpp>
 #include <functional>

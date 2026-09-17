@@ -35,8 +35,8 @@ except ImportError as e:
     LCM_AVAILABLE = False
 
 # LCM 通道名称（默认值，将从配置文件读取）
-DEFAULT_ROBOT_CONTROL_CHANNEL = "QUAD_ROBOT_CONTROL"
-DEFAULT_ROBOT_STATE_CHANNEL = "QUAD_ROBOT_STATE"
+DEFAULT_ROBOT_CONTROL_CHANNEL = "QUAD_ROBOT_CONTROL_Y20W"
+DEFAULT_ROBOT_STATE_CHANNEL = "QUAD_ROBOT_STATE_Y20W"
 
 
 # ==========================================
@@ -373,8 +373,8 @@ async def run_publisher():
             lcm_comm = LCMCommunicator(
                 loop=asyncio.get_event_loop(),
                 lcm_url="udpm://239.255.76.67:7667?ttl=255",
-                control_channel="ROBOT_CONTROL",
-                state_channel="ROBOT_STATE"
+                control_channel=DEFAULT_ROBOT_CONTROL_CHANNEL,
+                state_channel=DEFAULT_ROBOT_STATE_CHANNEL
             )
             lcm_comm.start()
             _local_lcm = lcm_comm

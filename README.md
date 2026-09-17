@@ -2,7 +2,22 @@
 
 > quad144w/Y20W 16 维轮足机器人 RL 控制开发包，支持 MuJoCo 仿真、实机控制、LCM 外部算法接入、WebRTC 远程视频/控制服务，以及 Yobotics SDK 示例。
 
-本文档作为二次开发入口，适用于当前 `yobotics_quad144w` 开发包。控制器入口和运行库已按平台放在 `bin/`、`bin_rk3588/`、`lib/` 与 `lib_rk3588/` 中；源码构建环境也可使用 `build/` 或 `build_lib/` 下的控制器产物。
+本文档作为二次开发入口，适用于当前 `yobotics_quad144w` 开发包。控制器入口和运行库已按平台放在 `bin/`、`bin_rk3588/`、`lib/` 与 `lib_rk3588/` 中。
+
+完整说明书位于 [docs/index.md](./docs/index.md)，可通过 MkDocs 浏览：
+
+```bash
+python3 -m pip install -r requirements-docs.txt
+mkdocs serve
+```
+
+按使用目标阅读：
+
+- 首次运行：[环境配置与快速开始](./docs/part-1-quick-start/1.framework.md)；
+- 现场运行：[实机结构与安全](./docs/part-3-hardware/1.overview.md)；
+- SDK 集成：[SDK 概览](./docs/part-4-sdk/1.overview.md)；
+- 算法开发：[LCM 通信结构](./docs/part-5-lcm-dev/1.structure.md)到[自定义算法与实机接入](./docs/part-5-lcm-dev/6.hardware.md)；
+- 远程控制：[WebRTC 服务结构](./docs/part-6-webrtc/1.overview.md)。
 
 ## 能力概览
 
@@ -48,22 +63,9 @@ bash scripts/install_python_lcm.sh
 sudo bash scripts/setup_lcm_network.sh
 ```
 
-### 2. 编译控制器
+### 2. 检查控制器
 
-源码仓库首次运行仿真或实机前，需要先生成控制器：
-
-```bash
-mkdir -p build
-cd build
-cmake ..
-make -j4
-```
-
-控制器产物通常为：
-
-```bash
-build/user/YBT_Controller/ybt_ctrl
-```
+当前二次开发包已经包含控制器入口。x86_64 使用 `bin/ybt_ctrl`，RK3588/aarch64 使用 `bin_rk3588/ybt_ctrl`。
 
 ### 3. 启动仿真
 
@@ -130,7 +132,6 @@ LCM_IFACE=<网卡名> sudo -E bash scripts/run_robot_controller.sh --config conf
 
 - x86_64：优先使用包内 `bin/ybt_ctrl` 和 `lib/`。
 - RK3588/aarch64：可使用包内 `bin_rk3588/ybt_ctrl` 和 `lib_rk3588/`；如果现场包只保留目标架构，也可使用 `bin/ybt_ctrl` 和 `lib/`。
-- 源码/开发环境：没有包内入口时，使用 `build/` 或 `build_lib/` 下的控制器和库。
 
 ### 3. 可选：启动 WebRTC 服务
 
@@ -153,13 +154,13 @@ ws://<robot_ip>:8765
 
 ### 4. 运行检查与停止
 
-- 控制器日志默认写入 `log/robot_log.txt`。
+- 控制器日志路径由 `config.yaml` 的 `logging.log_file_path` 决定，当前实机默认值为 `/home/cat/log/robot_log.txt`。
 - 检查 LCM 通道和消息频率：`bash scripts/monitor_lcm.sh --no-gui`。
 - 图形化查看 LCM：`bash scripts/launch_lcm_spy.sh`。
 - 实机状态 MuJoCo 可视化：`bash scripts/start_hardware_viewer.sh`。
 - 查看 RL/电机 CSV 日志：`python3 scripts/data_viewer.py` 或 `python3 scripts/motor_trace_viewer.py log/motor_trace.csv`。
 - 如果收不到状态，优先检查 LCM 网卡、SPI/IMU/电机连接、`config.yaml` 通道和权限。
-- 前台运行时按 `Ctrl+C` 停止控制器；WebRTC 使用 `control_publisher.py` 时可输入 `e` 停止子进程并退出。
+- 前台运行时按 `Ctrl+C` 停止控制器；WebRTC 使用 `control_publisher.py` 时同样按 `Ctrl+C`，等待其清理子进程。
 
 ## 运行入口与目录
 
@@ -174,7 +175,6 @@ ws://<robot_ip>:8765
 - `WebRTC_server/`：WebRTC 视频与远程控制服务。
 - `yobotics_sdk/`：客户侧 SDK、HTTP 控制服务和示例程序。
 - `lcm-types/`：LCM 协议定义及 Python/C++/Java 生成代码。
-- `build/`：源码构建目录，包含控制器二进制和构建产物。
 - `bin/`、`lib/`：x86_64 控制器入口和运行库目录。
 - `bin_rk3588/`、`lib_rk3588/`：RK3588/aarch64 控制器入口和运行库目录。
 
@@ -202,7 +202,7 @@ ws://<robot_ip>:8765
 - `motor_communication.board`：SPI 板端协议，填写 `rk3588`（默认）或 `upboard`，且区分大小写。两种板型都使用 Linux SPI `bits_per_word=8`，区别在于帧布局、校验、SPI 频率和 ab/ad 零点偏移。
 - `rl_walk` / `rl_highspeed` / `rl_climb` / `rl_stand`：各 RL 策略的 actor、encoder、日志和模型参数配置。
 - `development`：外部算法开发模式的 robot_id、状态通道、命令通道和退出自检阈值。
-- `gamepad.device_type`：控制输入类型，实机默认 `at9s`，仿真默认 `hybrid`。
+- `gamepad.device_type`：控制输入类型，当前实机和仿真配置均为 `hybrid`。
 - `gamepad.lcm_control_channel` / `gamepad.lcm_state_channel`：上位机/WebRTC/SDK 控制与状态通道。
 - `safety_checker.urdf_path`：机器人 URDF 路径。
 - `safety_checker`：姿态、关节、硬件丢失等安全检查配置。
@@ -235,18 +235,7 @@ python3 external_algorithms/wave_algorithm/run_algorithm.py --config external_al
 - `state_channel: "Y20W_development_state"`
 - `command_channel: "Y20W_development_command"`
 
-更多 16 维轮足动作布局、ONNX actor/encoder 和正弦波规则控制说明见 [external_algorithms/README.md](./external_algorithms/README.md)。
-
-## 开发包校验
-
-当前仓库已包含常用 x86_64 与 RK3588/aarch64 入口和运行库。部署到机器人前可先在目标目录做快速校验：
-
-```bash
-file bin/ybt_ctrl.bin
-LD_LIBRARY_PATH=$PWD/lib ldd bin/ybt_ctrl.bin
-```
-
-如果使用 RK3588/aarch64 目录，将命令中的 `bin/` 和 `lib/` 替换为 `bin_rk3588/` 与 `lib_rk3588/`。如果 `ldd` 中项目内部库（如 `librobot.so`、`libbiomimetics.so`、`libonnxruntime.so.1`）没有 `not found`，说明包内依赖基本完整。
+完整的 16 维协议、57 维观测、框架线程、模型替换和六阶段实机验收见 [第五部分：LCM 与外部算法](./docs/part-5-lcm-dev/1.structure.md)。命令速查见 [external_algorithms/README.md](./external_algorithms/README.md)。
 
 ## 开发入口
 
@@ -255,19 +244,12 @@ LD_LIBRARY_PATH=$PWD/lib ldd bin/ybt_ctrl.bin
 - [yobotics_sdk/README.md](./yobotics_sdk/README.md)：SDK、HTTP 控制接口和示例程序说明。
 - [scripts/README.md](./scripts/README.md)：脚本入口、参数和排查说明。
 - `lcm-types/`：查看控制协议和消息字段。
-- `user/YBT_Controller/FSM_States/`：控制状态机和各模式实现。
 
 ## 常见问题
 
 ### 控制器提示找不到动态库
 
-源码环境先检查构建产物：
-
-```bash
-ls build/user/YBT_Controller/ybt_ctrl
-```
-
-独立开发包中检查：
+开发包中检查：
 
 ```bash
 ls -l lib/libonnxruntime.so*
@@ -284,7 +266,7 @@ LD_LIBRARY_PATH=$PWD/lib ldd bin/ybt_ctrl.bin
 - `resources_sim/robots/quad144w/scene_terrain.xml` 是否存在。
 - Python 环境是否安装 `mujoco`、`pyyaml`、`numpy`、`onnxruntime`。
 - LCM Python 绑定是否可用。
-- 控制器是否已编译到 `build/user/YBT_Controller/ybt_ctrl`。
+- `bin/ybt_ctrl` 是否存在并具有执行权限。
 
 ### LCM 收不到消息
 

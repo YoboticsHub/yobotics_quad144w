@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(yobotics_sdk_e15 C CXX)
+project(yobotics_sdk_y20w C CXX)
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
@@ -26,8 +26,6 @@ set_target_properties(yobotics_sdk PROPERTIES
 add_executable(yobot_sport_client example/sport_client.cpp)
 add_executable(yobot_robot_state_client example/robot_state_client.cpp)
 add_executable(yobot_http_server example/http_server.cpp)
-add_executable(yobot_nav_control_demo example/nav_control_demo.cpp)
-add_executable(yobot_nav_control_subscriber_demo example/nav_control_subscriber_demo.cpp)
 
 find_library(LCM_LIBRARY lcm PATHS /usr/local/lib /usr/lib /usr/lib/x86_64-linux-gnu)
 if(NOT LCM_LIBRARY)
@@ -62,16 +60,4 @@ target_link_libraries(yobot_http_server
     -Wl,--start-group
     yobotics_sdk ${LCM_LIBRARY}
     -Wl,--end-group
-)
-
-target_link_libraries(yobot_nav_control_demo
-    PRIVATE
-    ${LCM_LIBRARY}
-    pthread
-)
-
-target_link_libraries(yobot_nav_control_subscriber_demo
-    PRIVATE
-    ${LCM_LIBRARY}
-    pthread
 )

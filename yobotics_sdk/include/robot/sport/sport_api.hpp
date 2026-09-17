@@ -1,5 +1,5 @@
-#ifndef __MIT_ROBOT_E15_SPORT_API_HPP__
-#define __MIT_ROBOT_E15_SPORT_API_HPP__
+#ifndef __YOBOTICS_ROBOT_Y20W_SPORT_API_HPP__
+#define __YOBOTICS_ROBOT_Y20W_SPORT_API_HPP__
 
 #include <decl.hpp>
 
@@ -10,7 +10,7 @@ namespace robot
 const std::string ROBOT_SPORT_SERVICE_NAME = "sport";
 const std::string ROBOT_SPORT_API_VERSION = "1.0.0.0";
 
-// API IDs aligned with quad48-rl-control-framework-rk3588/robot/src/rt/rt_lcm.cpp
+// API IDs consumed by the quad144w/Y20W controller.
 const int32_t ROBOT_SPORT_API_ID_PASSIVE = 1000;
 const int32_t ROBOT_SPORT_API_ID_DAMP = 1001;
 const int32_t ROBOT_SPORT_API_ID_RECOVERY_STAND = 1006;

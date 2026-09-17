@@ -2,6 +2,8 @@
 
 本目录用于存放通过 LCM 接入机器人开发模式的外部算法 demo。每个算法 demo 独立放在一个子目录中，通常包含 `config.yaml` 和 `run_algorithm.py`，通过 `AlgorithmBase` 和 `LCMInterface` 完成状态接收、策略推理或规则计算、关节命令发布等流程。
 
+完整开发说明见 MkDocs 的 [第五部分：LCM 与外部算法](../docs/part-5-lcm-dev/1.structure.md)。本文只保留目录、命令和配置速查。
+
 当前保留两个 demo：
 
 - **`walk_algorithm/`**：基于 ONNX actor / encoder 双模型的 Y20W 轮足行走策略 demo。
@@ -94,6 +96,18 @@ LCM 底层命令仍包含 12 维主关节和 4 维 supplement 轮子通道。`LC
 
 ## 运行方式
 
+推荐先启动 MuJoCo 和 LCM 监控：
+
+```bash
+bash scripts/start_mujoco.sh --config config_sim.yaml
+```
+
+```bash
+bash scripts/monitor_lcm.sh --no-gui
+```
+
+确认 `Y20W_development_state` 持续更新后，再启动算法。
+
 在工程根目录下运行：
 
 ```bash
@@ -167,6 +181,8 @@ LCM 通信配置：
 - `frequency`：正弦波频率。
 - `amplitude`：thigh / calf 正弦波幅值。
 
+当前 wave 实现直接执行 `default_joint_pos + action`，不会再使用 `model_params.action_scale` 缩放。calf 偏移为 `-2 * amplitude * sin(phase)`，因此其峰值是配置幅值的两倍。
+
 ### `rl_mode`
 
 强化学习模式开关：
@@ -218,3 +234,16 @@ LCM 通信配置：
 - 16 维轮足策略必须保持每条腿 `[hip, thigh, calf, wheel]` 的顺序；如需复用其他模型，必须在观测和命令发送处显式映射。
 - 控制频率建议与状态机控制周期保持一致；LCM 发送频率按实际链路能力设置。
 - 开发模式结束时应发布禁用命令，避免控制命令残留。
+
+## 上线前速查
+
+按以下顺序推进，不跨阶段：
+
+1. 离线确认模型输入、输出、dtype、观测和动作顺序。
+2. 只读 `Y20W_development_state`，不发布有效关节目标。
+3. 在 MuJoCo 中先运行 wave，再验证自研算法。
+4. 测试状态断流、推理失败、网络中断和 `Ctrl+C`。
+5. 在可靠支架上使用低幅值、低增益实机验证。
+6. 支架测试通过后才进行地面低速测试。
+
+完整通过条件与禁止继续条件见 [自定义算法与实机接入](../docs/part-5-lcm-dev/6.hardware.md)。当前示例框架不能替代控制器安全检查，也没有完整实现状态超时自动停机和逐关节限位。

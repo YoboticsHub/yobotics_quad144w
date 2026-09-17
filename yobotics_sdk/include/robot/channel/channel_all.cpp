@@ -63,6 +63,9 @@ void ChannelPublisher::write(sport_client_cmd_t* info) {
 
     sport_client_cmd.body_height = info->body_height;
     sport_client_cmd.step_height = info->step_height;
+    for (int i = 0; i < 3; ++i) {
+        sport_client_cmd.variable[i] = info->variable[i];
+    }
     sport_client_cmd.api = info->api;
 
     _lcm->publish(ROBOT_SDK_SPORT, &sport_client_cmd);
@@ -82,6 +85,13 @@ void ChannelPublisher::write(development_command_t* info) {
         development_cmd.joint_des_tau[i] = info->joint_des_tau[i];
         development_cmd.joint_des_kp[i] = info->joint_des_kp[i];
         development_cmd.joint_des_kd[i] = info->joint_des_kd[i];
+    }
+    for (int i = 0; i < 4; ++i) {
+        development_cmd.joint_des_q_supplement[i] = info->joint_des_q_supplement[i];
+        development_cmd.joint_des_qd_supplement[i] = info->joint_des_qd_supplement[i];
+        development_cmd.joint_des_tau_supplement[i] = info->joint_des_tau_supplement[i];
+        development_cmd.joint_des_kp_supplement[i] = info->joint_des_kp_supplement[i];
+        development_cmd.joint_des_kd_supplement[i] = info->joint_des_kd_supplement[i];
     }
 
     _lcm->publish(ROBOT_SDK_TOPIC_DEVELOPMENT_COMMAND, &development_cmd);
@@ -165,6 +175,7 @@ void ChannelSubscriber::zero() {
         _state_estimator_lcmt.rpy[i] = 0.f;
 
         _sport_client_state_lcmt.rpy[i] = 0.f;
+        _sport_client_state_lcmt.env[i] = 0.f;
         _development_state_lcmt.rpy[i] = 0.f;
         _development_state_lcmt.omega[i] = 0.f;
         _development_state_lcmt.acc[i] = 0.f;
@@ -219,8 +230,25 @@ void ChannelSubscriber::zero() {
     }
 
     for (int i = 0; i < 4; ++i) {
+        _quad_joint_state_lcmt.joint_q_supplement[i] = 0.f;
+        _quad_joint_state_lcmt.joint_qd_supplement[i] = 0.f;
+        _quad_joint_state_lcmt.joint_tau_supplement[i] = 0.f;
+        _quad_joint_state_lcmt.joint_fault_supplement[i] = 0;
+        _quad_joint_state_lcmt.joint_temp_supplement[i] = 0.f;
+        _quad_joint_state_lcmt.flags[i] = 0;
+
+        _quad_joint_command_lcmt.joint_des_q_supplement[i] = 0.f;
+        _quad_joint_command_lcmt.joint_des_qd_supplement[i] = 0.f;
+        _quad_joint_command_lcmt.joint_des_tau_supplement[i] = 0.f;
+        _quad_joint_command_lcmt.joint_des_kp_supplement[i] = 0.f;
+        _quad_joint_command_lcmt.joint_des_kd_supplement[i] = 0.f;
         _quad_joint_command_lcmt.flags[i] = 0;
+
+        _development_state_lcmt.joint_q_supplement[i] = 0.f;
+        _development_state_lcmt.joint_qd_supplement[i] = 0.f;
+        _development_state_lcmt.joint_tau_supplement[i] = 0.f;
     }
+    _quad_joint_state_lcmt.spi_driver_status = 0;
 
     _development_state_lcmt.robot_id.clear();
     _development_state_lcmt.mode = 0;
@@ -348,6 +376,9 @@ void ChannelSubscriber::read(sport_client_state_t* info) {
     info->h = _sport_client_state_lcmt.h;
     info->state = _sport_client_state_lcmt.state;
     info->fault = _sport_client_state_lcmt.fault;
+    for (int i = 0; i < 3; ++i) {
+        info->env[i] = _sport_client_state_lcmt.env[i];
+    }
 }
 
 void ChannelSubscriber::read(quad_joint_state_t* info) {
@@ -361,6 +392,15 @@ void ChannelSubscriber::read(quad_joint_state_t* info) {
         info->joint_fault[i] = _quad_joint_state_lcmt.joint_fault[i];
         info->joint_temp[i] = _quad_joint_state_lcmt.joint_temp[i];
     }
+    for (int i = 0; i < 4; ++i) {
+        info->joint_q_supplement[i] = _quad_joint_state_lcmt.joint_q_supplement[i];
+        info->joint_qd_supplement[i] = _quad_joint_state_lcmt.joint_qd_supplement[i];
+        info->joint_tau_supplement[i] = _quad_joint_state_lcmt.joint_tau_supplement[i];
+        info->joint_fault_supplement[i] = _quad_joint_state_lcmt.joint_fault_supplement[i];
+        info->joint_temp_supplement[i] = _quad_joint_state_lcmt.joint_temp_supplement[i];
+        info->flags[i] = _quad_joint_state_lcmt.flags[i];
+    }
+    info->spi_driver_status = _quad_joint_state_lcmt.spi_driver_status;
 }
 
 void ChannelSubscriber::read(quad_joint_command_t* info) {
@@ -375,6 +415,11 @@ void ChannelSubscriber::read(quad_joint_command_t* info) {
         info->joint_des_kd[i] = _quad_joint_command_lcmt.joint_des_kd[i];
     }
     for (int i = 0; i < 4; ++i) {
+        info->joint_des_q_supplement[i] = _quad_joint_command_lcmt.joint_des_q_supplement[i];
+        info->joint_des_qd_supplement[i] = _quad_joint_command_lcmt.joint_des_qd_supplement[i];
+        info->joint_des_tau_supplement[i] = _quad_joint_command_lcmt.joint_des_tau_supplement[i];
+        info->joint_des_kp_supplement[i] = _quad_joint_command_lcmt.joint_des_kp_supplement[i];
+        info->joint_des_kd_supplement[i] = _quad_joint_command_lcmt.joint_des_kd_supplement[i];
         info->flags[i] = _quad_joint_command_lcmt.flags[i];
     }
 }
@@ -393,6 +438,9 @@ void ChannelSubscriber::read(development_state_t* info) {
     }
 
     for (int i = 0; i < 4; ++i) {
+        info->joint_q_supplement[i] = _development_state_lcmt.joint_q_supplement[i];
+        info->joint_qd_supplement[i] = _development_state_lcmt.joint_qd_supplement[i];
+        info->joint_tau_supplement[i] = _development_state_lcmt.joint_tau_supplement[i];
         info->quat[i] = _development_state_lcmt.quat[i];
     }
 

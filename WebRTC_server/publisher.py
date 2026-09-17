@@ -35,7 +35,7 @@ CONFIG_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'config.j
 config = {
     'use_camera': True,
     'camera': {'source_type': 'usb', 'device_index': 4, 'rtsp_url': '', 'width': 1920, 'height': 1080, 'fps': 30},
-    'lcm': {'url': 'udpm://239.255.76.67:7667?ttl=255', 'control_channel': 'QUAD_ROBOT_CONTROL', 'state_channel': 'QUAD_ROBOT_STATE'},
+    'lcm': {'url': 'udpm://239.255.76.67:7667?ttl=255', 'control_channel': 'QUAD_ROBOT_CONTROL_Y20W', 'state_channel': 'QUAD_ROBOT_STATE_Y20W'},
     'signaling': {'server': 'ws://localhost:8765'},
     'webrtc': {
         'low_latency': True,
@@ -68,8 +68,8 @@ except ImportError as e:
     LCM_AVAILABLE = False
 
 # LCM 通道名称（默认值，将从配置文件读取）
-DEFAULT_ROBOT_CONTROL_CHANNEL = "QUAD_ROBOT_CONTROL"
-DEFAULT_ROBOT_STATE_CHANNEL = "QUAD_ROBOT_STATE"
+DEFAULT_ROBOT_CONTROL_CHANNEL = "QUAD_ROBOT_CONTROL_Y20W"
+DEFAULT_ROBOT_STATE_CHANNEL = "QUAD_ROBOT_STATE_Y20W"
 
 class LCMCommunicator:
     def __init__(self, loop, lcm_url="", control_channel=DEFAULT_ROBOT_CONTROL_CHANNEL,

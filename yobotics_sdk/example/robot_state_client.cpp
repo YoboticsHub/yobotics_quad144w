@@ -31,14 +31,14 @@ public:
         subscriber_->read(&leg_state_);
         subscriber_->read(&leg_cmd_);
 
-        std::cout << "=== QUAD_ROBOT_STATE ===" << std::endl;
+        std::cout << "=== QUAD_ROBOT_STATE_Y20W ===" << std::endl;
         std::cout << "rpy: "
                   << quad_state_.rpy[0] << ", " << quad_state_.rpy[1] << ", "
                   << quad_state_.rpy[2] << std::endl;
         std::cout << "speed(v): " << quad_state_.v << "  height(h): " << quad_state_.h << std::endl;
         std::cout << "state: " << quad_state_.state << "  fault: " << quad_state_.fault << std::endl;
 
-        std::cout << "=== leg_control_data ===" << std::endl;
+        std::cout << "=== Y20W_QUAD_JOINT_STATE ===" << std::endl;
         std::cout << "joint_q[0..2]: "
                   << leg_state_.joint_q[0] << ", "
                   << leg_state_.joint_q[1] << ", "
@@ -47,8 +47,13 @@ public:
                   << leg_state_.joint_qd[0] << ", "
                   << leg_state_.joint_qd[1] << ", "
                   << leg_state_.joint_qd[2] << std::endl;
+        std::cout << "wheel_q[LF, RF, LR, RR]: "
+                  << leg_state_.joint_q_supplement[0] << ", "
+                  << leg_state_.joint_q_supplement[1] << ", "
+                  << leg_state_.joint_q_supplement[2] << ", "
+                  << leg_state_.joint_q_supplement[3] << std::endl;
 
-        std::cout << "=== leg_control_command ===" << std::endl;
+        std::cout << "=== Y20W_QUAD_JOINT_COMMAND ===" << std::endl;
         std::cout << "joint_des_q[0..2]: "
                   << leg_cmd_.joint_des_q[0] << ", "
                   << leg_cmd_.joint_des_q[1] << ", "
@@ -57,6 +62,11 @@ public:
                   << leg_cmd_.joint_des_kp[0] << ", "
                   << leg_cmd_.joint_des_kp[1] << ", "
                   << leg_cmd_.joint_des_kp[2] << std::endl;
+        std::cout << "wheel_des_q[LF, RF, LR, RR]: "
+                  << leg_cmd_.joint_des_q_supplement[0] << ", "
+                  << leg_cmd_.joint_des_q_supplement[1] << ", "
+                  << leg_cmd_.joint_des_q_supplement[2] << ", "
+                  << leg_cmd_.joint_des_q_supplement[3] << std::endl;
 
         std::cout << "------------------------------" << std::endl;
     }
