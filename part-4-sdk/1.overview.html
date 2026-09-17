@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="山东优宝特智能机器人有限公司" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>4.1 SDK 概览 - quad144w/Y20W 轮足机器人控制框架使用说明书</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../css/custom.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "4.1 SDK \u6982\u89c8";
+        var mkdocs_page_input_path = "part-4-sdk/1.overview.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/bash.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/cpp.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/python.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/json.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../index.html" class="icon icon-home"> quad144w/Y20W 轮足机器人控制框架使用说明书
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../index.html">首页</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">第一部分 环境配置与快速开始</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-1-quick-start/1.framework.html">1.1 框架与机器人</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-1-quick-start/2.system-requirements.html">1.2 系统与环境</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-1-quick-start/3.package-directory.html">1.3 开发包目录</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-1-quick-start/4.first-run.html">1.4 首次运行</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">第二部分 MuJoCo 仿真</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-2-mujoco/1.overview.html">2.1 仿真结构</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-2-mujoco/2.start.html">2.2 启动与停止</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-2-mujoco/3.verify.html">2.3 模型与模式验证</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-2-mujoco/4.debug.html">2.4 仿真调试</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">第三部分 实机运行</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-3-hardware/1.overview.html">3.1 实机结构与安全</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-3-hardware/2.config.html">3.2 配置实机参数</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-3-hardware/3.run.html">3.3 启动控制器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-3-hardware/4.runtime-checks.html">3.4 状态检查与停止</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-3-hardware/5.logs-and-viewers.html">3.5 Viewer 与日志</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">第四部分 Yobotics SDK</span></p>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">4.1 SDK 概览</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#_1">目录</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_2">主要通道</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_3">接口边界</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_4">调用生命周期</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_5">选择接口</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="2.build.html">4.2 编译 SDK</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="3.motion-control.html">4.3 运动控制</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="4.state-read.html">4.4 状态读取</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="5.examples.html">4.5 仿真与实机使用</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="6.http.html">4.6 HTTP 服务</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">第五部分 LCM 与外部算法</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/1.structure.html">5.1 通信结构与通道</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/2.messages.html">5.2 16 维消息协议</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/3.development-mode.html">5.3 DEVELOPMENT 模式与框架</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/4.wave.html">5.4 wave 规则示例</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/5.walk-onnx.html">5.5 ONNX 行走示例</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/6.hardware.html">5.6 自定义算法与实机接入</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">第六部分 WebRTC</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-6-webrtc/1.overview.html">6.1 服务结构</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-6-webrtc/2.config-and-run.html">6.2 配置与启动</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-6-webrtc/3.datachannel.html">6.3 DataChannel 协议</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-6-webrtc/4.troubleshooting.html">6.4 故障排查</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">quad144w/Y20W 轮足机器人控制框架使用说明书</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html" class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">第四部分 Yobotics SDK</li>
+      <li class="breadcrumb-item active">4.1 SDK 概览</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="41-sdk">4.1 SDK 概览<a class="headerlink" href="#41-sdk" title="Permanent link">&para;</a></h1>
+<p><code>yobotics_sdk/</code> 提供 C++11 静态库和三个示例程序，用于高层运动控制、状态读取和 HTTP 服务。SDK 通过 LCM 通信，不直接操作 SPI 或电机驱动。</p>
+<h2 id="_1">目录<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<pre><code class="language-text">yobotics_sdk/
+├── include/                 # SDK 头文件与内嵌 LCM 类型
+├── example/
+│   ├── sport_client.cpp     # 键盘运动控制
+│   ├── robot_state_client.cpp
+│   └── http_server.cpp
+├── lib/                     # 编译后生成静态库
+└── CMakeLists.txt
+</code></pre>
+<h2 id="_2">主要通道<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>通道</th>
+<th>方向</th>
+<th>消息</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>QUAD_ROBOT_CONTROL_Y20W</code></td>
+<td>SDK -&gt; 控制器</td>
+<td><code>sport_client_cmd_t</code></td>
+</tr>
+<tr>
+<td><code>QUAD_ROBOT_STATE_Y20W</code></td>
+<td>控制器 -&gt; SDK</td>
+<td><code>sport_client_state_t</code></td>
+</tr>
+<tr>
+<td><code>Y20W_QUAD_JOINT_STATE</code></td>
+<td>控制器 -&gt; SDK</td>
+<td><code>quad_joint_state_t</code></td>
+</tr>
+<tr>
+<td><code>Y20W_QUAD_JOINT_COMMAND</code></td>
+<td>控制器 -&gt; SDK</td>
+<td><code>quad_joint_command_t</code></td>
+</tr>
+<tr>
+<td><code>Y20W_development_state</code></td>
+<td>控制器 -&gt; 开发端</td>
+<td><code>development_state_t</code></td>
+</tr>
+<tr>
+<td><code>Y20W_development_command</code></td>
+<td>开发端 -&gt; 控制器</td>
+<td><code>development_command_t</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="_3">接口边界<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p><code>SportClient</code> 适合切换模式和发送速度/姿态命令。需要直接生成 16 维关节目标时，应使用 DEVELOPMENT 协议和第五部分的外部算法框架。</p>
+<h2 id="_4">调用生命周期<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<pre><code class="language-text">创建 SportClient
+  -&gt; 设置 LCM 控制权
+  -&gt; 周期发送当前模式
+  -&gt; 在允许运动的模式发送速度/姿态
+  -&gt; 速度清零
+  -&gt; 切换 DAMP/StandDown
+  -&gt; 释放 LCM 控制权
+</code></pre>
+<p>SDK 方法更新同一个命令对象并立即发布。模式方法会设置 <code>api</code>，部分模式同时清零运动字段；<code>Move()</code>、<code>BodyHeight()</code> 和 <code>Euler()</code> 则更新各自字段。因此业务程序应明确维护当前模式和完整命令状态。</p>
+<h2 id="_5">选择接口<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>需求</th>
+<th>推荐接口</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>切换模式、发送速度</td>
+<td><code>SportClient</code></td>
+</tr>
+<tr>
+<td>查看电量、姿态和模式</td>
+<td><code>sport_client_state_t</code></td>
+</tr>
+<tr>
+<td>查看 16 轴、温度和故障</td>
+<td><code>quad_joint_state_t</code></td>
+</tr>
+<tr>
+<td>发送关节级算法目标</td>
+<td>DEVELOPMENT 外部算法</td>
+</tr>
+<tr>
+<td>提供局域网 REST 接口</td>
+<td><code>yobot_http_server</code></td>
+</tr>
+</tbody>
+</table>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../part-3-hardware/5.logs-and-viewers.html" class="btn btn-neutral float-left" title="3.5 Viewer 与日志"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="2.build.html" class="btn btn-neutral float-right" title="4.2 编译 SDK">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../part-3-hardware/5.logs-and-viewers.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="2.build.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../js/copy-code.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

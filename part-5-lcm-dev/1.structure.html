@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="山东优宝特智能机器人有限公司" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>5.1 通信结构与通道 - quad144w/Y20W 轮足机器人控制框架使用说明书</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../css/custom.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "5.1 \u901a\u4fe1\u7ed3\u6784\u4e0e\u901a\u9053";
+        var mkdocs_page_input_path = "part-5-lcm-dev/1.structure.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/bash.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/cpp.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/python.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/json.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../index.html" class="icon icon-home"> quad144w/Y20W 轮足机器人控制框架使用说明书
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../index.html">首页</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">第一部分 环境配置与快速开始</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-1-quick-start/1.framework.html">1.1 框架与机器人</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-1-quick-start/2.system-requirements.html">1.2 系统与环境</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-1-quick-start/3.package-directory.html">1.3 开发包目录</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-1-quick-start/4.first-run.html">1.4 首次运行</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">第二部分 MuJoCo 仿真</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-2-mujoco/1.overview.html">2.1 仿真结构</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-2-mujoco/2.start.html">2.2 启动与停止</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-2-mujoco/3.verify.html">2.3 模型与模式验证</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-2-mujoco/4.debug.html">2.4 仿真调试</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">第三部分 实机运行</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-3-hardware/1.overview.html">3.1 实机结构与安全</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-3-hardware/2.config.html">3.2 配置实机参数</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-3-hardware/3.run.html">3.3 启动控制器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-3-hardware/4.runtime-checks.html">3.4 状态检查与停止</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-3-hardware/5.logs-and-viewers.html">3.5 Viewer 与日志</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">第四部分 Yobotics SDK</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-4-sdk/1.overview.html">4.1 SDK 概览</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-4-sdk/2.build.html">4.2 编译 SDK</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-4-sdk/3.motion-control.html">4.3 运动控制</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-4-sdk/4.state-read.html">4.4 状态读取</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-4-sdk/5.examples.html">4.5 仿真与实机使用</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-4-sdk/6.http.html">4.6 HTTP 服务</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">第五部分 LCM 与外部算法</span></p>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">5.1 通信结构与通道</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#_1">数据流</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_2">通道职责</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#lcm-url">LCM URL 的来源</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_3">三种运行拓扑</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#_4">单机单终端</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_5">单机多终端</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_6">跨机器</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_7">通信验收</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#_8">使用项目监控脚本</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#lcm-spy">使用 lcm-spy</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_9">故障定位</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_10">成功标志</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="2.messages.html">5.2 16 维消息协议</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="3.development-mode.html">5.3 DEVELOPMENT 模式与框架</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="4.wave.html">5.4 wave 规则示例</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="5.walk-onnx.html">5.5 ONNX 行走示例</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="6.hardware.html">5.6 自定义算法与实机接入</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">第六部分 WebRTC</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-6-webrtc/1.overview.html">6.1 服务结构</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-6-webrtc/2.config-and-run.html">6.2 配置与启动</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-6-webrtc/3.datachannel.html">6.3 DataChannel 协议</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-6-webrtc/4.troubleshooting.html">6.4 故障排查</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">quad144w/Y20W 轮足机器人控制框架使用说明书</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html" class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">第五部分 LCM 与外部算法</li>
+      <li class="breadcrumb-item active">5.1 通信结构与通道</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="51">5.1 通信结构与通道<a class="headerlink" href="#51" title="Permanent link">&para;</a></h1>
+<p>本章说明 Y20W 外部算法所处的通信位置，以及如何确认状态和命令真正到达目标进程。外部算法通过 LCM 与控制器交互，不直接访问 MuJoCo、SPI 或电机驱动。</p>
+<h2 id="_1">数据流<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<pre><code class="language-text">手柄 / SDK / WebRTC
+        |
+        v
+QUAD_ROBOT_CONTROL_Y20W
+        |
+        v
+  Y20W 控制器状态机 &lt;----&gt; MuJoCo 或实机硬件层
+        |
+        +-- Y20W_development_state --&gt; 外部算法
+        |                                  |
+        +&lt; Y20W_development_command -------+
+        |
+        +-- QUAD_ROBOT_STATE_Y20W ------&gt; SDK / WebRTC / Viewer
+</code></pre>
+<p>控制器负责模式切换、安全检查和最终关节命令输出。外部算法只在 DEVELOPMENT 链路上读取状态并提交目标值。即使算法已经发布命令，控制器没有进入 DEVELOPMENT 时也不会把这些目标作为有效控制输入。</p>
+<h2 id="_2">通道职责<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>通道</th>
+<th>消息类型</th>
+<th>主要发布方</th>
+<th>主要订阅方</th>
+<th>用途</th>
+<th>频率来源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Y20W_QUAD_JOINT_STATE</code></td>
+<td><code>quad_joint_state_t</code></td>
+<td>MuJoCo 或硬件层</td>
+<td>控制器、Viewer、SDK</td>
+<td>原始 12+4 关节、驱动、温度和故障状态</td>
+<td>硬件层或仿真循环</td>
+</tr>
+<tr>
+<td><code>Y20W_QUAD_JOINT_COMMAND</code></td>
+<td><code>quad_joint_command_t</code></td>
+<td>控制器</td>
+<td>MuJoCo 或硬件层</td>
+<td>控制器输出到 12+4 执行器的底层目标</td>
+<td>控制器周期</td>
+</tr>
+<tr>
+<td><code>Y20W_QUAD_IMU_DATA</code></td>
+<td><code>microstrain_lcmt</code></td>
+<td>MuJoCo 或 IMU 层</td>
+<td>控制器</td>
+<td>四元数、姿态、角速度和加速度</td>
+<td>IMU 或仿真周期</td>
+</tr>
+<tr>
+<td><code>QUAD_ROBOT_CONTROL_Y20W</code></td>
+<td><code>sport_client_cmd_t</code></td>
+<td>SDK、WebRTC</td>
+<td>控制器</td>
+<td>高层模式、速度和机身姿态指令</td>
+<td>客户端发送周期</td>
+</tr>
+<tr>
+<td><code>QUAD_ROBOT_STATE_Y20W</code></td>
+<td><code>sport_client_state_t</code></td>
+<td>控制器</td>
+<td>SDK、WebRTC、Viewer</td>
+<td>面向应用的电量、姿态、状态和故障摘要</td>
+<td>控制器发布周期</td>
+</tr>
+<tr>
+<td><code>Y20W_development_state</code></td>
+<td><code>development_state_t</code></td>
+<td>控制器</td>
+<td>外部算法</td>
+<td>开发模式所需的 12+4 状态、IMU 和期望速度</td>
+<td>控制器发布周期</td>
+</tr>
+<tr>
+<td><code>Y20W_development_command</code></td>
+<td><code>development_command_t</code></td>
+<td>外部算法</td>
+<td>控制器</td>
+<td>12+4 位置、速度、扭矩和 PD 目标</td>
+<td><code>execution.lcm_send_frequency</code></td>
+</tr>
+</tbody>
+</table>
+<p>开发包没有为所有状态通道规定统一的固定频率。验收时应以连续性和实际测得频率为准。两个示例算法的命令频率分别来自各自配置：walk 默认 <code>500 Hz</code>，wave 默认 <code>200 Hz</code>。</p>
+<div class="admonition warning">
+<p class="admonition-title">不要混用三类命令通道</p>
+<p><code>Y20W_QUAD_JOINT_COMMAND</code> 是控制器到底层的输出，<code>QUAD_ROBOT_CONTROL_Y20W</code> 是应用到状态机的高层输入，<code>Y20W_development_command</code> 才是外部算法入口。自研算法不要直接冒充控制器发布底层关节通道。</p>
+</div>
+<h2 id="lcm-url">LCM URL 的来源<a class="headerlink" href="#lcm-url" title="Permanent link">&para;</a></h2>
+<p>外部算法读取 <code>config.yaml</code> 中的 <code>lcm.url</code>：</p>
+<ul>
+<li>非空时直接使用该 URL；</li>
+<li>空字符串时创建默认 LCM 实例，由系统环境决定网络配置；</li>
+<li>项目常用多播地址为 <code>udpm://239.255.76.67:7667?ttl=255</code>。</li>
+</ul>
+<p>可在启动前显式设置：</p>
+<pre><code class="language-bash">export LCM_DEFAULT_URL='udpm://239.255.76.67:7667?ttl=255'
+</code></pre>
+<p><code>ttl</code> 决定多播数据允许经过的网络跳数。它不能代替正确的路由、网卡选择或防火墙设置。通信双方必须使用相同的多播地址和端口。</p>
+<h2 id="_3">三种运行拓扑<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<h3 id="_4">单机单终端<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p>适合快速验证。先启动仿真，再在另一个终端启动算法：</p>
+<pre><code class="language-bash">bash scripts/start_mujoco.sh
+</code></pre>
+<pre><code class="language-bash">python3 external_algorithms/wave_algorithm/run_algorithm.py \
+  --config external_algorithms/wave_algorithm/config.yaml
+</code></pre>
+<h3 id="_5">单机多终端<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p>推荐开发方式。分别运行控制器、监控器和算法，便于区分日志来源：</p>
+<pre><code class="language-bash"># 终端 1
+bash scripts/start_mujoco.sh
+</code></pre>
+<pre><code class="language-bash"># 终端 2
+bash scripts/monitor_lcm.sh --no-gui
+</code></pre>
+<pre><code class="language-bash"># 终端 3
+python3 external_algorithms/wave_algorithm/run_algorithm.py \
+  --config external_algorithms/wave_algorithm/config.yaml
+</code></pre>
+<h3 id="_6">跨机器<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<p>控制器与算法主机应处于允许 UDP 多播的网络中。两端分别执行网络配置并确认环境变量一致：</p>
+<pre><code class="language-bash">sudo bash scripts/setup_lcm_network.sh
+source ~/.lcm_network_config
+printf '%s\n' &quot;$LCM_DEFAULT_URL&quot;
+</code></pre>
+<p>随后先验证状态通道，再运行会发布命令的算法。不要把“能 ping 通”当作“LCM 多播可用”，二者使用的协议和路由行为不同。</p>
+<h2 id="_7">通信验收<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<h3 id="_8">使用项目监控脚本<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<pre><code class="language-bash">bash scripts/monitor_lcm.sh --no-gui
+</code></pre>
+<p>有桌面环境时可启动图形监控：</p>
+<pre><code class="language-bash">bash scripts/monitor_lcm.sh
+</code></pre>
+<p>验收顺序：</p>
+<ol>
+<li>启动控制器后确认 <code>Y20W_development_state</code> 持续出现。</li>
+<li>启动算法后确认 <code>Y20W_development_command</code> 出现。</li>
+<li>检查两条消息中的 <code>robot_id</code> 都为 <code>Y20W</code>。</li>
+<li>检查命令频率与算法配置接近，且没有长时间断流。</li>
+<li>切换到 DEVELOPMENT 后观察关节状态是否连续响应。</li>
+</ol>
+<h3 id="lcm-spy">使用 <code>lcm-spy</code><a class="headerlink" href="#lcm-spy" title="Permanent link">&para;</a></h3>
+<p>系统安装了 LCM Java 工具时可以运行：</p>
+<pre><code class="language-bash">lcm-spy
+</code></pre>
+<p><code>lcm-spy</code> 能看到通道名和频率；只有加载了匹配的 LCM 类型后才能正确展开字段。出现通道但无法解码，通常是类型定义、生成代码或类路径不一致。</p>
+<h2 id="_9">故障定位<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>现象</th>
+<th>检查</th>
+<th>常见原因</th>
+<th>处理</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>看不到任何 Y20W 通道</td>
+<td><code>LCM_DEFAULT_URL</code>、网卡、控制器进程</td>
+<td>控制器未启动或 URL 不一致</td>
+<td>统一 URL，重新执行网络配置并先验证控制器</td>
+</tr>
+<tr>
+<td>本机有通道，另一台机器没有</td>
+<td>多播路由、防火墙、交换机</td>
+<td>网络阻止 UDP 多播</td>
+<td>在同一网段测试，开放端口并检查多播配置</td>
+</tr>
+<tr>
+<td>能看到通道但字段无法展开</td>
+<td>LCM 类型和类型哈希</td>
+<td>使用了旧生成类型</td>
+<td>从当前 <code>.lcm</code> 重新生成并同步所有组件</td>
+</tr>
+<tr>
+<td>有状态，没有命令</td>
+<td>算法启动日志和配置路径</td>
+<td>算法未运行、未收到状态或初始化失败</td>
+<td>检查依赖、模型路径和 <code>robot_id</code></td>
+</tr>
+<tr>
+<td>有命令但机器人不响应</td>
+<td><code>mode</code>、使能字段、状态机日志</td>
+<td>控制器未进入 DEVELOPMENT</td>
+<td>按 <a href="3.development-mode.html">DEVELOPMENT 生命周期</a>核对每个阶段</td>
+</tr>
+<tr>
+<td>命令频率明显偏低</td>
+<td>CPU 占用、推理耗时、网络</td>
+<td>推理阻塞或发送线程调度不足</td>
+<td>降低调试打印，测量推理时间，先在仿真验证</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_10">成功标志<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
+<ul>
+<li>状态和命令使用同一个 LCM URL。</li>
+<li><code>Y20W_development_state</code> 持续更新且 <code>robot_id</code> 正确。</li>
+<li>算法启动后命令通道达到配置量级，没有持续丢失。</li>
+<li>DEVELOPMENT 激活后，关节响应与算法目标方向一致。</li>
+<li>停止算法时能够观察到禁用命令，并将机器人切回安全模式。</li>
+</ul>
+<p>下一步阅读 <a href="2.messages.html">16 维消息协议</a>，确认所有关节和字段的含义。</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../part-4-sdk/6.http.html" class="btn btn-neutral float-left" title="4.6 HTTP 服务"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="2.messages.html" class="btn btn-neutral float-right" title="5.2 16 维消息协议">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../part-4-sdk/6.http.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="2.messages.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../js/copy-code.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="山东优宝特智能机器人有限公司" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>3.2 配置实机参数 - quad144w/Y20W 轮足机器人控制框架使用说明书</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../css/custom.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "3.2 \u914d\u7f6e\u5b9e\u673a\u53c2\u6570";
+        var mkdocs_page_input_path = "part-3-hardware/2.config.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/bash.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/cpp.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/python.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/json.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../index.html" class="icon icon-home"> quad144w/Y20W 轮足机器人控制框架使用说明书
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../index.html">首页</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">第一部分 环境配置与快速开始</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-1-quick-start/1.framework.html">1.1 框架与机器人</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-1-quick-start/2.system-requirements.html">1.2 系统与环境</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-1-quick-start/3.package-directory.html">1.3 开发包目录</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-1-quick-start/4.first-run.html">1.4 首次运行</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">第二部分 MuJoCo 仿真</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-2-mujoco/1.overview.html">2.1 仿真结构</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-2-mujoco/2.start.html">2.2 启动与停止</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-2-mujoco/3.verify.html">2.3 模型与模式验证</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-2-mujoco/4.debug.html">2.4 仿真调试</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">第三部分 实机运行</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="1.overview.html">3.1 实机结构与安全</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">3.2 配置实机参数</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#_1">电机通信</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#imu">IMU</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_2">电源与时钟同步</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_3">通道和资源</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_4">策略与控制周期</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_5">手柄与上层控制</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_6">安全检查</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_7">配置验收</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="3.run.html">3.3 启动控制器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="4.runtime-checks.html">3.4 状态检查与停止</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="5.logs-and-viewers.html">3.5 Viewer 与日志</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">第四部分 Yobotics SDK</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-4-sdk/1.overview.html">4.1 SDK 概览</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-4-sdk/2.build.html">4.2 编译 SDK</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-4-sdk/3.motion-control.html">4.3 运动控制</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-4-sdk/4.state-read.html">4.4 状态读取</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-4-sdk/5.examples.html">4.5 仿真与实机使用</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-4-sdk/6.http.html">4.6 HTTP 服务</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">第五部分 LCM 与外部算法</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/1.structure.html">5.1 通信结构与通道</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/2.messages.html">5.2 16 维消息协议</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/3.development-mode.html">5.3 DEVELOPMENT 模式与框架</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/4.wave.html">5.4 wave 规则示例</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/5.walk-onnx.html">5.5 ONNX 行走示例</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/6.hardware.html">5.6 自定义算法与实机接入</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">第六部分 WebRTC</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-6-webrtc/1.overview.html">6.1 服务结构</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-6-webrtc/2.config-and-run.html">6.2 配置与启动</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-6-webrtc/3.datachannel.html">6.3 DataChannel 协议</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-6-webrtc/4.troubleshooting.html">6.4 故障排查</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">quad144w/Y20W 轮足机器人控制框架使用说明书</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html" class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">第三部分 实机运行</li>
+      <li class="breadcrumb-item active">3.2 配置实机参数</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="32">3.2 配置实机参数<a class="headerlink" href="#32" title="Permanent link">&para;</a></h1>
+<p>实机使用根目录 <code>config.yaml</code>。至少核对以下配置。</p>
+<h2 id="_1">电机通信<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<pre><code class="language-yaml">motor_communication:
+  type: &quot;spi&quot;
+  board: &quot;rk3588&quot;
+  spi_device0: &quot;/dev/spidev2.0&quot;
+  spi_device1: &quot;/dev/spidev2.1&quot;
+</code></pre>
+<p><code>board</code> 支持 <code>rk3588</code> 或 <code>upboard</code>，用于选择对应的 SPI 帧与转换逻辑；它与当前 CPU 架构不是同一个概念。设备节点必须以现场系统为准。</p>
+<h2 id="imu">IMU<a class="headerlink" href="#imu" title="Permanent link">&para;</a></h2>
+<pre><code class="language-yaml">imu:
+  type: &quot;lord&quot;
+  port_base: &quot;/dev/ttyUSB&quot;
+  port_number: 0
+</code></pre>
+<p><code>lord</code> 使用 <code>port_base + port_number</code>，<code>hipnuc</code> 使用配置的完整串口路径。确认设备权限、串口未被其他进程占用。</p>
+<h2 id="_2">电源与时钟同步<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<ul>
+<li><code>power_reader</code> 控制电源/BMS 数据读取，检查 CAN 接口或对应设备。</li>
+<li><code>tsync_cdc</code> 控制时间同步 CDC 串口，默认设备为 <code>/dev/ttyACM2</code>。</li>
+</ul>
+<p>现场没有对应硬件时，应根据交付配置明确关闭相关功能，而不是保留错误设备号反复启动。</p>
+<h2 id="_3">通道和资源<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<pre><code class="language-yaml">development:
+  robot_id: &quot;Y20W&quot;
+  state_channel: &quot;Y20W_development_state&quot;
+  command_channel: &quot;Y20W_development_command&quot;
+gamepad:
+  lcm_control_channel: &quot;QUAD_ROBOT_CONTROL_Y20W&quot;
+  lcm_state_channel: &quot;QUAD_ROBOT_STATE_Y20W&quot;
+safety_checker:
+  urdf_path: &quot;resources/robots/quad144w/urdf/sduog144_V2_s.urdf&quot;
+</code></pre>
+<h2 id="_4">策略与控制周期<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<p><code>rl_walk</code> 当前关键参数如下：</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th style="text-align: right;">当前值</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>obs_dim</code></td>
+<td style="text-align: right;"><code>57</code></td>
+<td>策略观测维度</td>
+</tr>
+<tr>
+<td><code>dof_dim</code></td>
+<td style="text-align: right;"><code>16</code></td>
+<td>轮足总自由度</td>
+</tr>
+<tr>
+<td><code>joint_dim</code> / <code>wheel_dim</code></td>
+<td style="text-align: right;"><code>12</code> / <code>4</code></td>
+<td>主关节和 supplement 分组</td>
+</tr>
+<tr>
+<td><code>control_dt</code></td>
+<td style="text-align: right;"><code>0.02 s</code></td>
+<td>策略控制周期</td>
+</tr>
+<tr>
+<td><code>decimation</code></td>
+<td style="text-align: right;"><code>10</code></td>
+<td>控制降采样</td>
+</tr>
+<tr>
+<td><code>action_scale</code></td>
+<td style="text-align: right;"><code>0.25</code></td>
+<td>腿关节动作缩放</td>
+</tr>
+<tr>
+<td><code>action_scale_wheel</code></td>
+<td style="text-align: right;"><code>10</code></td>
+<td>wheel 动作缩放</td>
+</tr>
+<tr>
+<td><code>clip_obs</code> / <code>clip_action</code></td>
+<td style="text-align: right;"><code>100</code> / <code>100</code></td>
+<td>观测和动作裁剪</td>
+</tr>
+<tr>
+<td><code>tau_limit</code></td>
+<td style="text-align: right;"><code>200</code></td>
+<td>配置的扭矩限制</td>
+</tr>
+</tbody>
+</table>
+<p>模型文件、默认 16 维姿态、Kp/Kd、缩放和控制周期必须成套修改。只替换 ONNX 文件可能让维度正确但语义错误。</p>
+<h2 id="_5">手柄与上层控制<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>当前值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>device_type</code></td>
+<td><code>hybrid</code></td>
+<td>支持配置中的混合输入方式</td>
+</tr>
+<tr>
+<td><code>joystick_device</code></td>
+<td><code>/dev/input/js0</code></td>
+<td>Linux 手柄设备</td>
+</tr>
+<tr>
+<td><code>deadzone</code></td>
+<td><code>0.1</code></td>
+<td>摇杆死区</td>
+</tr>
+<tr>
+<td>前进/后退/横向上限</td>
+<td><code>1.0 m/s</code></td>
+<td>当前配置速度上限</td>
+</tr>
+<tr>
+<td><code>speed_yaw_max</code></td>
+<td><code>1.3 rad/s</code></td>
+<td>偏航角速度上限</td>
+</tr>
+</tbody>
+</table>
+<p>首次实机测试应使用更保守的独立配置，先校准手柄，再验证模式按键和零位，最后逐步开放速度。</p>
+<h2 id="_6">安全检查<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<p><code>enable_safety_check</code> 是总开关；各 <code>enable_*_check</code> 决定具体检查是否启用。当前配置并非所有检查都开启，不能只看到总开关为 <code>true</code> 就认为姿态、关节位置、速度、扭矩和硬件丢失均受保护。</p>
+<table>
+<thead>
+<tr>
+<th>配置</th>
+<th>当前值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>enable_leg_cartesian_velocity_check</code></td>
+<td><code>true</code></td>
+<td>当前启用的腿部笛卡尔速度检查</td>
+</tr>
+<tr>
+<td><code>enable_orientation_check</code></td>
+<td><code>false</code></td>
+<td>姿态阈值当前不触发保护</td>
+</tr>
+<tr>
+<td><code>enable_joint_*_check</code></td>
+<td><code>false</code></td>
+<td>关节位置、速度、扭矩检查当前关闭</td>
+</tr>
+<tr>
+<td><code>enable_hardware_loss_check</code></td>
+<td><code>false</code></td>
+<td>硬件丢失保护当前关闭</td>
+</tr>
+<tr>
+<td><code>safety_margin_factor</code></td>
+<td><code>0.95</code></td>
+<td>URDF 限制的安全裕度系数</td>
+</tr>
+<tr>
+<td><code>max_roll_deg</code> / <code>max_pitch_deg</code></td>
+<td><code>30</code> / <code>50</code></td>
+<td>姿态检查启用后使用</td>
+</tr>
+</tbody>
+</table>
+<p>启用或关闭任何安全项前，应在支架环境验证触发条件、状态机结果和恢复方式。不要仅为消除日志关闭保护。</p>
+<h2 id="_7">配置验收<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<pre><code class="language-bash">test -e /dev/spidev2.0
+test -e /dev/spidev2.1
+test -e /dev/ttyUSB0
+test -e /dev/ttyACM2
+test -f resources/robots/quad144w/urdf/sduog144_V2_s.urdf
+</code></pre>
+<p>设备名仅用于核对当前默认配置，现场系统应以实际枚举结果为准。缺少可选硬件时，要明确关闭对应读取器并记录原因。</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="1.overview.html" class="btn btn-neutral float-left" title="3.1 实机结构与安全"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="3.run.html" class="btn btn-neutral float-right" title="3.3 启动控制器">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="1.overview.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="3.run.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../js/copy-code.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

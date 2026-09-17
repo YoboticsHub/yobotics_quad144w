@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="山东优宝特智能机器人有限公司" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>6.4 故障排查 - quad144w/Y20W 轮足机器人控制框架使用说明书</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../css/custom.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "6.4 \u6545\u969c\u6392\u67e5";
+        var mkdocs_page_input_path = "part-6-webrtc/4.troubleshooting.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/bash.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/cpp.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/python.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/json.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../index.html" class="icon icon-home"> quad144w/Y20W 轮足机器人控制框架使用说明书
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../index.html">首页</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">第一部分 环境配置与快速开始</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-1-quick-start/1.framework.html">1.1 框架与机器人</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-1-quick-start/2.system-requirements.html">1.2 系统与环境</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-1-quick-start/3.package-directory.html">1.3 开发包目录</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-1-quick-start/4.first-run.html">1.4 首次运行</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">第二部分 MuJoCo 仿真</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-2-mujoco/1.overview.html">2.1 仿真结构</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-2-mujoco/2.start.html">2.2 启动与停止</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-2-mujoco/3.verify.html">2.3 模型与模式验证</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-2-mujoco/4.debug.html">2.4 仿真调试</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">第三部分 实机运行</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-3-hardware/1.overview.html">3.1 实机结构与安全</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-3-hardware/2.config.html">3.2 配置实机参数</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-3-hardware/3.run.html">3.3 启动控制器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-3-hardware/4.runtime-checks.html">3.4 状态检查与停止</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-3-hardware/5.logs-and-viewers.html">3.5 Viewer 与日志</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">第四部分 Yobotics SDK</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-4-sdk/1.overview.html">4.1 SDK 概览</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-4-sdk/2.build.html">4.2 编译 SDK</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-4-sdk/3.motion-control.html">4.3 运动控制</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-4-sdk/4.state-read.html">4.4 状态读取</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-4-sdk/5.examples.html">4.5 仿真与实机使用</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-4-sdk/6.http.html">4.6 HTTP 服务</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">第五部分 LCM 与外部算法</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/1.structure.html">5.1 通信结构与通道</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/2.messages.html">5.2 16 维消息协议</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/3.development-mode.html">5.3 DEVELOPMENT 模式与框架</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/4.wave.html">5.4 wave 规则示例</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/5.walk-onnx.html">5.5 ONNX 行走示例</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/6.hardware.html">5.6 自定义算法与实机接入</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">第六部分 WebRTC</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="1.overview.html">6.1 服务结构</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="2.config-and-run.html">6.2 配置与启动</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="3.datachannel.html">6.3 DataChannel 协议</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">6.4 故障排查</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#1">1. 进程与端口</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#2">2. 视频源</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#3">3. 信令与连接</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#4">4. 视频质量与延迟</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#5-datachannel">5. DataChannel</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#6-lcm">6. LCM</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_1">安全恢复</a>
+    </li>
+    </ul>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">quad144w/Y20W 轮足机器人控制框架使用说明书</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html" class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">第六部分 WebRTC</li>
+      <li class="breadcrumb-item active">6.4 故障排查</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="64">6.4 故障排查<a class="headerlink" href="#64" title="Permanent link">&para;</a></h1>
+<p>WebRTC 链路包含摄像头、编码、信令、ICE、DataChannel 和 LCM。排查时按层验证，避免同时改视频参数、网络和控制协议。</p>
+<h2 id="1">1. 进程与端口<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<pre><code class="language-bash">ss -lntp | grep 8765
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>现象</th>
+<th>检查</th>
+<th>处理</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>端口未监听</td>
+<td><code>signaling_server.py</code> 日志、Python 依赖</td>
+<td>修复依赖或端口冲突后重启入口</td>
+</tr>
+<tr>
+<td>信令已启动但 publisher 不出现</td>
+<td>是否有外部客户端连接</td>
+<td>当前管理器会等待外部就绪标记</td>
+</tr>
+<tr>
+<td>子进程反复重启</td>
+<td><code>restart.flag</code> 和 PeerConnection 日志</td>
+<td>先定位信令断开、ICE 或视频源失败</td>
+</tr>
+<tr>
+<td><code>Ctrl+C</code> 后仍有子进程</td>
+<td>管理进程清理日志</td>
+<td>等待正常清理，确认没有另一套服务</td>
+</tr>
+</tbody>
+</table>
+<h2 id="2">2. 视频源<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
+<p>USB 模式：</p>
+<pre><code class="language-bash">ls -l /dev/video*
+</code></pre>
+<p>检查设备索引、权限、占用进程和摄像头支持的分辨率/帧率。</p>
+<p>RTSP 模式应先在独立播放器或 OpenCV 中确认 <code>rtsp_url</code> 可读。当前默认 URL 是本机 <code>rtsp://127.0.0.1:8554/back</code>，这要求本机已有 RTSP 服务。</p>
+<p>排除真实摄像头时，将 <code>use_camera</code> 设为 <code>false</code>。虚拟画面可用而真实画面失败，问题位于视频源或采集；两者都失败则继续检查 WebRTC 协商。</p>
+<h2 id="3">3. 信令与连接<a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
+<ul>
+<li>远端客户端使用机器人可达 IP，不使用 <code>localhost</code>；</li>
+<li>防火墙允许 TCP 8765；</li>
+<li>日志中应按顺序看到客户端接入、publisher 注册、Offer 和 Answer；</li>
+<li>收到重复或过期 Answer 时检查客户端是否创建了多套会话；</li>
+<li>PeerConnection 关闭会请求重启，持续关闭通常是 ICE 或网络路径问题。</li>
+</ul>
+<h2 id="4">4. 视频质量与延迟<a class="headerlink" href="#4" title="Permanent link">&para;</a></h2>
+<p>按以下顺序调整：</p>
+<ol>
+<li>先降低分辨率；</li>
+<li>再降低 <code>max_fps</code>；</li>
+<li>根据实际上行带宽调整三档码率；</li>
+<li>分别测量采集、编码、网络和客户端渲染；</li>
+<li>保持控制 LCM 链路单独可测。</li>
+</ol>
+<p>低码率不一定降低延迟；过低会增加画面破碎或编码压力。日志中的上行速率只是诊断依据，应结合端到端画面观察。</p>
+<h2 id="5-datachannel">5. DataChannel<a class="headerlink" href="#5-datachannel" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>现象</th>
+<th>检查</th>
+<th>处理</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>有视频但无 DataChannel</td>
+<td>通道是否 open</td>
+<td>等待协商完成，不在 connecting 状态发送</td>
+</tr>
+<tr>
+<td>JSON 解析失败</td>
+<td>消息是否是 JSON 字符串</td>
+<td>固定客户端序列化和字段类型</td>
+</tr>
+<tr>
+<td>LCM 命令发送失败</td>
+<td>数组长度、有限值、LCM 初始化</td>
+<td>按 <a href="3.datachannel.html">DataChannel 协议</a>校验</td>
+</tr>
+<tr>
+<td>命令有通道但模式不变</td>
+<td>API 编号和状态机顺序</td>
+<td>先发送 DAMP/站立并读取状态确认</td>
+</tr>
+<tr>
+<td>断开后仍保持运动</td>
+<td>客户端断连处理</td>
+<td>立即使用独立控制入口清零并切回安全模式</td>
+</tr>
+</tbody>
+</table>
+<h2 id="6-lcm">6. LCM<a class="headerlink" href="#6-lcm" title="Permanent link">&para;</a></h2>
+<pre><code class="language-bash">bash scripts/monitor_lcm.sh --no-gui
+</code></pre>
+<p>确认：</p>
+<ul>
+<li>publisher 使用 <code>QUAD_ROBOT_CONTROL_Y20W</code>；</li>
+<li>控制器发布 <code>QUAD_ROBOT_STATE_Y20W</code>；</li>
+<li><code>config.json</code> 的 URL 与控制器一致；</li>
+<li>多网卡环境的多播路由正确；</li>
+<li>状态正常但控制异常时，API 编号和 <code>rc_enable</code> 符合预期。</li>
+</ul>
+<h2 id="_1">安全恢复<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>如果远程控制失去响应：</p>
+<ol>
+<li>使用现场手柄、急停或独立安全入口停止机器人；</li>
+<li>确认控制器退出运动模式；</li>
+<li>再停止 WebRTC 服务；</li>
+<li>保存信令、publisher、控制器和 LCM 日志；</li>
+<li>在仿真或支架环境复现后再恢复远程控制。</li>
+</ol>
+<p>不要在机器人仍运动时反复重启 WebRTC 进程来“抢回”控制权。</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="3.datachannel.html" class="btn btn-neutral float-left" title="6.3 DataChannel 协议"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="3.datachannel.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../js/copy-code.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

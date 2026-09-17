@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="山东优宝特智能机器人有限公司" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>2.2 启动与停止 - quad144w/Y20W 轮足机器人控制框架使用说明书</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../css/custom.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "2.2 \u542f\u52a8\u4e0e\u505c\u6b62";
+        var mkdocs_page_input_path = "part-2-mujoco/2.start.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/bash.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/cpp.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/python.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/json.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../index.html" class="icon icon-home"> quad144w/Y20W 轮足机器人控制框架使用说明书
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../index.html">首页</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">第一部分 环境配置与快速开始</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-1-quick-start/1.framework.html">1.1 框架与机器人</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-1-quick-start/2.system-requirements.html">1.2 系统与环境</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-1-quick-start/3.package-directory.html">1.3 开发包目录</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-1-quick-start/4.first-run.html">1.4 首次运行</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">第二部分 MuJoCo 仿真</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="1.overview.html">2.1 仿真结构</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">2.2 启动与停止</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#_1">图形模式</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_2">无图形模式</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_3">自定义控制器参数</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_4">脚本执行顺序</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_5">启动成功标志</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_6">正常停止</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="3.verify.html">2.3 模型与模式验证</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="4.debug.html">2.4 仿真调试</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">第三部分 实机运行</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-3-hardware/1.overview.html">3.1 实机结构与安全</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-3-hardware/2.config.html">3.2 配置实机参数</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-3-hardware/3.run.html">3.3 启动控制器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-3-hardware/4.runtime-checks.html">3.4 状态检查与停止</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-3-hardware/5.logs-and-viewers.html">3.5 Viewer 与日志</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">第四部分 Yobotics SDK</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-4-sdk/1.overview.html">4.1 SDK 概览</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-4-sdk/2.build.html">4.2 编译 SDK</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-4-sdk/3.motion-control.html">4.3 运动控制</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-4-sdk/4.state-read.html">4.4 状态读取</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-4-sdk/5.examples.html">4.5 仿真与实机使用</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-4-sdk/6.http.html">4.6 HTTP 服务</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">第五部分 LCM 与外部算法</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/1.structure.html">5.1 通信结构与通道</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/2.messages.html">5.2 16 维消息协议</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/3.development-mode.html">5.3 DEVELOPMENT 模式与框架</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/4.wave.html">5.4 wave 规则示例</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/5.walk-onnx.html">5.5 ONNX 行走示例</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/6.hardware.html">5.6 自定义算法与实机接入</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">第六部分 WebRTC</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-6-webrtc/1.overview.html">6.1 服务结构</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-6-webrtc/2.config-and-run.html">6.2 配置与启动</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-6-webrtc/3.datachannel.html">6.3 DataChannel 协议</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-6-webrtc/4.troubleshooting.html">6.4 故障排查</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">quad144w/Y20W 轮足机器人控制框架使用说明书</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html" class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">第二部分 MuJoCo 仿真</li>
+      <li class="breadcrumb-item active">2.2 启动与停止</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="22">2.2 启动与停止<a class="headerlink" href="#22" title="Permanent link">&para;</a></h1>
+<h2 id="_1">图形模式<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<pre><code class="language-bash">conda activate quad_controller
+bash scripts/start_mujoco.sh --config config_sim.yaml
+</code></pre>
+<h2 id="_2">无图形模式<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<pre><code class="language-bash">bash scripts/start_mujoco.sh --config config_sim.yaml --headless
+</code></pre>
+<h2 id="_3">自定义控制器参数<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p><code>start_mujoco.sh</code> 识别自身参数后，会把剩余参数传给控制器。查看脚本参数：</p>
+<pre><code class="language-bash">bash scripts/start_mujoco.sh --help
+</code></pre>
+<p>脚本会检查 <code>simulation.enable_mujoco</code>、场景文件、Python 依赖和控制器入口，并自动设置动态库路径。x86_64 仿真默认使用 <code>bin/ybt_ctrl</code> 与 <code>lib/</code>。</p>
+<h2 id="_4">脚本执行顺序<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<p><code>start_mujoco.sh</code> 会：</p>
+<ol>
+<li>解析配置路径和 headless 参数；</li>
+<li>确认配置中启用了 MuJoCo；</li>
+<li>查找场景、控制器和运行库；</li>
+<li>设置 <code>PYTHONPATH</code>、<code>YBT_CONFIG_FILE</code> 和 <code>LD_LIBRARY_PATH</code>；</li>
+<li>在后台启动 MuJoCo；</li>
+<li>等待仿真初始化后，在前台启动控制器；</li>
+<li>收到退出信号时清理两个进程。</li>
+</ol>
+<p>使用包装脚本可以让仿真和控制器共享同一配置与环境。直接分别启动时，需自行保证这些变量和停止顺序一致。</p>
+<h2 id="_5">启动成功标志<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<ul>
+<li>终端明确显示正在使用的配置和场景；</li>
+<li>图形模式出现 Y20W 场景，headless 模式没有 DISPLAY 错误；</li>
+<li>控制器继续运行而不是立即退出；</li>
+<li>关节状态、命令和 IMU 通道持续出现；</li>
+<li>初始状态下模型没有高速发散。</li>
+</ul>
+<h2 id="_6">正常停止<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<p>按 <code>Ctrl+C</code>，等待脚本清理两个进程。不要在同一组 LCM 通道上同时启动多套仿真，否则命令与状态可能互相串扰。</p>
+<p>停止后若再次启动出现异常，先检查是否还有旧的控制器或 MuJoCo 进程，而不是更改通道名绕过问题。</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="1.overview.html" class="btn btn-neutral float-left" title="2.1 仿真结构"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="3.verify.html" class="btn btn-neutral float-right" title="2.3 模型与模式验证">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="1.overview.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="3.verify.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../js/copy-code.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

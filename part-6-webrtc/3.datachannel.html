@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="山东优宝特智能机器人有限公司" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>6.3 DataChannel 协议 - quad144w/Y20W 轮足机器人控制框架使用说明书</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../css/custom.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "6.3 DataChannel \u534f\u8bae";
+        var mkdocs_page_input_path = "part-6-webrtc/3.datachannel.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/bash.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/cpp.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/python.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/json.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../index.html" class="icon icon-home"> quad144w/Y20W 轮足机器人控制框架使用说明书
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../index.html">首页</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">第一部分 环境配置与快速开始</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-1-quick-start/1.framework.html">1.1 框架与机器人</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-1-quick-start/2.system-requirements.html">1.2 系统与环境</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-1-quick-start/3.package-directory.html">1.3 开发包目录</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-1-quick-start/4.first-run.html">1.4 首次运行</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">第二部分 MuJoCo 仿真</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-2-mujoco/1.overview.html">2.1 仿真结构</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-2-mujoco/2.start.html">2.2 启动与停止</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-2-mujoco/3.verify.html">2.3 模型与模式验证</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-2-mujoco/4.debug.html">2.4 仿真调试</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">第三部分 实机运行</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-3-hardware/1.overview.html">3.1 实机结构与安全</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-3-hardware/2.config.html">3.2 配置实机参数</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-3-hardware/3.run.html">3.3 启动控制器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-3-hardware/4.runtime-checks.html">3.4 状态检查与停止</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-3-hardware/5.logs-and-viewers.html">3.5 Viewer 与日志</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">第四部分 Yobotics SDK</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-4-sdk/1.overview.html">4.1 SDK 概览</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-4-sdk/2.build.html">4.2 编译 SDK</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-4-sdk/3.motion-control.html">4.3 运动控制</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-4-sdk/4.state-read.html">4.4 状态读取</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-4-sdk/5.examples.html">4.5 仿真与实机使用</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-4-sdk/6.http.html">4.6 HTTP 服务</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">第五部分 LCM 与外部算法</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/1.structure.html">5.1 通信结构与通道</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/2.messages.html">5.2 16 维消息协议</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/3.development-mode.html">5.3 DEVELOPMENT 模式与框架</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/4.wave.html">5.4 wave 规则示例</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/5.walk-onnx.html">5.5 ONNX 行走示例</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/6.hardware.html">5.6 自定义算法与实机接入</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">第六部分 WebRTC</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="1.overview.html">6.1 服务结构</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="2.config-and-run.html">6.2 配置与启动</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">6.3 DataChannel 协议</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#json">控制 JSON</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#json_1">状态 JSON</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_1">客户端发送原则</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_2">校验示例</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_3">验收</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="4.troubleshooting.html">6.4 故障排查</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">quad144w/Y20W 轮足机器人控制框架使用说明书</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html" class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">第六部分 WebRTC</li>
+      <li class="breadcrumb-item active">6.3 DataChannel 协议</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="63-datachannel">6.3 DataChannel 协议<a class="headerlink" href="#63-datachannel" title="Permanent link">&para;</a></h1>
+<p>publisher 创建名为 <code>chat</code> 的 DataChannel。客户端发送 JSON 字符串后，publisher 将其转换为 <code>sport_client_cmd_t</code> 并发布到 <code>QUAD_ROBOT_CONTROL_Y20W</code>；控制器状态再以 JSON 字符串回传。</p>
+<h2 id="json">控制 JSON<a class="headerlink" href="#json" title="Permanent link">&para;</a></h2>
+<pre><code class="language-json">{
+  &quot;mode&quot;: 1002,
+  &quot;v&quot;: [0.2, 0.0, 0.0],
+  &quot;rpy&quot;: [0.0, 0.0, 0.0],
+  &quot;h&quot;: [0.0],
+  &quot;variable&quot;: [0, 0, 0]
+}
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>类型</th>
+<th>转换结果</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mode</code></td>
+<td>integer</td>
+<td><code>sport_client_cmd_t.api</code></td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>v</code></td>
+<td>3 个 number</td>
+<td><code>velocity[0:3]</code></td>
+<td><code>[0, 0, 0]</code></td>
+</tr>
+<tr>
+<td><code>rpy</code></td>
+<td>3 个 number</td>
+<td><code>euler_angles[0:3]</code></td>
+<td><code>[0, 0, 0]</code></td>
+</tr>
+<tr>
+<td><code>h</code></td>
+<td>至少 1 个 number</td>
+<td><code>body_height</code> 使用第一项</td>
+<td><code>[0]</code></td>
+</tr>
+<tr>
+<td><code>variable</code></td>
+<td>最多 3 个 integer</td>
+<td><code>variable[0:3]</code>，不足补零</td>
+<td><code>[0, 0, 0]</code></td>
+</tr>
+</tbody>
+</table>
+<p>publisher 还固定设置：</p>
+<pre><code class="language-text">rc_enable = 1
+step_height = 0
+</code></pre>
+<p>常用模式编号与 SDK 一致：</p>
+<table>
+<thead>
+<tr>
+<th>模式</th>
+<th style="text-align: right;">API</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>PASSIVE</code></td>
+<td style="text-align: right;"><code>1000</code></td>
+</tr>
+<tr>
+<td><code>DAMP</code></td>
+<td style="text-align: right;"><code>1001</code></td>
+</tr>
+<tr>
+<td><code>RL_WALK</code></td>
+<td style="text-align: right;"><code>1002</code></td>
+</tr>
+<tr>
+<td><code>DEVELOPMENT</code></td>
+<td style="text-align: right;"><code>1005</code></td>
+</tr>
+<tr>
+<td><code>RECOVERY_STAND</code></td>
+<td style="text-align: right;"><code>1006</code></td>
+</tr>
+<tr>
+<td><code>STAND_DOWN</code></td>
+<td style="text-align: right;"><code>1007</code></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition danger">
+<p class="admonition-title">当前转发层不做运动限幅</p>
+<p><code>publisher.py</code> 只把 JSON 转为数值，没有对速度、高度或姿态做 SDK/HTTP 那样的范围限制。客户端必须校验类型、数组长度、有限值和安全范围，并由控制器状态确认命令结果。</p>
+</div>
+<p>数组应提供完整长度。<code>v</code> 或 <code>rpy</code> 少于 3 项可能导致固定长度 LCM 字段编码失败；<code>h</code> 为空数组会导致索引错误。JSON 中的字符串数值虽然可能被 <code>float()</code> 接受，也不应作为正式协议使用。</p>
+<h2 id="json_1">状态 JSON<a class="headerlink" href="#json_1" title="Permanent link">&para;</a></h2>
+<p>收到 <code>QUAD_ROBOT_STATE_Y20W</code> 后，publisher 回传：</p>
+<pre><code class="language-json">{
+  &quot;code&quot;: 0,
+  &quot;power&quot;: [0.0, 0.0],
+  &quot;rpy&quot;: [0.0, 0.0, 0.0],
+  &quot;v&quot;: [0.0],
+  &quot;h&quot;: [0.0],
+  &quot;state&quot;: 0,
+  &quot;fault&quot;: 0,
+  &quot;env&quot;: [0.0, 0.0, 0.0]
+}
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>code</code></td>
+<td>当前固定为 <code>0</code></td>
+</tr>
+<tr>
+<td><code>power</code></td>
+<td>高层状态的两个电源值</td>
+</tr>
+<tr>
+<td><code>rpy</code></td>
+<td>roll、pitch、yaw，发送前保留两位小数</td>
+</tr>
+<tr>
+<td><code>v</code></td>
+<td>高层速度标量，以单元素数组表示</td>
+</tr>
+<tr>
+<td><code>h</code></td>
+<td>高度标量，以单元素数组表示</td>
+</tr>
+<tr>
+<td><code>state</code></td>
+<td>控制器状态编号</td>
+</tr>
+<tr>
+<td><code>fault</code></td>
+<td>高层故障码</td>
+</tr>
+<tr>
+<td><code>env</code></td>
+<td>三个环境状态值</td>
+</tr>
+</tbody>
+</table>
+<p>该状态不包含 16 轴关节、温度或驱动故障。需要完整诊断时应同时使用 LCM Monitor 或 SDK 状态客户端。</p>
+<h2 id="_1">客户端发送原则<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<ol>
+<li>连接后先发送 <code>DAMP</code> 和零速度。</li>
+<li>读取状态确认控制器在线。</li>
+<li>按合法状态机顺序进入站立和运动模式。</li>
+<li>运动期间周期刷新命令，不依赖一次发送永久生效。</li>
+<li>页面失焦、摇杆释放、DataChannel closing/closed 时立即发送零速度。</li>
+<li>断开前切回 <code>DAMP</code> 并从状态确认。</li>
+</ol>
+<h2 id="_2">校验示例<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>客户端发送前至少执行等价检查：</p>
+<pre><code class="language-javascript">function validVector(value, length) {
+  return Array.isArray(value) &amp;&amp;
+    value.length === length &amp;&amp;
+    value.every(Number.isFinite);
+}
+
+if (!Number.isInteger(command.mode) ||
+    !validVector(command.v, 3) ||
+    !validVector(command.rpy, 3) ||
+    !validVector(command.h, 1)) {
+  throw new Error(&quot;invalid Y20W control command&quot;);
+}
+</code></pre>
+<p>还应根据应用设置保守范围和变化率限制。远程链路不能以“控制器可能会限幅”替代客户端校验。</p>
+<h2 id="_3">验收<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<ul>
+<li>JSON 字段类型和长度固定；</li>
+<li>命令成功转换为 <code>sport_client_cmd_t</code>；</li>
+<li><code>mode</code> 与控制器状态变化对应；</li>
+<li>速度清零后状态和机器人响应恢复；</li>
+<li>DataChannel 断开路径会触发客户端安全动作；</li>
+<li>故障状态在界面上醒目呈现，而不是仅记录日志。</li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="2.config-and-run.html" class="btn btn-neutral float-left" title="6.2 配置与启动"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="4.troubleshooting.html" class="btn btn-neutral float-right" title="6.4 故障排查">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="2.config-and-run.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="4.troubleshooting.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../js/copy-code.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

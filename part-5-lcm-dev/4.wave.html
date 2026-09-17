@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="山东优宝特智能机器人有限公司" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>5.4 wave 规则示例 - quad144w/Y20W 轮足机器人控制框架使用说明书</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../css/custom.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "5.4 wave \u89c4\u5219\u793a\u4f8b";
+        var mkdocs_page_input_path = "part-5-lcm-dev/4.wave.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/bash.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/cpp.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/python.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/json.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../index.html" class="icon icon-home"> quad144w/Y20W 轮足机器人控制框架使用说明书
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../index.html">首页</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">第一部分 环境配置与快速开始</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-1-quick-start/1.framework.html">1.1 框架与机器人</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-1-quick-start/2.system-requirements.html">1.2 系统与环境</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-1-quick-start/3.package-directory.html">1.3 开发包目录</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-1-quick-start/4.first-run.html">1.4 首次运行</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">第二部分 MuJoCo 仿真</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-2-mujoco/1.overview.html">2.1 仿真结构</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-2-mujoco/2.start.html">2.2 启动与停止</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-2-mujoco/3.verify.html">2.3 模型与模式验证</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-2-mujoco/4.debug.html">2.4 仿真调试</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">第三部分 实机运行</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-3-hardware/1.overview.html">3.1 实机结构与安全</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-3-hardware/2.config.html">3.2 配置实机参数</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-3-hardware/3.run.html">3.3 启动控制器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-3-hardware/4.runtime-checks.html">3.4 状态检查与停止</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-3-hardware/5.logs-and-viewers.html">3.5 Viewer 与日志</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">第四部分 Yobotics SDK</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-4-sdk/1.overview.html">4.1 SDK 概览</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-4-sdk/2.build.html">4.2 编译 SDK</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-4-sdk/3.motion-control.html">4.3 运动控制</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-4-sdk/4.state-read.html">4.4 状态读取</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-4-sdk/5.examples.html">4.5 仿真与实机使用</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-4-sdk/6.http.html">4.6 HTTP 服务</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">第五部分 LCM 与外部算法</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="1.structure.html">5.1 通信结构与通道</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="2.messages.html">5.2 16 维消息协议</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="3.development-mode.html">5.3 DEVELOPMENT 模式与框架</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">5.4 wave 规则示例</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#_1">适用场景</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_2">启动前提</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_3">配置逐段说明</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#policy">policy</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#model_params">model_params</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#lcm">lcm</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#execution">execution</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#motion">motion</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_4">其他配置</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_5">动作生成原理</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_6">状态和方法对应关系</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#mujoco">MuJoCo 验证流程</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#1">1. 启动仿真</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#2">2. 监控通道</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#3-wave">3. 启动 wave</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#4-development">4. 进入 DEVELOPMENT</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#5">5. 检查动作</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#6">6. 退出</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_7">保守调参</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_8">故障排查</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_9">通过标准</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="5.walk-onnx.html">5.5 ONNX 行走示例</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="6.hardware.html">5.6 自定义算法与实机接入</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">第六部分 WebRTC</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-6-webrtc/1.overview.html">6.1 服务结构</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-6-webrtc/2.config-and-run.html">6.2 配置与启动</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-6-webrtc/3.datachannel.html">6.3 DataChannel 协议</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-6-webrtc/4.troubleshooting.html">6.4 故障排查</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">quad144w/Y20W 轮足机器人控制框架使用说明书</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html" class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">第五部分 LCM 与外部算法</li>
+      <li class="breadcrumb-item active">5.4 wave 规则示例</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="54-wave">5.4 wave 规则示例<a class="headerlink" href="#54-wave" title="Permanent link">&para;</a></h1>
+<p><code>wave_algorithm</code> 不加载 ONNX 模型，而是直接生成低频正弦关节偏移。它覆盖了状态接收、16 维排列、命令缓存、高频发送和安全退出，是理解 DEVELOPMENT 链路的首选示例。</p>
+<h2 id="_1">适用场景<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<ul>
+<li>第一次验证外部算法环境和 LCM 通道；</li>
+<li>检查 12+4 关节映射和四腿方向；</li>
+<li>验证 PD 参数与命令发送频率；</li>
+<li>为自定义规则算法建立最小工程模板。</li>
+</ul>
+<p>它不是步态控制器。默认动作只让 thigh 与 calf 产生周期偏移，不提供平衡、落足规划或抗扰控制。</p>
+<h2 id="_2">启动前提<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Python 能导入 <code>numpy</code>、<code>yaml</code> 和 <code>lcm</code>。</li>
+<li>MuJoCo 和控制器已经启动。</li>
+<li><code>Y20W_development_state</code> 持续更新。</li>
+<li>机器人处于可安全切换模式的状态。</li>
+<li>实机测试时已经上支架并准备急停。</li>
+</ol>
+<p>从项目根目录运行：</p>
+<pre><code class="language-bash">python3 external_algorithms/wave_algorithm/run_algorithm.py \
+  --config external_algorithms/wave_algorithm/config.yaml
+</code></pre>
+<p>也可以在算法目录运行：</p>
+<pre><code class="language-bash">cd external_algorithms/wave_algorithm
+python3 run_algorithm.py --config config.yaml
+</code></pre>
+<h2 id="_3">配置逐段说明<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<h3 id="policy"><code>policy</code><a class="headerlink" href="#policy" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>默认值</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>type</code></td>
+<td><code>none</code></td>
+<td>表示规则算法，不加载 actor 或 encoder</td>
+</tr>
+<tr>
+<td><code>model_path</code></td>
+<td>空</td>
+<td>wave 不使用</td>
+</tr>
+<tr>
+<td><code>encoder_path</code></td>
+<td>空</td>
+<td>wave 不使用</td>
+</tr>
+<tr>
+<td><code>read_metadata</code></td>
+<td><code>false</code></td>
+<td>没有模型 metadata</td>
+</tr>
+<tr>
+<td><code>warmup_count</code></td>
+<td><code>0</code></td>
+<td>跳过 ONNX 预热</td>
+</tr>
+<tr>
+<td><code>action_threshold</code></td>
+<td><code>200.0</code></td>
+<td>基类预热阈值；当前因不预热而不生效</td>
+</tr>
+</tbody>
+</table>
+<p><code>RunAlgorithm._load_policy()</code> 会把 <code>model</code> 和 <code>encoder</code> 设置为 <code>None</code>，并将策略类型标记为 <code>none</code>。</p>
+<h3 id="model_params"><code>model_params</code><a class="headerlink" href="#model_params" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>默认值摘要</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>num_actions</code></td>
+<td><code>16</code></td>
+<td>每腿 <code>[hip, thigh, calf, wheel]</code></td>
+</tr>
+<tr>
+<td><code>num_obs</code></td>
+<td><code>57</code></td>
+<td>为复用基类保留的观测缓冲区长度</td>
+</tr>
+<tr>
+<td><code>default_joint_pos</code></td>
+<td>每腿 <code>[0, -0.8, 1.6, 0]</code></td>
+<td>正弦偏移叠加前的基准姿态</td>
+</tr>
+<tr>
+<td><code>joint_stiffness</code></td>
+<td>腿关节 <code>8</code>，轮关节 <code>0</code></td>
+<td>位置增益 Kp</td>
+</tr>
+<tr>
+<td><code>joint_damping</code></td>
+<td>腿关节 <code>0.2</code>，轮关节 <code>0.5</code></td>
+<td>速度增益 Kd</td>
+</tr>
+<tr>
+<td><code>action_scale</code></td>
+<td>全部 <code>1.0</code></td>
+<td>当前 wave 实现不读取该字段进行二次缩放</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code>process_action()</code> 直接执行 <code>default_joint_pos + action</code>。因此 wave 的幅值直接叠加到目标关节位置，<code>action_scale</code> 在当前实现中不参与计算。</p>
+</div>
+<h3 id="lcm"><code>lcm</code><a class="headerlink" href="#lcm" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>默认值</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>url</code></td>
+<td>空</td>
+<td>使用默认 LCM 配置</td>
+</tr>
+<tr>
+<td><code>state_channel</code></td>
+<td><code>Y20W_development_state</code></td>
+<td>接收 DEVELOPMENT 状态</td>
+</tr>
+<tr>
+<td><code>command_channel</code></td>
+<td><code>Y20W_development_command</code></td>
+<td>发布 DEVELOPMENT 命令</td>
+</tr>
+<tr>
+<td><code>robot_id</code></td>
+<td><code>Y20W</code></td>
+<td>过滤状态并标记目标机器人</td>
+</tr>
+</tbody>
+</table>
+<h3 id="execution"><code>execution</code><a class="headerlink" href="#execution" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th style="text-align: right;">默认值</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>frequency</code></td>
+<td style="text-align: right;"><code>100.0 Hz</code></td>
+<td>正弦动作更新频率</td>
+</tr>
+<tr>
+<td><code>lcm_send_frequency</code></td>
+<td style="text-align: right;"><code>200.0 Hz</code></td>
+<td>最近命令的发送频率</td>
+</tr>
+<tr>
+<td><code>auto_start</code></td>
+<td style="text-align: right;"><code>true</code></td>
+<td>收到匹配状态后在算法本地启动</td>
+</tr>
+<tr>
+<td><code>auto_end</code></td>
+<td style="text-align: right;"><code>true</code></td>
+<td>达到最长时间时调用结束流程</td>
+</tr>
+<tr>
+<td><code>max_execution_time</code></td>
+<td style="text-align: right;"><code>0.0 s</code></td>
+<td>不按时间自动停止</td>
+</tr>
+</tbody>
+</table>
+<h3 id="motion"><code>motion</code><a class="headerlink" href="#motion" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th style="text-align: right;">默认值</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>frequency</code></td>
+<td style="text-align: right;"><code>0.1 Hz</code></td>
+<td>正弦运动频率，一次周期约 10 秒</td>
+</tr>
+<tr>
+<td><code>amplitude</code></td>
+<td style="text-align: right;"><code>0.5</code></td>
+<td>thigh 偏移峰值；calf 偏移峰值为其两倍且方向相反</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_4">其他配置<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>rl_mode.is_rl_mode: false</code> 标识这是规则控制示例；</li>
+<li><code>joint_mapping.enabled: false</code>，当前示例按固定 Y20W 顺序工作；</li>
+<li><code>debug.print_config: true</code>，启动时打印最终配置；</li>
+<li><code>debug.print_metadata: false</code>，没有 ONNX metadata。</li>
+</ul>
+<h2 id="_5">动作生成原理<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<p>运行时间为 <code>t</code>、频率为 <code>f</code>、幅值为 <code>A</code> 时：</p>
+<pre><code class="language-text">phase        = 2 * pi * f * t
+thigh_offset = A * sin(phase)
+calf_offset  = -2 * A * sin(phase)
+</code></pre>
+<p>每条腿生成：</p>
+<pre><code class="language-text">[hip, thigh, calf, wheel]
+  = [0, thigh_offset, calf_offset, 0]
+</code></pre>
+<p>四条腿使用相同相位，因此主要表现为躯干同步上下变化：</p>
+<ul>
+<li>hip 不增加横向摆动；</li>
+<li>thigh 和 calf 反向变化，近似保持足端水平位置；</li>
+<li>wheel 偏移保持零，避免把通信测试变成轮式运动测试。</li>
+</ul>
+<p><code>process_action()</code> 随后构造：</p>
+<pre><code class="language-text">q_des   = default_joint_pos + action
+qd_des  = 0
+tau_des = 0
+kp/kd   = model_params 中的数组
+</code></pre>
+<p>16 维交错数组由 <code>LCMInterface</code> 拆为 12 个腿关节和 4 个 wheel supplement。</p>
+<h2 id="_6">状态和方法对应关系<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>wave 中的作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>compute_observation()</code></td>
+<td>将 12+4 位置、速度重组到观测前 32 维，并附带速度命令和四元数供调试</td>
+</tr>
+<tr>
+<td><code>_run_inference()</code></td>
+<td>忽略观测内容，根据时间生成 16 维正弦动作</td>
+</tr>
+<tr>
+<td><code>process_action()</code></td>
+<td>检查动作长度，叠加默认姿态并更新命令缓存</td>
+</tr>
+<tr>
+<td><code>on_development_mode_start()</code></td>
+<td>重置起始时间和步数，使正弦从新周期开始</td>
+</tr>
+<tr>
+<td><code>on_development_mode_end()</code></td>
+<td>把最新命令改为 <code>enable_development_mode: false</code></td>
+</tr>
+</tbody>
+</table>
+<p><code>compute_observation()</code> 内部对字段读取使用异常捕获，字段异常时对应区域可能保持为零。它适合演示，不应被当作严格的状态完整性验证。</p>
+<h2 id="mujoco">MuJoCo 验证流程<a class="headerlink" href="#mujoco" title="Permanent link">&para;</a></h2>
+<h3 id="1">1. 启动仿真<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
+<pre><code class="language-bash">bash scripts/start_mujoco.sh
+</code></pre>
+<p>确认模型稳定出现，控制器没有报告配置或模型加载错误。</p>
+<h3 id="2">2. 监控通道<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
+<pre><code class="language-bash">bash scripts/monitor_lcm.sh --no-gui
+</code></pre>
+<p>先确认 <code>Y20W_development_state</code>，此时还不应依赖 wave 命令。</p>
+<h3 id="3-wave">3. 启动 wave<a class="headerlink" href="#3-wave" title="Permanent link">&para;</a></h3>
+<pre><code class="language-bash">python3 external_algorithms/wave_algorithm/run_algorithm.py \
+  --config external_algorithms/wave_algorithm/config.yaml
+</code></pre>
+<p>成功日志应包括：配置路径、<code>policy.type='none'</code>、推理频率、发送频率和 DEVELOPMENT 启动提示。</p>
+<h3 id="4-development">4. 进入 DEVELOPMENT<a class="headerlink" href="#4-development" title="Permanent link">&para;</a></h3>
+<p>使用当前手柄或上位机控制方式切换到 DEVELOPMENT。确认状态 <code>mode</code> 已变化，不要只看算法打印。</p>
+<h3 id="5">5. 检查动作<a class="headerlink" href="#5" title="Permanent link">&para;</a></h3>
+<ul>
+<li>四条腿方向一致；</li>
+<li>hip 和 wheel 没有明显周期目标；</li>
+<li>thigh 与 calf 方向相反；</li>
+<li>命令连续，无瞬时跳变；</li>
+<li>实际周期接近 <code>motion.frequency</code>；</li>
+<li><code>Y20W_development_command</code> 频率接近 <code>200 Hz</code> 的配置量级。</li>
+</ul>
+<h3 id="6">6. 退出<a class="headerlink" href="#6" title="Permanent link">&para;</a></h3>
+<p>先切回 DAMP，再按 <code>Ctrl+C</code> 停止算法。确认命令中的 <code>enable_development_mode</code> 变为 <code>0</code>，机器人没有留在 DEVELOPMENT。</p>
+<h2 id="_7">保守调参<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<p>实机首次测试不要直接沿用仿真幅值。建议使用一份单独配置副本，按以下顺序调整：</p>
+<ol>
+<li>保持低频，只减小 <code>amplitude</code>；</li>
+<li>验证四腿方向和零位；</li>
+<li>在幅值固定后再调整 <code>frequency</code>；</li>
+<li>最后根据响应检查 Kp、Kd；</li>
+<li>每次只改一组参数并记录结果。</li>
+</ol>
+<p><code>calf_offset</code> 是 <code>-2 * amplitude</code>，因此 calf 的最大偏移大于 thigh。判断安全幅值时应按 calf 峰值计算，而不是只看配置中的 <code>amplitude</code>。</p>
+<h2 id="_8">故障排查<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>现象</th>
+<th>检查</th>
+<th>可能原因</th>
+<th>处理</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>算法启动后一直无动作</td>
+<td>状态通道、<code>robot_id</code>、控制模式</td>
+<td>没收到状态或未进入 DEVELOPMENT</td>
+<td>逐级核对 <a href="3.development-mode.html">模式生命周期</a></td>
+</tr>
+<tr>
+<td>只有部分腿动作</td>
+<td>16 维顺序和 12+4 消息</td>
+<td>数组长度、腿顺序或生成类型错误</td>
+<td>用低幅值逐腿核对索引</td>
+</tr>
+<tr>
+<td>四腿方向与预期不同</td>
+<td>URDF/XML 轴向和默认姿态</td>
+<td>关节符号约定不同</td>
+<td>先在仿真单关节验证，不直接改大幅值</td>
+</tr>
+<tr>
+<td>高频振动</td>
+<td>Kp/Kd、频率、状态延迟</td>
+<td>增益过高或链路抖动</td>
+<td>立即退出，减小增益与幅值后重新验证</td>
+</tr>
+<tr>
+<td>切换瞬间跳变</td>
+<td>当前姿态与 <code>default_joint_pos</code></td>
+<td>目标从实际位置突然跳到默认姿态</td>
+<td>进入前对齐姿态，或在自定义算法中加入插值</td>
+</tr>
+<tr>
+<td>wheel 意外转动</td>
+<td>supplement 顺序、轮关节目标</td>
+<td>16 维被当作前 12+后 4</td>
+<td>检查每腿交错映射和 supplement</td>
+</tr>
+<tr>
+<td><code>Ctrl+C</code> 后仍在 DEVELOPMENT</td>
+<td>控制器状态和禁用命令</td>
+<td>进程被强制终止或状态机未切回</td>
+<td>使用安全控制入口切回 DAMP，确认后再断开</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_9">通过标准<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<ul>
+<li>wave 连续运行多个周期，没有 NaN、异常日志或频率长时间下降；</li>
+<li>四条腿关节方向、wheel supplement 和默认姿态全部正确；</li>
+<li>从进入到退出 DEVELOPMENT 的状态变化可重复；</li>
+<li>算法退出后机器人处于安全模式；</li>
+<li>只有满足以上条件，才继续验证 <a href="5.walk-onnx.html">ONNX 行走示例</a>。</li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="3.development-mode.html" class="btn btn-neutral float-left" title="5.3 DEVELOPMENT 模式与框架"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="5.walk-onnx.html" class="btn btn-neutral float-right" title="5.5 ONNX 行走示例">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="3.development-mode.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="5.walk-onnx.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../js/copy-code.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
