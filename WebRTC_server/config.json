@@ -1,0 +1,26 @@
+{
+  "use_camera": true,
+  "camera": {
+    "source_type": "rtsp",
+    "device_index": 4,
+    "rtsp_url": "rtsp://127.0.0.1:8554/back",
+    "width": 640,
+    "height": 360,
+    "fps": 15
+  },
+  "lcm": {
+    "url": "udpm://239.255.76.67:7667?ttl=255",
+    "control_channel": "QUAD_ROBOT_CONTROL_Y20W",
+    "state_channel": "QUAD_ROBOT_STATE_Y20W"
+  },
+  "signaling": {
+    "server": "ws://localhost:8765"
+  },
+  "webrtc": {
+    "low_latency": true,
+    "max_fps": 15,
+    "min_bitrate_kbps": 300,
+    "start_bitrate_kbps": 500,
+    "max_bitrate_kbps": 900
+  }
+}

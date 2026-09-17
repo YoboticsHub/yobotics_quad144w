@@ -1,0 +1,64 @@
+# 奔跑算法配置文件
+algorithm_name: "run_algorithm"
+
+# 策略配置
+policy:
+  type: "onnx"
+  model_path: "./HumanActornet.onnx"
+  encoder_path: "./HumanEncodernet.onnx"
+
+  read_metadata: false
+  warmup_count: 500  # ONNX 模型预热次数（使用真实状态进行推理，检测action异常）
+  action_threshold: 100.0 #200.0  # Action异常检测阈值（如果action绝对值超过此值，认为异常）
+
+
+# 模型参数（如果read_metadata=false，需要手动配置）
+# 注意：这些参数通常从ONNX模型的metadata中读取，如果read_metadata=true
+model_params:
+  num_actions: 16 
+  num_obs: 57
+  # 以下参数如果read_metadata=true，将从模型metadata读取，这里提供默认值
+  default_joint_pos: [0.0, -0.8, 1.6, 0.0, 0.0, -0.8, 1.6, 0.0, 0.0, -0.8, 1.6, 0.0, 0.0, -0.8, 1.6, 0.0]
+  joint_stiffness: [8, 8, 8, 0, 8, 8, 8, 0, 8, 8, 8, 0, 8, 8, 8, 0] 
+  joint_damping: [0.2, 0.2, 0.2, 0.5, 0.2, 0.2, 0.2, 0.5, 0.2, 0.2, 0.2, 0.5, 0.2, 0.2, 0.2, 0.5]
+  action_scale: [0.25, 0.25, 0.25, 10, 0.25, 0.25, 0.25, 10, 0.25, 0.25, 0.25, 10, 0.25, 0.25, 0.25, 10]
+
+  dof_pos_scale: 1.0  # 关节位置缩放因子
+  lin_vel_scale: 2.0  # 线速度缩放因子
+  ang_vel_scale: 0.25  # 角速度缩放因子
+  command_scale: 2.0  # 命令缩放因子
+  dof_vel_scale: 0.05 # 关节速度缩放因子
+
+
+
+# LCM配置
+lcm:
+  url: ""
+  state_channel: "Y20W_development_state"
+  command_channel: "Y20W_development_command"
+  robot_id: "Y20W"
+
+# 执行配置
+execution:
+  frequency: 50.0  # 策略推理频率（Hz，如50Hz）
+  lcm_send_frequency: 500.0  # LCM发送频率（Hz，固定500Hz）
+  auto_start: true
+  auto_end: true
+  max_execution_time: 0.0  # 0表示无限制
+
+# 强化学习模式配置
+rl_mode:
+  is_rl_mode: true
+
+# 关节映射配置
+joint_mapping:
+  model_joint_order: []  # 从metadata读取
+  robot_joint_order: []  # 标准顺序
+  enabled: false
+
+# 调试配置
+debug:
+  print_config: true  # 是否打印配置文件内容
+  print_metadata: true  # 是否打印ONNX模型metadata内容
+
+

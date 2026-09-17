@@ -1,0 +1,5 @@
+# yobotics_sdkConfig.cmake.in
+set(yobotics_sdk_FOUND TRUE)
+set(yobotics_sdk_VERSION "@YOBOTICS_SDK_VERSION@")
+set(yobotics_sdk_INCLUDE_DIRS "@CMAKE_INSTALL_INCLUDEDIR@")
+set(yobotics_sdk_LIBRARIES "@CMAKE_INSTALL_LIBDIR@/libyobotics_sdk.a")

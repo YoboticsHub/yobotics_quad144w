@@ -1,0 +1,15 @@
+package control_messages;
+
+// 接收的消息：int32_t 命令 + double[8] 参数
+struct Command {
+    int32_t cmd;        // 命令代码
+    float64 params[8];   // 8个float64参数
+}
+
+// 发送的消息：int32_t 响应 + double[8] + double[3]
+struct Response {
+    int32_t code;           // 响应代码
+    float64 data[8];         // 8个float64数据
+    float64 other_data[7];	// 7个float64数据
+    float64 extra_data[3];   // 3个float64额外数据
+}

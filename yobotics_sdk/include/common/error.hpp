@@ -1,0 +1,18 @@
+#ifndef __MIT_ERROR_HPP__
+#define __MIT_ERROR_HPP__
+
+#include <decl.hpp>
+
+namespace yobotics
+{
+//Declare error
+MIT_DECL_ERR(MIT_OK,              0,      "Success")
+MIT_DECL_ERR(MIT_ERR_COMMON,      1001,   "common error")
+MIT_DECL_ERR(MIT_ERR_NETWORK,     1011,   "Network error")
+MIT_DECL_ERR(MIT_ERR_TIMEOUT,     1012,   "Timeout error")
+MIT_DECL_ERR(MIT_ERR_UNKNOWN,     -1,     "Unknown error")
+
+}
+
+#endif//__MIT_ERROR_HPP__
+    

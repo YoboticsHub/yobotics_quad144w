@@ -1,0 +1,5 @@
+struct power_state_t
+{
+    float voltage;
+    float current;
+}

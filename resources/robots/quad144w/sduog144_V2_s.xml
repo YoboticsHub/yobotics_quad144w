@@ -1,0 +1,142 @@
+<mujoco model="sduog_144_V2_s">
+  <compiler angle="radian" meshdir="meshes/"/>
+
+  <asset>
+    <mesh name="base" file="base.STL"/>
+    <mesh name="FL_hip_Link" file="FL_hip_Link.STL"/>
+    <mesh name="FL_thigh_Link" file="FL_thigh_Link.STL"/>
+    <mesh name="L_calf_s" file="L_calf_s.STL"/>
+    <mesh name="L_wheel" file="L_wheel.STL"/>
+    <mesh name="FR_hip_Link" file="FR_hip_Link.STL"/>
+    <mesh name="FR_thigh_Link" file="FR_thigh_Link.STL"/>
+    <mesh name="R_calf_s" file="R_calf_s.STL"/>
+    <mesh name="R_wheel" file="R_wheel.STL"/>
+    <mesh name="RL_hip_Link" file="RL_hip_Link.STL"/>
+    <mesh name="RL_thigh_Link" file="RL_thigh_Link.STL"/>
+    <mesh name="RR_hip_Link" file="RR_hip_Link.STL"/>
+    <mesh name="RR_thigh_Link" file="RR_thigh_Link.STL"/>
+  </asset>
+
+  <worldbody>
+    <body name="base_link" pos="0 0 0.8" quat="0 0 0 1">
+      <inertial pos="0.03371 0.003791 0.010576" quat="0.0139079 0.690038 0.0103233 0.723566" mass="17.9" diaginertia="0.79033 0.719639 0.159172"/>
+      <joint name="floating_base_joint" type="free" limited="false" actuatorfrclimited="false"/>
+      <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="1 1 1 1" mesh="base"/>
+      <geom type="mesh" rgba="1 1 1 1" mesh="base"/>
+      <body name="FL_hip_Link" pos="0.2915 0.0731 0">
+        <inertial pos="-0.008296 0.008609 0" quat="0.510415 0.49568 0.502887 0.490798" mass="1.92" diaginertia="0.00321875 0.00247147 0.00184878"/>
+        <joint name="FL_hip_joint" pos="0 0 0" axis="1 0 0" range="-0.488 0.78" actuatorfrcrange="-144 144"/>
+        <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="1 1 1 1" mesh="FL_hip_Link"/>
+        <body name="FL_thigh_Link" pos="0 0.126 0">
+          <inertial pos="-0.007357 -0.025269 -0.049709" quat="0.806374 0.0890027 -0.0024002 0.584665" mass="3.03643" diaginertia="0.0299404 0.0292388 0.00374588"/>
+          <joint name="FL_thigh_joint" pos="0 0 0" axis="0 -1 0" range="-2.55 0.554" actuatorfrcrange="-144 144"/>
+          <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="1 1 1 1" mesh="FL_thigh_Link"/>
+          <geom size="0.025 0.025 0.14" pos="-0.03 0 -0.11" type="box" rgba="1 1 1 1"/>
+          <body name="FL_calf_Link" pos="0 0 -0.28">
+            <inertial pos="0.00864 0.00147 -0.164922" quat="0.706368 -0.000364299 -0.00568496 0.707822" mass="0.596381" diaginertia="0.00752241 0.0072565 0.000353089"/>
+            <joint name="FL_calf_joint" pos="0 0 0" axis="0 -1 0" range="1.21 2.8" actuatorfrcrange="-144 144"/>
+            <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="1 1 1 1" mesh="L_calf_s"/>
+            <geom size="0.0125 0.0125 0.105" pos="0.02 0 -0.13" quat="0.995004 0 -0.0998334 0" type="box" rgba="1 1 1 1"/>
+            <geom size="0.046 0.01" pos="0 0 -0.28" quat="0.707107 0.707107 0 0" type="cylinder" rgba="1 1 1 1"/>
+            <body name="FL_wheel" pos="0 0.03725 -0.28">
+              <inertial pos="-0.012577 -0.005886 0.003253" quat="0.376737 0.551606 0.613126 0.421754" mass="1.423" diaginertia="0.00690084 0.00535689 0.00216227"/>
+              <joint name="FL_wheel_joint" pos="0 0 0" axis="0 1 0" range="-999999 999999" actuatorfrcrange="-20 20"/>
+              <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="1 1 1 1" mesh="L_wheel"/>
+              <geom size="0.086 0.01875" quat="0.707107 0.707107 0 0" type="cylinder" rgba="1 1 1 1"/>
+            </body>
+          </body>
+        </body>
+      </body>
+      <body name="FR_hip_Link" pos="0.2915 -0.0731 0">
+        <inertial pos="-0.008296 -0.008609 0" quat="0.490798 0.502887 0.49568 0.510415" mass="1.92" diaginertia="0.00321875 0.00247147 0.00184878"/>
+        <joint name="FR_hip_joint" pos="0 0 0" axis="1 0 0" range="-0.78 0.488" actuatorfrcrange="-144 144"/>
+        <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="1 1 1 1" mesh="FR_hip_Link"/>
+        <body name="FR_thigh_Link" pos="0 -0.126 0">
+          <inertial pos="-0.008018 0.025243 -0.044242" quat="0.554391 -0.000263042 0.0863138 0.827768" mass="3.03643" diaginertia="0.0277969 0.0268821 0.00397395"/>
+          <joint name="FR_thigh_joint" pos="0 0 0" axis="0 -1 0" range="-2.55 0.554" actuatorfrcrange="-144 144"/>
+          <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="1 1 1 1" mesh="FR_thigh_Link"/>
+          <geom size="0.025 0.025 0.14" pos="-0.03 0 -0.11" type="box" rgba="1 1 1 1"/>
+          <body name="FR_calf_Link" pos="0 0 -0.28">
+            <inertial pos="0.00864 -0.00147 -0.164922" quat="0.707822 -0.00568901 -0.000364631 0.706368" mass="0.596381" diaginertia="0.00751741 0.0072515 0.000353088"/>
+            <joint name="FR_calf_joint" pos="0 0 0" axis="0 -1 0" range="1.21 2.8" actuatorfrcrange="-144 144"/>
+            <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="1 1 1 1" mesh="R_calf_s"/>
+            <geom size="0.0125 0.0125 0.105" pos="0.02 0 -0.13" quat="0.995004 0 -0.0998334 0" type="box" rgba="1 1 1 1"/>
+            <geom size="0.046 0.01" pos="0 0 -0.28" quat="0.707107 0.707107 0 0" type="cylinder" rgba="1 1 1 1"/>
+            <body name="FR_wheel" pos="0 -0.03725 -0.28">
+              <inertial pos="0.006747 0.005886 0.011102" quat="0.669735 0.118378 0.183167 0.709854" mass="1.423" diaginertia="0.00690078 0.00535627 0.00216195"/>
+              <joint name="FR_wheel_joint" pos="0 0 0" axis="0 1 0" range="-999999 999999" actuatorfrcrange="-20 20"/>
+              <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="1 1 1 1" mesh="R_wheel"/>
+              <geom size="0.086 0.01875" quat="0.707107 0.707107 0 0" type="cylinder" rgba="1 1 1 1"/>
+            </body>
+          </body>
+        </body>
+      </body>
+      <body name="RL_hip_Link" pos="-0.2915 0.0731 0">
+        <inertial pos="0.008296 0.008609 0" quat="0.502887 0.490798 0.510415 0.49568" mass="1.92" diaginertia="0.00321875 0.00247147 0.00184878"/>
+        <joint name="RL_hip_joint" pos="0 0 0" axis="1 0 0" range="-0.488 0.78" actuatorfrcrange="-144 144"/>
+        <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="1 1 1 1" mesh="RL_hip_Link"/>
+        <body name="RL_thigh_Link" pos="0 0.126 0">
+          <inertial pos="-0.007357 -0.025269 -0.049709" quat="0.806374 0.0890027 -0.0024002 0.584665" mass="3.03643" diaginertia="0.0299404 0.0292388 0.00374588"/>
+          <joint name="RL_thigh_joint" pos="0 0 0" axis="0 -1 0" range="-2.55 0.554" actuatorfrcrange="-144 144"/>
+          <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="1 1 1 1" mesh="RL_thigh_Link"/>
+          <geom size="0.025 0.025 0.14" pos="-0.03 0 -0.11" type="box" rgba="1 1 1 1"/>
+          <body name="RL_calf_Link" pos="0 0 -0.28">
+            <inertial pos="0.00864 0.00147 -0.164922" quat="0.706368 -0.000364299 -0.00568496 0.707822" mass="0.596381" diaginertia="0.00752241 0.0072565 0.000353089"/>
+            <joint name="RL_calf_joint" pos="0 0 0" axis="0 -1 0" range="1.21 2.8" actuatorfrcrange="-144 144"/>
+            <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="1 1 1 1" mesh="L_calf_s"/>
+            <geom size="0.0125 0.0125 0.105" pos="0.02 0 -0.13" quat="0.995004 0 -0.0998334 0" type="box" rgba="1 1 1 1"/>
+            <geom size="0.046 0.01" pos="0 0 -0.28" quat="0.707107 0.707107 0 0" type="cylinder" rgba="1 1 1 1"/>
+            <body name="RL_wheel" pos="0 0.03725 -0.28">
+              <inertial pos="-0.012577 -0.005886 0.003253" quat="0.376737 0.551606 0.613126 0.421754" mass="1.423" diaginertia="0.00690084 0.00535689 0.00216227"/>
+              <joint name="RL_wheel_joint" pos="0 0 0" axis="0 1 0" range="-999999 999999" actuatorfrcrange="-20 20"/>
+              <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="1 1 1 1" mesh="L_wheel"/>
+              <geom size="0.086 0.01875" quat="0.707107 0.707107 0 0" type="cylinder" rgba="1 1 1 1"/>
+            </body>
+          </body>
+        </body>
+      </body>
+      <body name="RR_hip_Link" pos="-0.2915 -0.0731 0">
+        <inertial pos="0.008296 -0.008609 0" quat="0.49568 0.510415 0.490798 0.502887" mass="1.92" diaginertia="0.00321875 0.00247147 0.00184878"/>
+        <joint name="RR_hip_joint" pos="0 0 0" axis="1 0 0" range="-0.78 0.488" actuatorfrcrange="-144 144"/>
+        <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="1 1 1 1" mesh="RR_hip_Link"/>
+        <body name="RR_thigh_Link" pos="0 -0.126 0">
+          <inertial pos="-0.008018 0.025243 -0.044242" quat="0.554391 -0.000263042 0.0863138 0.827768" mass="3.03643" diaginertia="0.0277969 0.0268821 0.00397395"/>
+          <joint name="RR_thigh_joint" pos="0 0 0" axis="0 -1 0" range="-2.55 0.554" actuatorfrcrange="-144 144"/>
+          <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="1 1 1 1" mesh="RR_thigh_Link"/>
+          <geom size="0.025 0.025 0.14" pos="-0.03 0 -0.11" type="box" rgba="1 1 1 1"/>
+          <body name="RR_calf_Link" pos="0 0 -0.28">
+            <inertial pos="0.00864 -0.00147 -0.164922" quat="0.707822 -0.00568901 -0.000364631 0.706368" mass="0.596" diaginertia="0.00751741 0.0072515 0.000353088"/>
+            <joint name="RR_calf_joint" pos="0 0 0" axis="0 -1 0" range="1.21 2.8" actuatorfrcrange="-144 144"/>
+            <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="1 1 1 1" mesh="R_calf_s"/>
+            <geom size="0.0125 0.0125 0.105" pos="0.02 0 -0.13" quat="0.995004 0 -0.0998334 0" type="box" rgba="1 1 1 1"/>
+            <geom size="0.046 0.01" pos="0 0 -0.28" quat="0.707107 0.707107 0 0" type="cylinder" rgba="1 1 1 1"/>
+            <body name="RR_wheel" pos="0 -0.03725 -0.28">
+              <inertial pos="0.006747 0.005886 0.011102" quat="0.669735 0.118378 0.183167 0.709854" mass="1.423" diaginertia="0.00690078 0.00535627 0.00216195"/>
+              <joint name="RR_wheel_joint" pos="0 0 0" axis="0 1 0" range="-999999 999999" actuatorfrcrange="-20 20"/>
+              <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="1 1 1 1" mesh="R_wheel"/>
+              <geom size="0.086 0.01875" quat="0.707107 0.707107 0 0" type="cylinder" rgba="1 1 1 1"/>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+  <actuator>
+    <motor name="FL_hip_joint" joint="FL_hip_joint"/>
+    <motor name="FL_thigh_joint" joint="FL_thigh_joint"/>
+    <motor name="FL_calf_joint" joint="FL_calf_joint"/>
+    <motor name="FL_wheel_joint" joint="FL_wheel_joint"/>
+    <motor name="FR_hip_joint" joint="FR_hip_joint"/>
+    <motor name="FR_thigh_joint" joint="FR_thigh_joint"/>
+    <motor name="FR_calf_joint" joint="FR_calf_joint"/>
+    <motor name="FR_wheel_joint" joint="FR_wheel_joint"/>
+    <motor name="RL_hip_joint" joint="RL_hip_joint"/>
+    <motor name="RL_thigh_joint" joint="RL_thigh_joint"/>
+    <motor name="RL_calf_joint" joint="RL_calf_joint"/>
+    <motor name="RL_wheel_joint" joint="RL_wheel_joint"/>
+    <motor name="RR_hip_joint" joint="RR_hip_joint"/>
+    <motor name="RR_thigh_joint" joint="RR_thigh_joint"/>
+    <motor name="RR_calf_joint" joint="RR_calf_joint"/>
+    <motor name="RR_wheel_joint" joint="RR_wheel_joint"/>
+  </actuator>
+</mujoco>

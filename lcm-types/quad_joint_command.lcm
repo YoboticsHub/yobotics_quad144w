@@ -1,0 +1,29 @@
+struct quad_joint_command_t 
+{
+    // 16个主关节期望角度（关节顺序 : LF(hip->thigh->calf->wheel)->RF->LR->RR）
+    float joint_des_q[12];
+    float joint_des_q_supplement[4];
+
+    // 12个主关节期望速度
+    float joint_des_qd[12];
+    float joint_des_qd_supplement[4];
+
+
+    // 12个主关节 kp
+    float joint_des_kp[12];
+    float joint_des_kp_supplement[4];
+
+
+    // 12个主关节 kd
+    float joint_des_kd[12];
+    float joint_des_kd_supplement[4];
+
+
+    // 12个主关节期望扭矩
+    float joint_des_tau[12];
+    float joint_des_tau_supplement[4];
+
+
+    // 电机使能标志位，一条腿一个
+    int32_t flags[4];  
+}

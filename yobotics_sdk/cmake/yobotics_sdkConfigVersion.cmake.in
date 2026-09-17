@@ -1,0 +1,7 @@
+# yobotics_sdkConfigVersion.cmake.in
+set(yobotics_sdk_VERSION "@YOBOTICS_SDK_VERSION@")
+if("${yobotics_sdk_FIND_VERSION}" VERSION_GREATER "${yobotics_sdk_VERSION}")
+    set(yobotics_sdk_VERSION_COMPATIBLE FALSE)
+else()
+    set(yobotics_sdk_VERSION_COMPATIBLE TRUE)
+endif()

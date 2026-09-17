@@ -1,0 +1,198 @@
+# 四足机器人部署通用框架 - 主配置文件
+# 作者: Han Jiang (jh18954242606@163.com)
+# 日期: 2026-01
+
+motor_communication:
+  type: "spi"  # 通信方式: "lcm" 或 "spi"
+  board: "rk3588"  # SPI 板型: "rk3588" 或 "upboard"
+  spi_device0: "/dev/spidev2.0"  # SPI 设备0路径
+  spi_device1: "/dev/spidev2.1"  # SPI 设备1路径
+  lcm_channels:
+    joint_state: "Y20W_QUAD_JOINT_STATE"  # 关节状态 LCM 通道名
+    joint_command: "Y20W_QUAD_JOINT_COMMAND"  # 关节命令 LCM 通道名
+    imu_data: "Y20W_QUAD_IMU_DATA"  # IMU 数据 LCM 通道名
+
+power_reader:
+  enable: true
+  type: "huake_bms"     # "can_power" 或 "huake_bms"
+  can_interface: "can0"
+  poll_hz: 2.0
+  timeout_ms: 100
+
+tsync_cdc:
+  enable: true
+  poll_hz: 2.0
+  device_path: "/dev/ttyACM2"
+  poll_timeout_ms: 0
+
+simulation:
+  enable_mujoco: false  # 是否启用 MuJoCo 仿真，仅支持lcm通信方式
+  mujoco:
+    xml_path: "resources/robots/quad144w/scene_terrain.xml"  # MuJoCo XML 文件路径（相对于项目根目录）
+    simulation_dt: 0.002  # 仿真时间步长（秒）
+    control_decimation: 1  # 控制频率（每 N 个仿真步长执行一次控制）
+    lcm_url: ""  # LCM URL（空字符串表示使用默认）
+
+rl_walk:
+  # encoder_path: "actor_model/terrain_jh/HumanEncodernet.onnx"  # 模型路径（相对于项目根目录） +
+  # model_path: "actor_model/terrain_jh/HumanActornet.onnx"  # 模型路径（相对于项目根目录）
+
+  encoder_path: "actor_model/y20w_v3/terrain/HumanEncodernet.onnx"  # 模型路径（相对于项目根目录） +
+  model_path: "actor_model/y20w_v3/terrain/HumanActornet.onnx"  # 模型路径（相对于项目根目录）
+  upboard_encoder_path: "actor_model/terrain_jh/HumanEncodernet.onnx"  # upboard使用Y20W walk策略
+  upboard_model_path: "actor_model/terrain_jh/HumanActornet.onnx"  # upboard使用Y20W walk策略
+
+  log_file_path: "/home/cat/log/log_RL_walk.csv"  # 日志文件路径（相对于项目根目录或绝对路径）
+  enable_logging: false  # 是否启用日志记录
+
+  obs_dim: 57  # 观测维度（多技能单策略版本：45 + command_2(roll/pitch/height) 3维）
+  dof_dim: 16  # 关节维度
+
+  joint_dim: 12  # 关节维度 +
+  wheel_dim: 4  # 轮子维度+
+
+  control_dt: 0.02  # 控制时间步长（秒）
+  decimation: 10  # 控制降采样率
+
+  action_scale: 0.25  # 动作缩放因子
+  action_scale_wheel: 10 #+
+
+  dof_pos_scale: 1.0  # 关节位置缩放因子
+  lin_vel_scale: 2.0  # 线速度缩放因子
+  ang_vel_scale: 0.25  # 角速度缩放因子
+  command_scale: 2.0  # 命令缩放因子
+  dof_vel_scale: 0.05 # 关节速度缩放因子
+  quat_scale: 1.0  # 四元数缩放因子 #?
+
+  clip_obs: 100.0  # 观测值裁剪范围
+  clip_action: 100.0  # 动作值裁剪范围
+  tau_limit: 200.0  # 扭矩限制
+
+  command_forward_scale: 1.0  # 前进命令缩放
+  command_lateral_scale: 1.0  # 侧向命令缩放
+  command_yaw_scale: 0.2 #0.125  # 偏航命令缩放
+
+  default_dof_pos: [0.0, -0.8, 1.6, 0.0, 0.0, -0.8, 1.6, 0.0, 0.0, -0.8, 1.6, 0.0, 0.0, -0.8, 1.6, 0.0]  # 默认关节位置（12维）
+
+  dof_kp: [8, 8, 8, 0, 8, 8, 8, 0, 8, 8, 8, 0, 8, 8, 8, 0]  # Kp（16关节）rcCommand
+  dof_kd: [0.2, 0.2, 0.2, 0.5, 0.2, 0.2, 0.2, 0.5, 0.2, 0.2, 0.2, 0.5, 0.2, 0.2, 0.2, 0.5]  #Kd（16关节）
+
+  # dof_kp: [8, 8, 8, 0]  # Kp（16关节）rcCommand
+  # dof_kd: [0.2, 0.2, 0.2, 0.5]  #Kd（1
+
+rl_highspeed:
+  encoder_path: "actor_model/y20w_s2/vel/HumanEncodernet.onnx"  # 模型路径（相对于项目根目录） +
+  model_path: "actor_model/y20w_s2/vel/HumanActornet.onnx"  # 模型路径（相对于项目根目录）
+
+  log_file_path: "/home/cat/log/log_RL_highspeed.csv"  # 日志文件路径（相对于项目根目录或绝对路径）
+  enable_logging: false  # 是否启用日志记录
+
+rl_climb:
+  encoder_path: "actor_model/high_s2/HumanEncodernet.onnx"  # 模型路径（相对于项目根目录） +
+  model_path: "actor_model/high_s2/HumanActornet.onnx"  # 模型路径（相对于项目根目录）
+
+  log_file_path: "/home/cat/log/log_RL_climb.csv"  # 日志文件路径（相对于项目根目录或绝对路径）
+  enable_logging: false  # 是否启用日志记录
+
+rl_stand:
+  encoder_path: "actor_model/stand/HumanEncodernet.onnx"  # 模型路径（相对于项目根目录） +
+  model_path: "actor_model/stand/HumanActornet.onnx"  # 模型路径（相对于项目根目录）
+
+  log_file_path: "/home/cat/log/log_RL_stand.csv"  # 日志文件路径（相对于项目根目录或绝对路径）
+  enable_logging: false  # 是否启用日志记录
+
+development:
+  # 开发模式配置
+  robot_id: "Y20W"  # 机器人标识（用于LCM消息标识）
+  state_channel: "Y20W_development_state"  # 状态广播LCM通道（如果为空，将使用robot_id + "_development_state"）
+  command_channel: "Y20W_development_command"  # 开发模式指令LCM通道（如果为空，将使用robot_id + "_development_command"）
+  roll_threshold: 1.0 # 开发模式结束后的自检roll阈值（弧度）
+  pitch_threshold: 1.0  # 开发模式结束后的自检pitch阈值（弧度）
+
+robot_control_parameters:
+  controller_dt: 0.002  # 控制器时间步长（秒）
+  use_rc: 1  # 是否使用遥控器（1=启用，0=禁用）
+  cheater_mode: 0  # 是否启用作弊模式（1=启用，0=禁用）
+  control_mode: 0  # 控制模式
+
+logging:
+  enable_logging: True  # 是否启用日志保存（将终端输出保存到文件）
+  log_file_path: "/home/cat/log/robot_log.txt"  # 日志文件路径（相对于项目根目录或绝对路径）
+
+gamepad:  # at9s, gamepad, lcm, hybrid
+  device_type: "hybrid" 
+  joystick_device: "/dev/input/js0"
+  at9s_port: "/dev/ttyS4"
+  lcm_control_channel: "QUAD_ROBOT_CONTROL_Y20W"  # 遥控/上位机控制输入通道
+  lcm_state_channel: "QUAD_ROBOT_STATE_Y20W"  # 机器人状态上报通道
+
+  # 摇杆映射（校准结果）
+  axis_left_stick_x: 0  # 左摇杆X
+  axis_left_stick_y: 1  # 左摇杆Y
+  axis_right_stick_x: 3  # 右摇杆X
+  axis_right_stick_y: 4  # 右摇杆Y
+
+  # 按钮映射（校准结果）
+  button_a: 0  # A
+  button_b: 1  # B
+  button_back: 6  # Back
+  button_lb: 4  # LB
+  button_rb: 5  # RB
+  button_start: 7  # Start
+  button_x: 2  # X
+  button_y: 3  # Y
+
+  deadzone: 0.1  # 摇杆死区（0.0到1.0）
+  speed_forward_max: 1.0 #0.6  # 前进最大速度（m/s）
+  speed_backward_max: 1.0 #0.8  # 后退最大速度（m/s）
+  speed_lateral_max: 1.0 #0.6  # 左右最大速度（m/s）
+  speed_yaw_max: 1.3  # 角速度最大值（rad/s）
+  # 模式切换顺序（Back按钮：上一个模式，Start按钮：下一个模式）
+  # 模式名称对应：OFF, RECOVERY_STAND, RL_WALK, DEVELOPMENT
+  mode_sequence:
+    - "DAMP"
+    - "RECOVERY_STAND"
+    - "RL_WALK"
+    - "RL_HIGHSPEED"
+    - "RL_CLIMB"
+    - "RL_STAND"
+    - "DEVELOPMENT"
+
+imu:
+  # IMU传感器端口配置
+  type: "lord"  # IMU驱动类型: "lord" 或 "hipnuc"
+  port_base: "/dev/ttyUSB"  # lord: 设备名前缀，例如/dev/ttyACM；hipnuc: 完整设备路径，例如/dev/ttyS0
+  port_number: 0  # 仅lord使用，最终设备为 port_base + port_number，例如/dev/ttyACM0
+
+
+safety_checker:
+  # 注意：关节扭矩、速度和位置限制从URDF文件读取
+  # 警告：禁用安全检查可能很危险！不建议在真实机器人上禁用
+  enable_safety_check: True  # 是否启用安全检查（False=禁用所有检查，不推荐用于真实机器人）
+
+  # 单独检查使能标志 - 独立控制每种安全检查类型
+  # 如果enable_safety_check为False，所有检查都将被禁用，无论这些标志如何设置
+  # 如果enable_safety_check为True，每个检查可以单独启用/禁用
+  enable_orientation_check: False  # 是否启用姿态检查
+  enable_joint_torque_check: False  # 是否启用关节扭矩检查
+  enable_joint_velocity_check: False  # 是否启用关节速度检查
+  enable_joint_position_check: False  # 是否启用关节位置检查
+  enable_leg_cartesian_velocity_check: True  # 是否启用腿部笛卡尔速度检查
+  enable_hardware_loss_check: False  # 是否启用硬件丢失保护（触发ESTOP）
+  enable_hardware_loss_print: True  # 是否启用硬件丢失打印（独立于保护功能）
+
+  urdf_path: "resources/robots/quad144w/urdf/sduog144_V2_s.urdf"  # 16轴轮式URDF文件路径（相对于项目根目录或绝对路径）
+  safety_margin_factor: 0.95  # 安全裕度因子，所有关节限制（位置、速度、扭矩）将乘以该因子（典型值：0.8-0.95，更保守=更小值）
+
+  max_roll_deg: 30.0  # 最大滚转角限制（度）
+  max_pitch_deg: 50.0  # 最大俯仰角限制（度）
+  max_leg_cartesian_vel: 25.0  # 腿部笛卡尔空间速度限制（m/s）
+
+  exceed_count_threshold_joint_vel: 5  # 关节速度超限计数阈值（触发安全保护前的超限次数）
+  exceed_count_threshold_joint_pos: 5  # 关节位置超限计数阈值
+  exceed_count_threshold_joint_torque: 5  # 关节扭矩超限计数阈值
+  exceed_count_threshold_leg_vel: 5  # 腿部速度超限计数阈值
+  exceed_count_threshold_orientation: 3  # 姿态超限计数阈值
+
+  hardware_loss_threshold: 200  # 硬件丢失阈值（连续未变化的读数次数，触发丢失判定）
+  hardware_loss_velocity_threshold: 0.000001  # 硬件丢失速度阈值（rad/s，最小变化量，低于此值视为"未变化"）

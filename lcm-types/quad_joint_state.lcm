@@ -1,0 +1,23 @@
+struct quad_joint_state_t
+{
+    // 16个主关节状态
+    float joint_q[12];
+    float joint_q_supplement[4];
+
+    float joint_qd[12];
+    float joint_qd_supplement[4];
+
+    int32_t  flags[4];
+    int32_t  spi_driver_status;
+
+
+    float joint_tau[12];
+    float joint_tau_supplement[4];
+
+    int32_t joint_fault[12];
+    int32_t joint_fault_supplement[4];
+
+    float joint_temp[12];
+    float joint_temp_supplement[4];
+
+}

@@ -1,0 +1,5 @@
+Yobotics Quad144W Controller - Secondary Development Package
+Version: 1.0
+Build Date: 2026-09-17 10:29:58 CST
+Robot: quad144w / Y20W
+Build Directory: /home/les/mygit/rotbot_4/quad144w-rl-control-framework-rk3588-8bit/build

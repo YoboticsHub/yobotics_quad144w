@@ -1,0 +1,11 @@
+struct sport_client_state_t
+{
+    float power[2];
+    float rpy[3];
+    float v;
+    float h;
+    int32_t state;
+    int32_t fault;
+}
+    
+        

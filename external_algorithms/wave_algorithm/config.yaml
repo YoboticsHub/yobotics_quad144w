@@ -1,0 +1,48 @@
+# 躯干波动算法配置文件（Y20W / 16维协议）
+algorithm_name: "wave_algorithm"
+
+policy:
+  type: "none"
+  model_path: ""
+  encoder_path: ""
+  read_metadata: false
+  warmup_count: 0
+  action_threshold: 200.0
+
+model_params:
+  num_actions: 16
+  num_obs: 57
+  # 关节顺序：每条腿 [hip, thigh, calf, wheel]
+  default_joint_pos: [0.0, -0.8, 1.6, 0.0, 0.0, -0.8, 1.6, 0.0, 0.0, -0.8, 1.6, 0.0, 0.0, -0.8, 1.6, 0.0]
+  joint_stiffness: [8, 8, 8, 0, 8, 8, 8, 0, 8, 8, 8, 0, 8, 8, 8, 0]
+  joint_damping: [0.2, 0.2, 0.2, 0.5, 0.2, 0.2, 0.2, 0.5, 0.2, 0.2, 0.2, 0.5, 0.2, 0.2, 0.2, 0.5]
+  action_scale: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+
+lcm:
+  url: ""
+  state_channel: "Y20W_development_state"
+  command_channel: "Y20W_development_command"
+  robot_id: "Y20W"
+
+execution:
+  frequency: 100.0
+  lcm_send_frequency: 200.0
+  auto_start: true
+  auto_end: true
+  max_execution_time: 0.0
+
+motion:
+  frequency: 0.1
+  amplitude: 0.5
+
+rl_mode:
+  is_rl_mode: false
+
+joint_mapping:
+  model_joint_order: []
+  robot_joint_order: []
+  enabled: false
+
+debug:
+  print_config: true
+  print_metadata: false

@@ -1,0 +1,6 @@
+struct imu_data_t {
+  float quaternion[4];
+  float rpy[3];
+  float gyroscope[3];
+  float accelerometer[3];
+}

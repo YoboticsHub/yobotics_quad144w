@@ -1,0 +1,6 @@
+struct nav_enable_t
+{
+    int32_t enable;
+}
+    
+        

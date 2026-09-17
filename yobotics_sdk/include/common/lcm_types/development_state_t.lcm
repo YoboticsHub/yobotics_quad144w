@@ -1,0 +1,22 @@
+struct development_state_t
+{
+    // 机器人标识（用于标记机器人型号）
+    string robot_id;
+    
+    // 关节状态（与quad_joint_state_t相同）
+    float joint_q[12];
+    float joint_qd[12];
+    float joint_tau[12];
+
+    // IMU数据（与microstrain_lcmt相同）
+    float quat[4];
+    float rpy[3];
+    float omega[3];
+    float acc[3];
+    
+    // 遥控器指令
+    float v_des[3];      // 期望速度 [vx, vy, omega_z]
+    float omega_des[3];  // 期望角速度
+    int32_t mode;        // 控制模式
+}
+

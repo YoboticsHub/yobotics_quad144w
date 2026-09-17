@@ -1,0 +1,21 @@
+struct quad_joint_command_t 
+{
+    // 所有关节的期望角度（关节顺序 : LF(hip->thigh->calf)->RF->LR->RR 12维）
+    float joint_des_q[12];
+    
+    // 所有关节的期望速度
+    float joint_des_qd[12];
+
+    // 所有关节的期望扭矩
+    float joint_des_tau[12];
+    
+    // 所有关节的kp 
+    float joint_des_kp[12];
+
+    // 所有关节的kd
+    float joint_des_kd[12];
+    
+    // 电机使能标志位，与SPI结构体同步，一条腿一个
+    int32_t flags[4];  
+}
+

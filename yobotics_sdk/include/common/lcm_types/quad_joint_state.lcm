@@ -1,0 +1,11 @@
+struct quad_joint_state_t
+{
+    // 关节状态（与quad_joint_state_t相同）
+    float joint_q[12];
+    float joint_qd[12];
+    float joint_tau[12];
+    float joint_fault[12];
+    float joint_temp[12];
+    
+}
+

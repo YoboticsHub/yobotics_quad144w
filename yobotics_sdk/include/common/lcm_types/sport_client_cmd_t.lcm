@@ -1,0 +1,11 @@
+struct sport_client_cmd_t
+{
+    int32_t  rc_enable;
+    float   velocity[3];
+    float   euler_angles[3];
+    float   body_height;
+    float   step_height;
+    int32_t  api;
+}
+  
+      

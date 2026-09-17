@@ -1,0 +1,25 @@
+struct development_command_t
+{
+    // 机器人标识（用于标记目标机器人）
+    string robot_id;
+    
+    // 控制标志
+    int32_t enable_development_mode;  // 1=开始开发模式, 0=结束开发模式
+    
+    // 所有关节的期望角度（关节顺序 : LF(hip->thigh->calf)->RF->LR->RR 12维）
+    float joint_des_q[12];
+    
+    // 所有关节的期望速度
+    float joint_des_qd[12];
+
+    // 所有关节的期望扭矩
+    float joint_des_tau[12];
+    
+    // 所有关节的kp 
+    float joint_des_kp[12];
+
+    // 所有关节的kd
+    float joint_des_kd[12];
+
+}
+
