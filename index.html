@@ -37,11 +37,7 @@
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
           <a href="index.html" class="icon icon-home"> quad144w/Y20W 轮足机器人控制框架使用说明书
-        </a><div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
-      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
-  </form>
-</div>
+        </a>
       </div>
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
@@ -57,6 +53,8 @@
     <li class="toctree-l2"><a class="reference internal" href="#_4">常用命令</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#_5">首次验收顺序</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_6">机器人操作视频</a>
     </li>
     </ul>
                 </li>
@@ -160,7 +158,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="quad144wy20w">quad144w/Y20W 轮足机器人控制框架使用说明书<a class="headerlink" href="#quad144wy20w" title="Permanent link">&para;</a></h1>
+                <div><h1 id="quad144wy20w">quad144w/Y20W 轮足机器人控制框架使用说明书<a class="headerlink" href="#quad144wy20w" title="Permanent link">¶</a></h1>
 <p>本文档面向 <code>yobotics_quad144w</code> 二次开发包，说明如何配置环境、运行 MuJoCo 仿真、启动真实机器人、使用 Yobotics SDK、接入外部算法以及启动 WebRTC 服务。</p>
 <table>
 <thead>
@@ -192,7 +190,7 @@
 </tr>
 </tbody>
 </table>
-<h2 id="_1">推荐阅读路径<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h2 id="_1">推荐阅读路径<a class="headerlink" href="#_1" title="Permanent link">¶</a></h2>
 <table>
 <thead>
 <tr>
@@ -229,7 +227,7 @@
 </tr>
 </tbody>
 </table>
-<h2 id="_2">系统全景<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h2 id="_2">系统全景<a class="headerlink" href="#_2" title="Permanent link">¶</a></h2>
 <pre><code class="language-text">                    高层控制输入
         手柄 -------- SDK -------- WebRTC
           \            |             /
@@ -248,7 +246,7 @@
           12 腿关节 + 4 wheel
 </code></pre>
 <p>控制器是所有运行路径的中心。SDK 和 WebRTC 发送高层运动意图，外部算法通过 DEVELOPMENT 提交关节级目标，MuJoCo 或实机硬件层执行控制器最终输出。</p>
-<h2 id="_3">使用原则<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<h2 id="_3">使用原则<a class="headerlink" href="#_3" title="Permanent link">¶</a></h2>
 <div class="admonition danger">
 <p class="admonition-title">实机安全</p>
 <p>新模型、新参数和外部算法必须先在 MuJoCo 中验证。首次实机运行应架空轮足或使用可靠支架，并安排人员随时操作急停。</p>
@@ -259,7 +257,7 @@
 <li>修改模型时同时核对观测维度、动作维度、默认关节位置、缩放和 PD 参数。</li>
 <li>LCM 跨机器通信时，发送端和接收端必须使用同一多播 URL 和可达网卡。</li>
 </ul>
-<h2 id="_4">常用命令<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<h2 id="_4">常用命令<a class="headerlink" href="#_4" title="Permanent link">¶</a></h2>
 <pre><code class="language-bash"># 准备 Python、MuJoCo 和 LCM 环境
 bash scripts/setup_conda_env.sh
 
@@ -275,7 +273,7 @@ bash scripts/monitor_lcm.sh --no-gui
 # 实机状态可视化
 bash scripts/start_hardware_viewer.sh
 </code></pre>
-<h2 id="_5">首次验收顺序<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<h2 id="_5">首次验收顺序<a class="headerlink" href="#_5" title="Permanent link">¶</a></h2>
 <ol>
 <li>安装环境并验证 Python、LCM 和 MuJoCo。</li>
 <li>启动 MuJoCo，确认模型、关节状态和 IMU 通道连续。</li>
@@ -285,6 +283,9 @@ bash scripts/start_hardware_viewer.sh
 <li>所有异常退出路径在仿真通过后，才进入支架实机测试。</li>
 </ol>
 <p>每一阶段都应留下可重复的命令、配置文件和成功标志。出现异常时回到最近一个已通过的阶段，不同时修改模型、增益、通道和机械配置。</p>
+<h2 id="_6">机器人操作视频<a class="headerlink" href="#_6" title="Permanent link">¶</a></h2>
+<p>以Y20W型号四足机器人为例：</p>
+<p><div class="video-container"><iframe src="videos/Y20W.mp4" style="position:relative;width:100%;height:22.172vw" frameborder="0" allowfullscreen alt="type:video"></iframe></div></p></div>
               
             </div>
           </div><footer>
@@ -322,7 +323,6 @@ bash scripts/start_hardware_viewer.sh
     <script src="js/theme_extra.js"></script>
     <script src="js/theme.js"></script>
       <script src="js/copy-code.js"></script>
-      <script src="search/main.js"></script>
     <script>
         jQuery(function () {
             SphinxRtdTheme.Navigation.enable(true);
@@ -334,5 +334,5 @@ bash scripts/start_hardware_viewer.sh
 
 <!--
 MkDocs version : 1.6.1
-Build Date UTC : 2026-09-17 06:30:43.553236+00:00
+Build Date UTC : 2026-09-18 01:34:58.445409+00:00
 -->

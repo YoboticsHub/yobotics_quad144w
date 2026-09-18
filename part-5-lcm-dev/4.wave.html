@@ -37,11 +37,7 @@
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
           <a href="../index.html" class="icon icon-home"> quad144w/Y20W 轮足机器人控制框架使用说明书
-        </a><div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
-      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
-  </form>
-</div>
+        </a>
       </div>
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
@@ -197,9 +193,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="54-wave">5.4 wave 规则示例<a class="headerlink" href="#54-wave" title="Permanent link">&para;</a></h1>
+                <div><h1 id="54-wave">5.4 wave 规则示例<a class="headerlink" href="#54-wave" title="Permanent link">¶</a></h1>
 <p><code>wave_algorithm</code> 不加载 ONNX 模型，而是直接生成低频正弦关节偏移。它覆盖了状态接收、16 维排列、命令缓存、高频发送和安全退出，是理解 DEVELOPMENT 链路的首选示例。</p>
-<h2 id="_1">适用场景<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h2 id="_1">适用场景<a class="headerlink" href="#_1" title="Permanent link">¶</a></h2>
 <ul>
 <li>第一次验证外部算法环境和 LCM 通道；</li>
 <li>检查 12+4 关节映射和四腿方向；</li>
@@ -207,7 +203,7 @@
 <li>为自定义规则算法建立最小工程模板。</li>
 </ul>
 <p>它不是步态控制器。默认动作只让 thigh 与 calf 产生周期偏移，不提供平衡、落足规划或抗扰控制。</p>
-<h2 id="_2">启动前提<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h2 id="_2">启动前提<a class="headerlink" href="#_2" title="Permanent link">¶</a></h2>
 <ol>
 <li>Python 能导入 <code>numpy</code>、<code>yaml</code> 和 <code>lcm</code>。</li>
 <li>MuJoCo 和控制器已经启动。</li>
@@ -223,8 +219,8 @@
 <pre><code class="language-bash">cd external_algorithms/wave_algorithm
 python3 run_algorithm.py --config config.yaml
 </code></pre>
-<h2 id="_3">配置逐段说明<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
-<h3 id="policy"><code>policy</code><a class="headerlink" href="#policy" title="Permanent link">&para;</a></h3>
+<h2 id="_3">配置逐段说明<a class="headerlink" href="#_3" title="Permanent link">¶</a></h2>
+<h3 id="policy"><code>policy</code><a class="headerlink" href="#policy" title="Permanent link">¶</a></h3>
 <table>
 <thead>
 <tr>
@@ -267,7 +263,7 @@ python3 run_algorithm.py --config config.yaml
 </tbody>
 </table>
 <p><code>RunAlgorithm._load_policy()</code> 会把 <code>model</code> 和 <code>encoder</code> 设置为 <code>None</code>，并将策略类型标记为 <code>none</code>。</p>
-<h3 id="model_params"><code>model_params</code><a class="headerlink" href="#model_params" title="Permanent link">&para;</a></h3>
+<h3 id="model_params"><code>model_params</code><a class="headerlink" href="#model_params" title="Permanent link">¶</a></h3>
 <table>
 <thead>
 <tr>
@@ -313,7 +309,7 @@ python3 run_algorithm.py --config config.yaml
 <p class="admonition-title">Note</p>
 <p><code>process_action()</code> 直接执行 <code>default_joint_pos + action</code>。因此 wave 的幅值直接叠加到目标关节位置，<code>action_scale</code> 在当前实现中不参与计算。</p>
 </div>
-<h3 id="lcm"><code>lcm</code><a class="headerlink" href="#lcm" title="Permanent link">&para;</a></h3>
+<h3 id="lcm"><code>lcm</code><a class="headerlink" href="#lcm" title="Permanent link">¶</a></h3>
 <table>
 <thead>
 <tr>
@@ -345,7 +341,7 @@ python3 run_algorithm.py --config config.yaml
 </tr>
 </tbody>
 </table>
-<h3 id="execution"><code>execution</code><a class="headerlink" href="#execution" title="Permanent link">&para;</a></h3>
+<h3 id="execution"><code>execution</code><a class="headerlink" href="#execution" title="Permanent link">¶</a></h3>
 <table>
 <thead>
 <tr>
@@ -382,7 +378,7 @@ python3 run_algorithm.py --config config.yaml
 </tr>
 </tbody>
 </table>
-<h3 id="motion"><code>motion</code><a class="headerlink" href="#motion" title="Permanent link">&para;</a></h3>
+<h3 id="motion"><code>motion</code><a class="headerlink" href="#motion" title="Permanent link">¶</a></h3>
 <table>
 <thead>
 <tr>
@@ -404,14 +400,14 @@ python3 run_algorithm.py --config config.yaml
 </tr>
 </tbody>
 </table>
-<h3 id="_4">其他配置<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<h3 id="_4">其他配置<a class="headerlink" href="#_4" title="Permanent link">¶</a></h3>
 <ul>
 <li><code>rl_mode.is_rl_mode: false</code> 标识这是规则控制示例；</li>
 <li><code>joint_mapping.enabled: false</code>，当前示例按固定 Y20W 顺序工作；</li>
 <li><code>debug.print_config: true</code>，启动时打印最终配置；</li>
 <li><code>debug.print_metadata: false</code>，没有 ONNX metadata。</li>
 </ul>
-<h2 id="_5">动作生成原理<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<h2 id="_5">动作生成原理<a class="headerlink" href="#_5" title="Permanent link">¶</a></h2>
 <p>运行时间为 <code>t</code>、频率为 <code>f</code>、幅值为 <code>A</code> 时：</p>
 <pre><code class="language-text">phase        = 2 * pi * f * t
 thigh_offset = A * sin(phase)
@@ -434,7 +430,7 @@ tau_des = 0
 kp/kd   = model_params 中的数组
 </code></pre>
 <p>16 维交错数组由 <code>LCMInterface</code> 拆为 12 个腿关节和 4 个 wheel supplement。</p>
-<h2 id="_6">状态和方法对应关系<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<h2 id="_6">状态和方法对应关系<a class="headerlink" href="#_6" title="Permanent link">¶</a></h2>
 <table>
 <thead>
 <tr>
@@ -466,23 +462,23 @@ kp/kd   = model_params 中的数组
 </tbody>
 </table>
 <p><code>compute_observation()</code> 内部对字段读取使用异常捕获，字段异常时对应区域可能保持为零。它适合演示，不应被当作严格的状态完整性验证。</p>
-<h2 id="mujoco">MuJoCo 验证流程<a class="headerlink" href="#mujoco" title="Permanent link">&para;</a></h2>
-<h3 id="1">1. 启动仿真<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
+<h2 id="mujoco">MuJoCo 验证流程<a class="headerlink" href="#mujoco" title="Permanent link">¶</a></h2>
+<h3 id="1">1. 启动仿真<a class="headerlink" href="#1" title="Permanent link">¶</a></h3>
 <pre><code class="language-bash">bash scripts/start_mujoco.sh
 </code></pre>
 <p>确认模型稳定出现，控制器没有报告配置或模型加载错误。</p>
-<h3 id="2">2. 监控通道<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
+<h3 id="2">2. 监控通道<a class="headerlink" href="#2" title="Permanent link">¶</a></h3>
 <pre><code class="language-bash">bash scripts/monitor_lcm.sh --no-gui
 </code></pre>
 <p>先确认 <code>Y20W_development_state</code>，此时还不应依赖 wave 命令。</p>
-<h3 id="3-wave">3. 启动 wave<a class="headerlink" href="#3-wave" title="Permanent link">&para;</a></h3>
+<h3 id="3-wave">3. 启动 wave<a class="headerlink" href="#3-wave" title="Permanent link">¶</a></h3>
 <pre><code class="language-bash">python3 external_algorithms/wave_algorithm/run_algorithm.py \
   --config external_algorithms/wave_algorithm/config.yaml
 </code></pre>
 <p>成功日志应包括：配置路径、<code>policy.type='none'</code>、推理频率、发送频率和 DEVELOPMENT 启动提示。</p>
-<h3 id="4-development">4. 进入 DEVELOPMENT<a class="headerlink" href="#4-development" title="Permanent link">&para;</a></h3>
+<h3 id="4-development">4. 进入 DEVELOPMENT<a class="headerlink" href="#4-development" title="Permanent link">¶</a></h3>
 <p>使用当前手柄或上位机控制方式切换到 DEVELOPMENT。确认状态 <code>mode</code> 已变化，不要只看算法打印。</p>
-<h3 id="5">5. 检查动作<a class="headerlink" href="#5" title="Permanent link">&para;</a></h3>
+<h3 id="5">5. 检查动作<a class="headerlink" href="#5" title="Permanent link">¶</a></h3>
 <ul>
 <li>四条腿方向一致；</li>
 <li>hip 和 wheel 没有明显周期目标；</li>
@@ -491,9 +487,9 @@ kp/kd   = model_params 中的数组
 <li>实际周期接近 <code>motion.frequency</code>；</li>
 <li><code>Y20W_development_command</code> 频率接近 <code>200 Hz</code> 的配置量级。</li>
 </ul>
-<h3 id="6">6. 退出<a class="headerlink" href="#6" title="Permanent link">&para;</a></h3>
+<h3 id="6">6. 退出<a class="headerlink" href="#6" title="Permanent link">¶</a></h3>
 <p>先切回 DAMP，再按 <code>Ctrl+C</code> 停止算法。确认命令中的 <code>enable_development_mode</code> 变为 <code>0</code>，机器人没有留在 DEVELOPMENT。</p>
-<h2 id="_7">保守调参<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<h2 id="_7">保守调参<a class="headerlink" href="#_7" title="Permanent link">¶</a></h2>
 <p>实机首次测试不要直接沿用仿真幅值。建议使用一份单独配置副本，按以下顺序调整：</p>
 <ol>
 <li>保持低频，只减小 <code>amplitude</code>；</li>
@@ -503,7 +499,7 @@ kp/kd   = model_params 中的数组
 <li>每次只改一组参数并记录结果。</li>
 </ol>
 <p><code>calf_offset</code> 是 <code>-2 * amplitude</code>，因此 calf 的最大偏移大于 thigh。判断安全幅值时应按 calf 峰值计算，而不是只看配置中的 <code>amplitude</code>。</p>
-<h2 id="_8">故障排查<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<h2 id="_8">故障排查<a class="headerlink" href="#_8" title="Permanent link">¶</a></h2>
 <table>
 <thead>
 <tr>
@@ -558,14 +554,14 @@ kp/kd   = model_params 中的数组
 </tr>
 </tbody>
 </table>
-<h2 id="_9">通过标准<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<h2 id="_9">通过标准<a class="headerlink" href="#_9" title="Permanent link">¶</a></h2>
 <ul>
 <li>wave 连续运行多个周期，没有 NaN、异常日志或频率长时间下降；</li>
 <li>四条腿关节方向、wheel supplement 和默认姿态全部正确；</li>
 <li>从进入到退出 DEVELOPMENT 的状态变化可重复；</li>
 <li>算法退出后机器人处于安全模式；</li>
 <li>只有满足以上条件，才继续验证 <a href="5.walk-onnx.html">ONNX 行走示例</a>。</li>
-</ul>
+</ul></div>
               
             </div>
           </div><footer>
@@ -606,7 +602,6 @@ kp/kd   = model_params 中的数组
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
       <script src="../js/copy-code.js"></script>
-      <script src="../search/main.js"></script>
     <script>
         jQuery(function () {
             SphinxRtdTheme.Navigation.enable(true);

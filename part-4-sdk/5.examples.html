@@ -37,11 +37,7 @@
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
           <a href="../index.html" class="icon icon-home"> quad144w/Y20W 轮足机器人控制框架使用说明书
-        </a><div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
-      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
-  </form>
-</div>
+        </a>
       </div>
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
@@ -159,8 +155,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="45">4.5 仿真与实机使用<a class="headerlink" href="#45" title="Permanent link">&para;</a></h1>
-<h2 id="_1">仿真联调<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+                <div><h1 id="45">4.5 仿真与实机使用<a class="headerlink" href="#45" title="Permanent link">¶</a></h1>
+<h2 id="_1">仿真联调<a class="headerlink" href="#_1" title="Permanent link">¶</a></h2>
 <p>终端 1：</p>
 <pre><code class="language-bash">bash scripts/start_mujoco.sh --config config_sim.yaml
 </code></pre>
@@ -172,7 +168,7 @@ yobotics_sdk/build/yobot_robot_state_client
 <pre><code class="language-bash">yobotics_sdk/build/yobot_sport_client
 </code></pre>
 <p>先确认状态读取正常，再从 <code>DAMP</code> 切换到站立和低速行走。</p>
-<h2 id="_2">实机联调<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h2 id="_2">实机联调<a class="headerlink" href="#_2" title="Permanent link">¶</a></h2>
 <ol>
 <li>按第三部分启动控制器并确认机器人处于安全支撑状态。</li>
 <li>SDK 主机和机器人配置同一 LCM 多播 URL。</li>
@@ -180,7 +176,7 @@ yobotics_sdk/build/yobot_robot_state_client
 <li>启动运动示例，从 <code>DAMP</code> 和 <code>RECOVERY_STAND</code> 开始验证。</li>
 </ol>
 <p>多网卡环境需要确保多播路由指向机器人所在网卡。可先运行 <code>bash scripts/monitor_lcm.sh --no-gui</code> 判断问题位于网络还是 SDK。</p>
-<h2 id="_3">联调成功标志<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<h2 id="_3">联调成功标志<a class="headerlink" href="#_3" title="Permanent link">¶</a></h2>
 <ol>
 <li>状态客户端先于运动客户端工作，并能看到持续更新。</li>
 <li>SDK 发布后 <code>QUAD_ROBOT_CONTROL_Y20W</code> 出现。</li>
@@ -188,7 +184,7 @@ yobotics_sdk/build/yobot_robot_state_client
 <li>小幅速度命令方向正确，清零后机器人停止。</li>
 <li>客户端退出前已发送零速度并切回安全模式。</li>
 </ol>
-<h2 id="_4">常见问题<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<h2 id="_4">常见问题<a class="headerlink" href="#_4" title="Permanent link">¶</a></h2>
 <table>
 <thead>
 <tr>
@@ -218,7 +214,7 @@ yobotics_sdk/build/yobot_robot_state_client
 <td>保留一个控制发布者，其余客户端只读状态</td>
 </tr>
 </tbody>
-</table>
+</table></div>
               
             </div>
           </div><footer>
@@ -259,7 +255,6 @@ yobotics_sdk/build/yobot_robot_state_client
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
       <script src="../js/copy-code.js"></script>
-      <script src="../search/main.js"></script>
     <script>
         jQuery(function () {
             SphinxRtdTheme.Navigation.enable(true);

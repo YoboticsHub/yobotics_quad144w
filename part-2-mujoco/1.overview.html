@@ -37,11 +37,7 @@
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
           <a href="../index.html" class="icon icon-home"> quad144w/Y20W 轮足机器人控制框架使用说明书
-        </a><div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
-      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
-  </form>
-</div>
+        </a>
       </div>
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
@@ -155,7 +151,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="21">2.1 仿真结构<a class="headerlink" href="#21" title="Permanent link">&para;</a></h1>
+                <div><h1 id="21">2.1 仿真结构<a class="headerlink" href="#21" title="Permanent link">¶</a></h1>
 <p>MuJoCo 进程加载 Y20W 场景并通过 LCM 与控制器交换关节和 IMU 数据。控制器使用与实机相同的状态机和策略配置，但电机通信类型改为 <code>lcm</code>。</p>
 <pre><code class="language-text">config_sim.yaml
       |
@@ -168,14 +164,14 @@
 </code></pre>
 <p>仿真默认关键项：</p>
 <pre><code class="language-yaml">motor_communication:
-  type: &quot;lcm&quot;
+  type: "lcm"
 simulation:
   enable_mujoco: true
   mujoco:
-    xml_path: &quot;resources_sim/robots/quad144w/scene_terrain.xml&quot;
+    xml_path: "resources_sim/robots/quad144w/scene_terrain.xml"
 </code></pre>
 <p>仿真用于验证模型能否加载、16 维关节顺序、动作连续性、模式切换、LCM 通信和日志输出。它不能替代实机的 SPI、IMU、供电和机械安全检查。</p>
-<h2 id="_1">一个控制周期<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h2 id="_1">一个控制周期<a class="headerlink" href="#_1" title="Permanent link">¶</a></h2>
 <ol>
 <li>MuJoCo 根据上一帧执行器目标推进动力学。</li>
 <li>仿真发布 12+4 关节状态和虚拟 IMU。</li>
@@ -184,7 +180,7 @@ simulation:
 <li>MuJoCo 接收命令并进入下一步。</li>
 </ol>
 <p>外部算法启用时，控制器还会生成 <code>Y20W_development_state</code>，并把 <code>Y20W_development_command</code> 作为 DEVELOPMENT 状态机输入。外部算法仍不直接连接 MuJoCo。</p>
-<h2 id="_2">仿真能验证什么<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h2 id="_2">仿真能验证什么<a class="headerlink" href="#_2" title="Permanent link">¶</a></h2>
 <table>
 <thead>
 <tr>
@@ -215,7 +211,7 @@ simulation:
 </tr>
 </tbody>
 </table>
-<p>仿真通过是上实机的必要条件，但不是实机安全结论。</p>
+<p>仿真通过是上实机的必要条件，但不是实机安全结论。</p></div>
               
             </div>
           </div><footer>
@@ -256,7 +252,6 @@ simulation:
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
       <script src="../js/copy-code.js"></script>
-      <script src="../search/main.js"></script>
     <script>
         jQuery(function () {
             SphinxRtdTheme.Navigation.enable(true);

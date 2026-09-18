@@ -37,11 +37,7 @@
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
           <a href="../index.html" class="icon icon-home"> quad144w/Y20W 轮足机器人控制框架使用说明书
-        </a><div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
-      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
-  </form>
-</div>
+        </a>
       </div>
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
@@ -161,15 +157,15 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="23">2.3 模型与模式验证<a class="headerlink" href="#23" title="Permanent link">&para;</a></h1>
-<h2 id="_1">启动检查<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+                <div><h1 id="23">2.3 模型与模式验证<a class="headerlink" href="#23" title="Permanent link">¶</a></h1>
+<h2 id="_1">启动检查<a class="headerlink" href="#_1" title="Permanent link">¶</a></h2>
 <ol>
 <li>模型没有穿透地面或出现高速抖动。</li>
 <li>初始状态为 <code>DAMP</code>，模式切换与 <code>gamepad.mode_sequence</code> 一致。</li>
 <li>终端没有 ONNX 路径、输入维度或动态库错误。</li>
 <li>LCM 中能看到关节状态、命令和 IMU 通道持续更新。</li>
 </ol>
-<h2 id="_2">策略配置<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h2 id="_2">策略配置<a class="headerlink" href="#_2" title="Permanent link">¶</a></h2>
 <table>
 <thead>
 <tr>
@@ -202,9 +198,9 @@
 </tbody>
 </table>
 <p>Y20W 当前使用 <code>dof_dim: 16</code>、<code>joint_dim: 12</code>、<code>wheel_dim: 4</code>。替换模型时必须核对 <code>obs_dim</code>、动作数量、历史观测、默认关节位置和 action scale，不能只替换 ONNX 文件。</p>
-<h2 id="_3">建议验证顺序<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<h2 id="_3">建议验证顺序<a class="headerlink" href="#_3" title="Permanent link">¶</a></h2>
 <p>从 <code>DAMP</code> 切换到 <code>RECOVERY_STAND</code>，确认姿态稳定后再测试 <code>RL_STAND</code> 和低速 <code>RL_WALK</code>。高速和攀爬策略应在相应地形与安全边界内单独验证。</p>
-<h2 id="_4">分阶段验收<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<h2 id="_4">分阶段验收<a class="headerlink" href="#_4" title="Permanent link">¶</a></h2>
 <table>
 <thead>
 <tr>
@@ -247,14 +243,14 @@
 </tbody>
 </table>
 <p>每个阶段只改变一个变量。若某阶段失败，保存当时配置和日志，回到上一模式，不通过提高增益或速度掩盖问题。</p>
-<h2 id="_5">模型替换检查<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<h2 id="_5">模型替换检查<a class="headerlink" href="#_5" title="Permanent link">¶</a></h2>
 <ul>
 <li>actor 与 encoder 文件属于同一导出版本；</li>
 <li><code>obs_dim</code>、<code>dof_dim</code>、<code>joint_dim</code>、<code>wheel_dim</code> 与部署代码一致；</li>
 <li>默认关节位置和动作顺序均为 Y20W 的 16 维布局；</li>
 <li>观测归一化、动作缩放和控制周期与训练一致；</li>
 <li>模型在零命令、小命令和模式重入时均能稳定运行。</li>
-</ul>
+</ul></div>
               
             </div>
           </div><footer>
@@ -295,7 +291,6 @@
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
       <script src="../js/copy-code.js"></script>
-      <script src="../search/main.js"></script>
     <script>
         jQuery(function () {
             SphinxRtdTheme.Navigation.enable(true);

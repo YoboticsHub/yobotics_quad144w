@@ -37,11 +37,7 @@
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
           <a href="../index.html" class="icon icon-home"> quad144w/Y20W 轮足机器人控制框架使用说明书
-        </a><div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
-      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
-  </form>
-</div>
+        </a>
       </div>
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
@@ -201,9 +197,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="56">5.6 自定义算法与实机接入<a class="headerlink" href="#56" title="Permanent link">&para;</a></h1>
+                <div><h1 id="56">5.6 自定义算法与实机接入<a class="headerlink" href="#56" title="Permanent link">¶</a></h1>
 <p>本章把一个自定义算法从目录创建、仿真验证推进到实机低速测试。每个阶段都设置通过条件；任何关键项失败，都应停留在当前阶段修复，不应靠降低关注度继续上实机。</p>
-<h2 id="wave">从 wave 创建新算法<a class="headerlink" href="#wave" title="Permanent link">&para;</a></h2>
+<h2 id="wave">从 wave 创建新算法<a class="headerlink" href="#wave" title="Permanent link">¶</a></h2>
 <p>推荐保留 wave 示例不变，复制其目录作为自己的算法起点：</p>
 <pre><code class="language-bash">cp -r external_algorithms/wave_algorithm \
   external_algorithms/my_algorithm
@@ -224,7 +220,7 @@
 └── README.md
 </code></pre>
 <p>不要在新算法中修改全局 <code>algorithm_base.py</code> 来迁就单个模型。模型特有行为优先放在子类，只有多个算法共同需要且接口稳定的能力才适合下沉到基类。</p>
-<h2 id="_1">三类实现方式<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h2 id="_1">三类实现方式<a class="headerlink" href="#_1" title="Permanent link">¶</a></h2>
 <table>
 <thead>
 <tr>
@@ -252,14 +248,14 @@
 </tbody>
 </table>
 <p>基类当前原生 ONNX 路径要求 encoder 和 actor 同时存在。只有 actor 的模型不能通过把 <code>encoder_path</code> 留空来直接运行，应在子类中明确实现单模型加载和推理。</p>
-<h2 id="_2">配置设计<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h2 id="_2">配置设计<a class="headerlink" href="#_2" title="Permanent link">¶</a></h2>
 <p>建议保留以下分组：</p>
-<pre><code class="language-yaml">algorithm_name: &quot;my_algorithm&quot;
+<pre><code class="language-yaml">algorithm_name: "my_algorithm"
 
 policy:
-  type: &quot;none&quot;
-  model_path: &quot;&quot;
-  encoder_path: &quot;&quot;
+  type: "none"
+  model_path: ""
+  encoder_path: ""
   read_metadata: false
   warmup_count: 0
   action_threshold: 20.0
@@ -273,10 +269,10 @@ model_params:
   action_scale: []
 
 lcm:
-  url: &quot;&quot;
-  state_channel: &quot;Y20W_development_state&quot;
-  command_channel: &quot;Y20W_development_command&quot;
-  robot_id: &quot;Y20W&quot;
+  url: ""
+  state_channel: "Y20W_development_state"
+  command_channel: "Y20W_development_command"
+  robot_id: "Y20W"
 
 execution:
   frequency: 50.0
@@ -286,7 +282,7 @@ execution:
   max_execution_time: 0.0
 </code></pre>
 <p>数组不要使用“看起来合理”的占位值上实机。<code>default_joint_pos</code>、Kp、Kd 和 <code>action_scale</code> 必须来自已验证的模型部署参数。</p>
-<h2 id="_3">观测实现原则<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<h2 id="_3">观测实现原则<a class="headerlink" href="#_3" title="Permanent link">¶</a></h2>
 <ul>
 <li>在文档或代码注释中固定每一段索引、单位、坐标系和缩放；</li>
 <li>先验证原始状态，再做重排和归一化；</li>
@@ -296,7 +292,7 @@ execution:
 <li>拒绝 NaN/Inf，并记录具体分段而不只打印整个向量；</li>
 <li>裁剪应作为最后保护，不应掩盖单位或缩放错误。</li>
 </ul>
-<h2 id="_4">动作处理原则<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<h2 id="_4">动作处理原则<a class="headerlink" href="#_4" title="Permanent link">¶</a></h2>
 <ul>
 <li>首先验证输出类型、shape 和有限值；</li>
 <li>明确模型输出是绝对位置、位置偏移、速度还是扭矩；</li>
@@ -307,7 +303,7 @@ execution:
 <li>用固定函数完成 16 维交错布局与 12+4 协议转换；</li>
 <li>命令缓存只写入完整的一帧，避免发送线程读到半更新数据。</li>
 </ul>
-<h2 id="joint_mapping"><code>joint_mapping</code><a class="headerlink" href="#joint_mapping" title="Permanent link">&para;</a></h2>
+<h2 id="joint_mapping"><code>joint_mapping</code><a class="headerlink" href="#joint_mapping" title="Permanent link">¶</a></h2>
 <p>示例配置包含：</p>
 <pre><code class="language-yaml">joint_mapping:
   model_joint_order: []
@@ -318,8 +314,8 @@ execution:
 <p>若模型关节顺序不同，应在自定义算法中实现明确的索引映射，并验证正向和反向映射互为逆过程：</p>
 <pre><code class="language-text">机器人状态顺序 -&gt; 模型输入顺序 -&gt; 模型输出顺序 -&gt; 机器人命令顺序
 </code></pre>
-<h2 id="_5">六阶段验收<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
-<h3 id="1">阶段 1：离线模型检查<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
+<h2 id="_5">六阶段验收<a class="headerlink" href="#_5" title="Permanent link">¶</a></h2>
+<h3 id="1">阶段 1：离线模型检查<a class="headerlink" href="#1" title="Permanent link">¶</a></h3>
 <p>不启动控制器，只检查文件和推理接口。</p>
 <p>通过条件：</p>
 <ul>
@@ -330,7 +326,7 @@ execution:
 <li>观测与动作索引已有书面定义。</li>
 </ul>
 <p>禁止继续：输出包含 NaN/Inf、shape 依赖猜测、关节顺序不明确或参数由占位值组成。</p>
-<h3 id="2lcm">阶段 2：LCM 只读状态<a class="headerlink" href="#2lcm" title="Permanent link">&para;</a></h3>
+<h3 id="2lcm">阶段 2：LCM 只读状态<a class="headerlink" href="#2lcm" title="Permanent link">¶</a></h3>
 <p>启动控制器和监控器，但不发布有效关节目标。检查：</p>
 <ul>
 <li><code>robot_id=Y20W</code>；</li>
@@ -340,7 +336,7 @@ execution:
 <li>状态连续且没有明显长时间断流。</li>
 </ul>
 <p>禁止继续：状态维度错误、四元数顺序不确定、wheel supplement 恒为异常值或通道频繁中断。</p>
-<h3 id="3mujoco">阶段 3：MuJoCo 低增益验证<a class="headerlink" href="#3mujoco" title="Permanent link">&para;</a></h3>
+<h3 id="3mujoco">阶段 3：MuJoCo 低增益验证<a class="headerlink" href="#3mujoco" title="Permanent link">¶</a></h3>
 <p>在 MuJoCo 中使用保守动作和增益：</p>
 <ol>
 <li>零动作进入和退出；</li>
@@ -350,7 +346,7 @@ execution:
 <li>模拟 <code>Ctrl+C</code> 和算法异常退出。</li>
 </ol>
 <p>通过条件：动作方向、零位、频率和退出路径全部正确，没有持续振荡或目标跳变。</p>
-<h3 id="4">阶段 4：连续运行与失效验证<a class="headerlink" href="#4" title="Permanent link">&para;</a></h3>
+<h3 id="4">阶段 4：连续运行与失效验证<a class="headerlink" href="#4" title="Permanent link">¶</a></h3>
 <p>在仿真中延长运行时间，并主动测试：</p>
 <ul>
 <li>暂停状态发布；</li>
@@ -361,7 +357,7 @@ execution:
 <li>在运动中结束算法。</li>
 </ul>
 <p>通过条件：每种异常的日志、控制器行为和人工恢复步骤都已确认，不会产生无法解释的持续命令。</p>
-<h3 id="5">阶段 5：支架实机低幅值测试<a class="headerlink" href="#5" title="Permanent link">&para;</a></h3>
+<h3 id="5">阶段 5：支架实机低幅值测试<a class="headerlink" href="#5" title="Permanent link">¶</a></h3>
 <p>前置条件：</p>
 <ul>
 <li>机器人可靠固定，轮子和足端不会接触人员；</li>
@@ -371,35 +367,35 @@ execution:
 <li>使用单独的保守配置，幅值、速度和增益低于仿真验证值。</li>
 </ul>
 <p>先验证零动作，再验证单腿、单轴和低频动作。任何方向错误、异常噪声、温升、故障码或通信中断都应立即停止。</p>
-<h3 id="6">阶段 6：地面低速测试<a class="headerlink" href="#6" title="Permanent link">&para;</a></h3>
+<h3 id="6">阶段 6：地面低速测试<a class="headerlink" href="#6" title="Permanent link">¶</a></h3>
 <p>仅在支架测试通过后进行。选择空旷、平整区域，限制速度和运行时间，一次只验证一个速度轴。现场应保留急停、拖拽或断电条件，并持续观察姿态和轮速。</p>
 <p>通过条件：起步、速度跟随、零命令恢复、模式退出和急停均可重复，且没有故障、异常温升或控制频率下降。</p>
-<h2 id="_6">实机启动顺序<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
-<h3 id="1_1">1. 上电前<a class="headerlink" href="#1_1" title="Permanent link">&para;</a></h3>
+<h2 id="_6">实机启动顺序<a class="headerlink" href="#_6" title="Permanent link">¶</a></h2>
+<h3 id="1_1">1. 上电前<a class="headerlink" href="#1_1" title="Permanent link">¶</a></h3>
 <ul>
 <li>检查机械连接、轮子和关节活动范围；</li>
 <li>确认机器人固定方式和急停；</li>
 <li>确认配置使用正确 SPI 板型、IMU、电源和时钟设备；</li>
 <li>确认现场没有人员处于关节和轮子的运动范围内。</li>
 </ul>
-<h3 id="2">2. 启动控制器<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
+<h3 id="2">2. 启动控制器<a class="headerlink" href="#2" title="Permanent link">¶</a></h3>
 <pre><code class="language-bash">sudo bash scripts/run_robot_controller.sh --config config.yaml
 </code></pre>
 <p>脚本会根据系统架构选择 <code>bin/lib</code> 或 <code>bin_rk3588/lib_rk3588</code>。本说明书不包含 RK3588 构建或部署流程。</p>
-<h3 id="3">3. 只读检查<a class="headerlink" href="#3" title="Permanent link">&para;</a></h3>
+<h3 id="3">3. 只读检查<a class="headerlink" href="#3" title="Permanent link">¶</a></h3>
 <pre><code class="language-bash">bash scripts/monitor_lcm.sh --no-gui
 </code></pre>
 <p>必要时启动硬件 Viewer：</p>
 <pre><code class="language-bash">bash scripts/start_hardware_viewer.sh
 </code></pre>
-<h3 id="4_1">4. 启动算法<a class="headerlink" href="#4_1" title="Permanent link">&para;</a></h3>
+<h3 id="4_1">4. 启动算法<a class="headerlink" href="#4_1" title="Permanent link">¶</a></h3>
 <p>先用 wave 验证，再启动自研算法：</p>
 <pre><code class="language-bash">python3 external_algorithms/my_algorithm/run_algorithm.py \
   --config external_algorithms/my_algorithm/config.yaml
 </code></pre>
-<h3 id="5_1">5. 切换模式<a class="headerlink" href="#5_1" title="Permanent link">&para;</a></h3>
+<h3 id="5_1">5. 切换模式<a class="headerlink" href="#5_1" title="Permanent link">¶</a></h3>
 <p>确认算法预热和检查完成后，才进入 DEVELOPMENT。切换后立即核对 <code>mode</code>、姿态和关节响应。</p>
-<h2 id="_7">运行监控<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<h2 id="_7">运行监控<a class="headerlink" href="#_7" title="Permanent link">¶</a></h2>
 <table>
 <thead>
 <tr>
@@ -461,7 +457,7 @@ execution:
 </tr>
 </tbody>
 </table>
-<h2 id="_8">正常退出<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<h2 id="_8">正常退出<a class="headerlink" href="#_8" title="Permanent link">¶</a></h2>
 <ol>
 <li>把速度命令降为零。</li>
 <li>切回 DAMP 或当前安全模式。</li>
@@ -471,7 +467,7 @@ execution:
 <li>停止控制器并按现场流程断电。</li>
 </ol>
 <p>不要把关闭算法终端作为第一步。发送线程会在正常退出时尝试发送约 100 ms 的结束命令，但强制杀进程、断电或解释器崩溃可能绕过该流程。</p>
-<h2 id="_9">失效处理<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<h2 id="_9">失效处理<a class="headerlink" href="#_9" title="Permanent link">¶</a></h2>
 <table>
 <thead>
 <tr>
@@ -519,7 +515,7 @@ execution:
 </tbody>
 </table>
 <p>当前示例框架没有完整实现状态超时自动停机、关节限位和连续失败阈值。自研算法在实机投入前应明确补齐这些策略，或确认控制器侧已有对应保护并完成实际触发测试。</p>
-<h2 id="_10">最终验收清单<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
+<h2 id="_10">最终验收清单<a class="headerlink" href="#_10" title="Permanent link">¶</a></h2>
 <ul>
 <li>[ ] 算法和机器人关节顺序有逐项映射表。</li>
 <li>[ ] 观测每一段的单位、坐标系、缩放和裁剪已记录。</li>
@@ -529,7 +525,7 @@ execution:
 <li>[ ] 原始关节温度、故障和驱动状态纳入监控。</li>
 <li>[ ] 实机使用保守独立配置，并有支架和急停。</li>
 <li>[ ] 正常退出后控制器不再处于 DEVELOPMENT。</li>
-</ul>
+</ul></div>
               
             </div>
           </div><footer>
@@ -570,7 +566,6 @@ execution:
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
       <script src="../js/copy-code.js"></script>
-      <script src="../search/main.js"></script>
     <script>
         jQuery(function () {
             SphinxRtdTheme.Navigation.enable(true);

@@ -37,11 +37,7 @@
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
           <a href="../index.html" class="icon icon-home"> quad144w/Y20W 轮足机器人控制框架使用说明书
-        </a><div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
-      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
-  </form>
-</div>
+        </a>
       </div>
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
@@ -155,7 +151,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="44">4.4 状态读取<a class="headerlink" href="#44" title="Permanent link">&para;</a></h1>
+                <div><h1 id="44">4.4 状态读取<a class="headerlink" href="#44" title="Permanent link">¶</a></h1>
 <p>运行状态示例：</p>
 <pre><code class="language-bash">yobotics_sdk/build/yobot_robot_state_client
 </code></pre>
@@ -171,7 +167,7 @@
 </ul>
 <p>轮关节位于 <code>*_supplement[4]</code>，顺序为 <code>LF, RF, LR, RR</code>。主数组只包含每条腿的 <code>hip, thigh, calf</code>。</p>
 <p>如果高层状态能收到而关节状态始终为零，检查 <code>Y20W_QUAD_JOINT_STATE</code> 和 <code>Y20W_QUAD_JOINT_COMMAND</code> 的频率及 SDK/控制器是否使用同一 LCM URL。</p>
-<h2 id="_1">字段解读<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h2 id="_1">字段解读<a class="headerlink" href="#_1" title="Permanent link">¶</a></h2>
 <table>
 <thead>
 <tr>
@@ -208,7 +204,7 @@
 </tr>
 </tbody>
 </table>
-<h2 id="_2">状态验收<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h2 id="_2">状态验收<a class="headerlink" href="#_2" title="Permanent link">¶</a></h2>
 <ul>
 <li>静止时位置稳定，速度接近实际静止状态；</li>
 <li>手动缓慢转动允许的关节时，对应索引变化；</li>
@@ -216,7 +212,7 @@
 <li>控制器模式切换时高层 <code>state</code> 有对应变化；</li>
 <li>故障与温度字段不是因为旧类型解码而恒定或错位。</li>
 </ul>
-<p>状态客户端是观察工具，不执行状态超时保护。业务集成应记录最后接收时间，并明确状态过期后的行为。</p>
+<p>状态客户端是观察工具，不执行状态超时保护。业务集成应记录最后接收时间，并明确状态过期后的行为。</p></div>
               
             </div>
           </div><footer>
@@ -257,7 +253,6 @@
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
       <script src="../js/copy-code.js"></script>
-      <script src="../search/main.js"></script>
     <script>
         jQuery(function () {
             SphinxRtdTheme.Navigation.enable(true);

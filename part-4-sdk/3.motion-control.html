@@ -37,11 +37,7 @@
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
           <a href="../index.html" class="icon icon-home"> quad144w/Y20W 轮足机器人控制框架使用说明书
-        </a><div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
-      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
-  </form>
-</div>
+        </a>
       </div>
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
@@ -159,7 +155,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="43">4.3 运动控制<a class="headerlink" href="#43" title="Permanent link">&para;</a></h1>
+                <div><h1 id="43">4.3 运动控制<a class="headerlink" href="#43" title="Permanent link">¶</a></h1>
 <p><code>SportClient</code> 保留以下公共方法：</p>
 <pre><code class="language-cpp">SportClient client;
 client.EnableLCMControl();
@@ -169,7 +165,7 @@ client.Move(0.2f, 0.0f, 0.0f);
 client.BodyHeight(0.0f);
 client.Euler(0.0f, 0.0f);
 </code></pre>
-<h2 id="api">API 编号<a class="headerlink" href="#api" title="Permanent link">&para;</a></h2>
+<h2 id="api">API 编号<a class="headerlink" href="#api" title="Permanent link">¶</a></h2>
 <table>
 <thead>
 <tr>
@@ -204,7 +200,7 @@ client.Euler(0.0f, 0.0f);
 </tr>
 </tbody>
 </table>
-<h2 id="_1">方法语义<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h2 id="_1">方法语义<a class="headerlink" href="#_1" title="Permanent link">¶</a></h2>
 <table>
 <thead>
 <tr>
@@ -255,7 +251,7 @@ client.Euler(0.0f, 0.0f);
 <p>运动程序应周期发送 <code>EnableLCMControl()</code>、当前模式和运动命令。只发送一次的命令可能被遥控器输入或超时逻辑覆盖。</p>
 <pre><code class="language-cpp">#include &lt;chrono&gt;
 #include &lt;thread&gt;
-#include &quot;robot/sport/sport_client.hpp&quot;
+#include "robot/sport/sport_client.hpp"
 
 using yobotics::robot::SportClient;
 
@@ -276,23 +272,23 @@ client.Damp();
 client.DisableLCMControl();
 </code></pre>
 <p>示例周期约为 25 Hz，仅用于展示持续发送方式；具体业务频率应结合控制器、网络和应用需求验证。</p>
-<h2 id="_2">键盘示例<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h2 id="_2">键盘示例<a class="headerlink" href="#_2" title="Permanent link">¶</a></h2>
 <pre><code class="language-bash">yobotics_sdk/build/yobot_sport_client
 </code></pre>
-<p><img alt="运动控制按键" src="../assets/sdk/sport-client-controls.png" /></p>
+<p><img alt="运动控制按键" src="../assets/sdk/sport-client-controls.png"></p>
 <p>方向键控制前后和转向，<code>H/J</code> 横移，<code>Q/A/Z</code> 调整或复位高度，<code>W/S/X</code> 调整或复位横滚，<code>E/D/C</code> 调整或复位俯仰，<code>V</code> 退出。</p>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
 <p>SDK 会向真实控制器发布运动命令。连接实机前先在仿真中运行同一示例，并将速度命令保持在保守范围。</p>
 </div>
-<h2 id="_3">验收与停止<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<h2 id="_3">验收与停止<a class="headerlink" href="#_3" title="Permanent link">¶</a></h2>
 <ul>
 <li>先运行状态客户端，再运行运动客户端；</li>
 <li>每次模式调用后通过状态确认，而不是只看返回值；</li>
 <li>松开按键或结束业务循环时主动发送零速度；</li>
 <li>退出前切回 <code>DAMP</code>，最后禁用 LCM 控制；</li>
 <li>多个 SDK 客户端不要同时发布到同一控制通道。</li>
-</ul>
+</ul></div>
               
             </div>
           </div><footer>
@@ -333,7 +329,6 @@ client.DisableLCMControl();
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
       <script src="../js/copy-code.js"></script>
-      <script src="../search/main.js"></script>
     <script>
         jQuery(function () {
             SphinxRtdTheme.Navigation.enable(true);

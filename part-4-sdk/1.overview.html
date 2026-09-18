@@ -37,11 +37,7 @@
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
           <a href="../index.html" class="icon icon-home"> quad144w/Y20W 轮足机器人控制框架使用说明书
-        </a><div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
-      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
-  </form>
-</div>
+        </a>
       </div>
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
@@ -161,9 +157,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="41-sdk">4.1 SDK 概览<a class="headerlink" href="#41-sdk" title="Permanent link">&para;</a></h1>
+                <div><h1 id="41-sdk">4.1 SDK 概览<a class="headerlink" href="#41-sdk" title="Permanent link">¶</a></h1>
 <p><code>yobotics_sdk/</code> 提供 C++11 静态库和三个示例程序，用于高层运动控制、状态读取和 HTTP 服务。SDK 通过 LCM 通信，不直接操作 SPI 或电机驱动。</p>
-<h2 id="_1">目录<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h2 id="_1">目录<a class="headerlink" href="#_1" title="Permanent link">¶</a></h2>
 <pre><code class="language-text">yobotics_sdk/
 ├── include/                 # SDK 头文件与内嵌 LCM 类型
 ├── example/
@@ -173,7 +169,7 @@
 ├── lib/                     # 编译后生成静态库
 └── CMakeLists.txt
 </code></pre>
-<h2 id="_2">主要通道<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h2 id="_2">主要通道<a class="headerlink" href="#_2" title="Permanent link">¶</a></h2>
 <table>
 <thead>
 <tr>
@@ -215,9 +211,9 @@
 </tr>
 </tbody>
 </table>
-<h2 id="_3">接口边界<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<h2 id="_3">接口边界<a class="headerlink" href="#_3" title="Permanent link">¶</a></h2>
 <p><code>SportClient</code> 适合切换模式和发送速度/姿态命令。需要直接生成 16 维关节目标时，应使用 DEVELOPMENT 协议和第五部分的外部算法框架。</p>
-<h2 id="_4">调用生命周期<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<h2 id="_4">调用生命周期<a class="headerlink" href="#_4" title="Permanent link">¶</a></h2>
 <pre><code class="language-text">创建 SportClient
   -&gt; 设置 LCM 控制权
   -&gt; 周期发送当前模式
@@ -227,7 +223,7 @@
   -&gt; 释放 LCM 控制权
 </code></pre>
 <p>SDK 方法更新同一个命令对象并立即发布。模式方法会设置 <code>api</code>，部分模式同时清零运动字段；<code>Move()</code>、<code>BodyHeight()</code> 和 <code>Euler()</code> 则更新各自字段。因此业务程序应明确维护当前模式和完整命令状态。</p>
-<h2 id="_5">选择接口<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<h2 id="_5">选择接口<a class="headerlink" href="#_5" title="Permanent link">¶</a></h2>
 <table>
 <thead>
 <tr>
@@ -257,7 +253,7 @@
 <td><code>yobot_http_server</code></td>
 </tr>
 </tbody>
-</table>
+</table></div>
               
             </div>
           </div><footer>
@@ -298,7 +294,6 @@
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
       <script src="../js/copy-code.js"></script>
-      <script src="../search/main.js"></script>
     <script>
         jQuery(function () {
             SphinxRtdTheme.Navigation.enable(true);

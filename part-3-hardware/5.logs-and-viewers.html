@@ -37,11 +37,7 @@
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
           <a href="../index.html" class="icon icon-home"> quad144w/Y20W 轮足机器人控制框架使用说明书
-        </a><div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
-      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
-  </form>
-</div>
+        </a>
       </div>
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
@@ -159,8 +155,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="35-viewer">3.5 Viewer 与日志<a class="headerlink" href="#35-viewer" title="Permanent link">&para;</a></h1>
-<h2 id="viewer">实机姿态 Viewer<a class="headerlink" href="#viewer" title="Permanent link">&para;</a></h2>
+                <div><h1 id="35-viewer">3.5 Viewer 与日志<a class="headerlink" href="#35-viewer" title="Permanent link">¶</a></h1>
+<h2 id="viewer">实机姿态 Viewer<a class="headerlink" href="#viewer" title="Permanent link">¶</a></h2>
 <p>在可访问机器人 LCM 多播的图形工作站运行：</p>
 <pre><code class="language-bash">bash scripts/start_hardware_viewer.sh
 </code></pre>
@@ -200,24 +196,24 @@
   --viewer-hz 60
 </code></pre>
 <p>Viewer 中姿态正确但关节不动，检查原始关节通道；关节正确但机身姿态错误，检查高层状态和 Viewer 的自由关节设置。</p>
-<h2 id="csv">CSV 查看<a class="headerlink" href="#csv" title="Permanent link">&para;</a></h2>
+<h2 id="csv">CSV 查看<a class="headerlink" href="#csv" title="Permanent link">¶</a></h2>
 <pre><code class="language-bash">python3 scripts/data_viewer.py
 python3 scripts/motor_trace_viewer.py &lt;csv文件&gt;
 </code></pre>
 <p><code>data_viewer.py</code> 适合浏览 RL 日志变量；<code>motor_trace_viewer.py</code> 适合比较电机期望值和实际值。两者均识别 <code>hip</code>、<code>thigh</code>、<code>calf</code>、<code>wheel</code>。</p>
 <p>查看日志时优先比较同一关节的期望/实际位置、速度和扭矩，再比较四条腿的对称性。若 CSV 列名与工具预期不一致，应先查看表头，不要把空图误认为状态为零。</p>
-<h2 id="_1">手柄校准<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h2 id="_1">手柄校准<a class="headerlink" href="#_1" title="Permanent link">¶</a></h2>
 <pre><code class="language-bash">python3 scripts/calibrate_gamepad.py
 </code></pre>
 <p>按程序提示操作按键与摇杆，将输出映射核对后写入 <code>config.yaml</code> 的 <code>gamepad</code> 部分。首次实机测试应降低速度上限并验证死区。</p>
-<h2 id="_2">工具验收<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h2 id="_2">工具验收<a class="headerlink" href="#_2" title="Permanent link">¶</a></h2>
 <ul>
 <li>Viewer 能持续刷新且断开状态后不会伪装成实时数据；</li>
 <li>CSV 工具能识别时间轴与目标/实际列；</li>
 <li>手柄静止时各轴位于死区内；</li>
 <li>所有模式按键先在 MuJoCo 中逐一验证；</li>
 <li>Viewer 和绘图工具均只用于观察，安全判断仍以控制器和现场状态为准。</li>
-</ul>
+</ul></div>
               
             </div>
           </div><footer>
@@ -258,7 +254,6 @@ python3 scripts/motor_trace_viewer.py &lt;csv文件&gt;
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
       <script src="../js/copy-code.js"></script>
-      <script src="../search/main.js"></script>
     <script>
         jQuery(function () {
             SphinxRtdTheme.Navigation.enable(true);

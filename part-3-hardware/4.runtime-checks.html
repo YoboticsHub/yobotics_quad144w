@@ -37,11 +37,7 @@
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
           <a href="../index.html" class="icon icon-home"> quad144w/Y20W 轮足机器人控制框架使用说明书
-        </a><div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
-      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
-  </form>
-</div>
+        </a>
       </div>
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
@@ -161,8 +157,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="34">3.4 状态检查与停止<a class="headerlink" href="#34" title="Permanent link">&para;</a></h1>
-<h2 id="_1">启动后检查<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+                <div><h1 id="34">3.4 状态检查与停止<a class="headerlink" href="#34" title="Permanent link">¶</a></h1>
+<h2 id="_1">启动后检查<a class="headerlink" href="#_1" title="Permanent link">¶</a></h2>
 <ol>
 <li>SPI 两路设备成功打开，没有持续驱动错误。</li>
 <li>IMU 姿态稳定，静止时角速度与加速度合理。</li>
@@ -174,16 +170,16 @@
 tail -f log/robot_log.txt
 </code></pre>
 <p>配置中使用绝对日志路径时，应查看对应路径而不是项目内 <code>log/</code>。</p>
-<h2 id="_2">安全停止<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h2 id="_2">安全停止<a class="headerlink" href="#_2" title="Permanent link">¶</a></h2>
 <p>优先切换到 <code>DAMP</code>，确认机器人停止施力后按 <code>Ctrl+C</code> 结束控制器。失控、通信中断或姿态异常时立即使用物理急停，不等待软件自行恢复。</p>
-<h2 id="_3">异常后的处理<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<h2 id="_3">异常后的处理<a class="headerlink" href="#_3" title="Permanent link">¶</a></h2>
 <ul>
 <li>保留控制器日志和相关 CSV。</li>
 <li>记录发生问题时的模式、速度命令和配置版本。</li>
 <li>检查电机故障码、温度、SPI driver 状态和 IMU 数据。</li>
 <li>原因未确认前不要重复进入导致异常的模式。</li>
 </ul>
-<h2 id="_4">模式切换前检查<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<h2 id="_4">模式切换前检查<a class="headerlink" href="#_4" title="Permanent link">¶</a></h2>
 <table>
 <thead>
 <tr>
@@ -225,8 +221,8 @@ tail -f log/robot_log.txt
 </tr>
 </tbody>
 </table>
-<h2 id="_5">恢复原则<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
-<p>触发急停或安全检查后，不要立即重新使能。先保存日志，确认机器人机械状态，再依次检查供电、驱动、IMU、关节零位和触发时的模式/命令。只有原因明确且相关检查重新通过后才能恢复测试。</p>
+<h2 id="_5">恢复原则<a class="headerlink" href="#_5" title="Permanent link">¶</a></h2>
+<p>触发急停或安全检查后，不要立即重新使能。先保存日志，确认机器人机械状态，再依次检查供电、驱动、IMU、关节零位和触发时的模式/命令。只有原因明确且相关检查重新通过后才能恢复测试。</p></div>
               
             </div>
           </div><footer>
@@ -267,7 +263,6 @@ tail -f log/robot_log.txt
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
       <script src="../js/copy-code.js"></script>
-      <script src="../search/main.js"></script>
     <script>
         jQuery(function () {
             SphinxRtdTheme.Navigation.enable(true);

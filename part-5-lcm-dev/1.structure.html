@@ -37,11 +37,7 @@
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
           <a href="../index.html" class="icon icon-home"> quad144w/Y20W 轮足机器人控制框架使用说明书
-        </a><div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
-      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
-  </form>
-</div>
+        </a>
       </div>
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
@@ -179,9 +175,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="51">5.1 通信结构与通道<a class="headerlink" href="#51" title="Permanent link">&para;</a></h1>
+                <div><h1 id="51">5.1 通信结构与通道<a class="headerlink" href="#51" title="Permanent link">¶</a></h1>
 <p>本章说明 Y20W 外部算法所处的通信位置，以及如何确认状态和命令真正到达目标进程。外部算法通过 LCM 与控制器交互，不直接访问 MuJoCo、SPI 或电机驱动。</p>
-<h2 id="_1">数据流<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h2 id="_1">数据流<a class="headerlink" href="#_1" title="Permanent link">¶</a></h2>
 <pre><code class="language-text">手柄 / SDK / WebRTC
         |
         v
@@ -197,7 +193,7 @@ QUAD_ROBOT_CONTROL_Y20W
         +-- QUAD_ROBOT_STATE_Y20W ------&gt; SDK / WebRTC / Viewer
 </code></pre>
 <p>控制器负责模式切换、安全检查和最终关节命令输出。外部算法只在 DEVELOPMENT 链路上读取状态并提交目标值。即使算法已经发布命令，控制器没有进入 DEVELOPMENT 时也不会把这些目标作为有效控制输入。</p>
-<h2 id="_2">通道职责<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h2 id="_2">通道职责<a class="headerlink" href="#_2" title="Permanent link">¶</a></h2>
 <table>
 <thead>
 <tr>
@@ -273,7 +269,7 @@ QUAD_ROBOT_CONTROL_Y20W
 <p class="admonition-title">不要混用三类命令通道</p>
 <p><code>Y20W_QUAD_JOINT_COMMAND</code> 是控制器到底层的输出，<code>QUAD_ROBOT_CONTROL_Y20W</code> 是应用到状态机的高层输入，<code>Y20W_development_command</code> 才是外部算法入口。自研算法不要直接冒充控制器发布底层关节通道。</p>
 </div>
-<h2 id="lcm-url">LCM URL 的来源<a class="headerlink" href="#lcm-url" title="Permanent link">&para;</a></h2>
+<h2 id="lcm-url">LCM URL 的来源<a class="headerlink" href="#lcm-url" title="Permanent link">¶</a></h2>
 <p>外部算法读取 <code>config.yaml</code> 中的 <code>lcm.url</code>：</p>
 <ul>
 <li>非空时直接使用该 URL；</li>
@@ -284,15 +280,15 @@ QUAD_ROBOT_CONTROL_Y20W
 <pre><code class="language-bash">export LCM_DEFAULT_URL='udpm://239.255.76.67:7667?ttl=255'
 </code></pre>
 <p><code>ttl</code> 决定多播数据允许经过的网络跳数。它不能代替正确的路由、网卡选择或防火墙设置。通信双方必须使用相同的多播地址和端口。</p>
-<h2 id="_3">三种运行拓扑<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
-<h3 id="_4">单机单终端<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<h2 id="_3">三种运行拓扑<a class="headerlink" href="#_3" title="Permanent link">¶</a></h2>
+<h3 id="_4">单机单终端<a class="headerlink" href="#_4" title="Permanent link">¶</a></h3>
 <p>适合快速验证。先启动仿真，再在另一个终端启动算法：</p>
 <pre><code class="language-bash">bash scripts/start_mujoco.sh
 </code></pre>
 <pre><code class="language-bash">python3 external_algorithms/wave_algorithm/run_algorithm.py \
   --config external_algorithms/wave_algorithm/config.yaml
 </code></pre>
-<h3 id="_5">单机多终端<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<h3 id="_5">单机多终端<a class="headerlink" href="#_5" title="Permanent link">¶</a></h3>
 <p>推荐开发方式。分别运行控制器、监控器和算法，便于区分日志来源：</p>
 <pre><code class="language-bash"># 终端 1
 bash scripts/start_mujoco.sh
@@ -304,15 +300,15 @@ bash scripts/monitor_lcm.sh --no-gui
 python3 external_algorithms/wave_algorithm/run_algorithm.py \
   --config external_algorithms/wave_algorithm/config.yaml
 </code></pre>
-<h3 id="_6">跨机器<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<h3 id="_6">跨机器<a class="headerlink" href="#_6" title="Permanent link">¶</a></h3>
 <p>控制器与算法主机应处于允许 UDP 多播的网络中。两端分别执行网络配置并确认环境变量一致：</p>
 <pre><code class="language-bash">sudo bash scripts/setup_lcm_network.sh
 source ~/.lcm_network_config
-printf '%s\n' &quot;$LCM_DEFAULT_URL&quot;
+printf '%s\n' "$LCM_DEFAULT_URL"
 </code></pre>
 <p>随后先验证状态通道，再运行会发布命令的算法。不要把“能 ping 通”当作“LCM 多播可用”，二者使用的协议和路由行为不同。</p>
-<h2 id="_7">通信验收<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
-<h3 id="_8">使用项目监控脚本<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<h2 id="_7">通信验收<a class="headerlink" href="#_7" title="Permanent link">¶</a></h2>
+<h3 id="_8">使用项目监控脚本<a class="headerlink" href="#_8" title="Permanent link">¶</a></h3>
 <pre><code class="language-bash">bash scripts/monitor_lcm.sh --no-gui
 </code></pre>
 <p>有桌面环境时可启动图形监控：</p>
@@ -326,12 +322,12 @@ printf '%s\n' &quot;$LCM_DEFAULT_URL&quot;
 <li>检查命令频率与算法配置接近，且没有长时间断流。</li>
 <li>切换到 DEVELOPMENT 后观察关节状态是否连续响应。</li>
 </ol>
-<h3 id="lcm-spy">使用 <code>lcm-spy</code><a class="headerlink" href="#lcm-spy" title="Permanent link">&para;</a></h3>
+<h3 id="lcm-spy">使用 <code>lcm-spy</code><a class="headerlink" href="#lcm-spy" title="Permanent link">¶</a></h3>
 <p>系统安装了 LCM Java 工具时可以运行：</p>
 <pre><code class="language-bash">lcm-spy
 </code></pre>
 <p><code>lcm-spy</code> 能看到通道名和频率；只有加载了匹配的 LCM 类型后才能正确展开字段。出现通道但无法解码，通常是类型定义、生成代码或类路径不一致。</p>
-<h2 id="_9">故障定位<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<h2 id="_9">故障定位<a class="headerlink" href="#_9" title="Permanent link">¶</a></h2>
 <table>
 <thead>
 <tr>
@@ -380,7 +376,7 @@ printf '%s\n' &quot;$LCM_DEFAULT_URL&quot;
 </tr>
 </tbody>
 </table>
-<h2 id="_10">成功标志<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
+<h2 id="_10">成功标志<a class="headerlink" href="#_10" title="Permanent link">¶</a></h2>
 <ul>
 <li>状态和命令使用同一个 LCM URL。</li>
 <li><code>Y20W_development_state</code> 持续更新且 <code>robot_id</code> 正确。</li>
@@ -388,7 +384,7 @@ printf '%s\n' &quot;$LCM_DEFAULT_URL&quot;
 <li>DEVELOPMENT 激活后，关节响应与算法目标方向一致。</li>
 <li>停止算法时能够观察到禁用命令，并将机器人切回安全模式。</li>
 </ul>
-<p>下一步阅读 <a href="2.messages.html">16 维消息协议</a>，确认所有关节和字段的含义。</p>
+<p>下一步阅读 <a href="2.messages.html">16 维消息协议</a>，确认所有关节和字段的含义。</p></div>
               
             </div>
           </div><footer>
@@ -429,7 +425,6 @@ printf '%s\n' &quot;$LCM_DEFAULT_URL&quot;
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
       <script src="../js/copy-code.js"></script>
-      <script src="../search/main.js"></script>
     <script>
         jQuery(function () {
             SphinxRtdTheme.Navigation.enable(true);

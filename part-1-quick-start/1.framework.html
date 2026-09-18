@@ -37,11 +37,7 @@
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
           <a href="../index.html" class="icon icon-home"> quad144w/Y20W 轮足机器人控制框架使用说明书
-        </a><div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
-      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
-  </form>
-</div>
+        </a>
       </div>
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
@@ -161,7 +157,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="11">1.1 框架与机器人<a class="headerlink" href="#11" title="Permanent link">&para;</a></h1>
+                <div><h1 id="11">1.1 框架与机器人<a class="headerlink" href="#11" title="Permanent link">¶</a></h1>
 <p>quad144w/Y20W 是四腿四轮的 16 自由度轮足机器人。每条腿包含 <code>hip</code>、<code>thigh</code>、<code>calf</code> 和 <code>wheel</code>，控制框架提供强化学习运动模式、MuJoCo 仿真、实机控制、SDK、LCM 外部算法和 WebRTC 接口。</p>
 <pre><code class="language-text">遥控器 / SDK / WebRTC
           |
@@ -173,7 +169,7 @@
   MuJoCo     SPI + IMU
    仿真       真实机器人
 </code></pre>
-<h2 id="_1">控制模式<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h2 id="_1">控制模式<a class="headerlink" href="#_1" title="Permanent link">¶</a></h2>
 <table>
 <thead>
 <tr>
@@ -213,7 +209,7 @@
 </tbody>
 </table>
 <p>控制模式的可切换顺序由 <code>config.yaml</code> 或 <code>config_sim.yaml</code> 中的 <code>gamepad.mode_sequence</code> 决定。</p>
-<h2 id="_2">数据布局<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h2 id="_2">数据布局<a class="headerlink" href="#_2" title="Permanent link">¶</a></h2>
 <p>算法侧使用 16 维交错顺序：</p>
 <pre><code class="language-text">LF: hip, thigh, calf, wheel
 RF: hip, thigh, calf, wheel
@@ -221,7 +217,7 @@ LR: hip, thigh, calf, wheel
 RR: hip, thigh, calf, wheel
 </code></pre>
 <p>LCM 消息为兼容底层接口，将其拆成 12 维腿关节数组和 4 维 <code>supplement</code> 轮关节数组。开发算法不能把 16 维数组简单截成前 12 项。</p>
-<h2 id="_3">组件职责<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<h2 id="_3">组件职责<a class="headerlink" href="#_3" title="Permanent link">¶</a></h2>
 <table>
 <thead>
 <tr>
@@ -258,18 +254,18 @@ RR: hip, thigh, calf, wheel
 </tr>
 </tbody>
 </table>
-<h2 id="_4">推荐模式顺序<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<h2 id="_4">推荐模式顺序<a class="headerlink" href="#_4" title="Permanent link">¶</a></h2>
 <p>正常验证从 <code>DAMP</code> 开始，经 <code>RECOVERY_STAND</code> 建立稳定姿态，再进入站立、低速行走或 DEVELOPMENT。高速和攀爬策略必须在对应场地单独验证。</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p><code>gamepad.mode_sequence</code> 决定现场可切换顺序。说明书列出模式用途，不代表任意两个模式之间都允许直接跳转。</p>
 </div>
-<h2 id="_5">下一步<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<h2 id="_5">下一步<a class="headerlink" href="#_5" title="Permanent link">¶</a></h2>
 <ul>
 <li>首次使用继续阅读 <a href="2.system-requirements.html">系统与环境</a>。</li>
 <li>需要验证策略时进入 <a href="../part-2-mujoco/1.overview.html">MuJoCo 仿真</a>。</li>
 <li>开发关节级算法时先阅读 <a href="../part-5-lcm-dev/1.structure.html">LCM 与外部算法</a>。</li>
-</ul>
+</ul></div>
               
             </div>
           </div><footer>
@@ -310,7 +306,6 @@ RR: hip, thigh, calf, wheel
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
       <script src="../js/copy-code.js"></script>
-      <script src="../search/main.js"></script>
     <script>
         jQuery(function () {
             SphinxRtdTheme.Navigation.enable(true);

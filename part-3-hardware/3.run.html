@@ -37,11 +37,7 @@
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
           <a href="../index.html" class="icon icon-home"> quad144w/Y20W 轮足机器人控制框架使用说明书
-        </a><div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
-      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
-  </form>
-</div>
+        </a>
       </div>
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
@@ -161,8 +157,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="33">3.3 启动控制器<a class="headerlink" href="#33" title="Permanent link">&para;</a></h1>
-<h2 id="_1">架构自动选择<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+                <div><h1 id="33">3.3 启动控制器<a class="headerlink" href="#33" title="Permanent link">¶</a></h1>
+<h2 id="_1">架构自动选择<a class="headerlink" href="#_1" title="Permanent link">¶</a></h2>
 <p><code>run_robot_controller.sh</code> 根据 <code>uname -m</code> 选择运行目录：</p>
 <table>
 <thead>
@@ -186,7 +182,7 @@
 </tbody>
 </table>
 <p>ARM 目录不存在时脚本才回退到 <code>bin/</code> 和 <code>lib/</code>。显式传入控制器路径时，以用户指定值为准。</p>
-<h2 id="_2">启动命令<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h2 id="_2">启动命令<a class="headerlink" href="#_2" title="Permanent link">¶</a></h2>
 <pre><code class="language-bash">sudo bash scripts/run_robot_controller.sh --config config.yaml
 </code></pre>
 <p>默认 LCM 网卡为 <code>eth0</code>，现场使用其他网卡时：</p>
@@ -196,10 +192,10 @@
 <pre><code class="language-bash">LCM_IFACE=&lt;网卡名&gt; sudo -E bash scripts/run_robot_controller.sh --config config.yaml
 </code></pre>
 <p>包装入口会设置 <code>LD_LIBRARY_PATH</code>，不建议直接执行 <code>ybt_ctrl.bin</code>。</p>
-<h2 id="_3">启动输出核对<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<h2 id="_3">启动输出核对<a class="headerlink" href="#_3" title="Permanent link">¶</a></h2>
 <p>脚本在执行控制器前会打印：系统架构、部署结构、可执行文件、配置文件、库目录和 LCM 网卡。确认这些路径与当前设备一致后再继续。</p>
 <p>ARM 平台只有在 <code>bin_rk3588/</code> 或 <code>lib_rk3588/</code> 存在时才选择 RK3588 目录，否则回退到通用 <code>bin/</code> 和 <code>lib/</code>。回退只表示路径选择，不证明其中程序适用于 ARM。</p>
-<h2 id="_4">启动成功标志<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<h2 id="_4">启动成功标志<a class="headerlink" href="#_4" title="Permanent link">¶</a></h2>
 <ul>
 <li>两路 SPI 与 IMU 打开成功；</li>
 <li>控制器没有立即退出或持续打印硬件错误；</li>
@@ -207,7 +203,7 @@
 <li>16 个关节数据、温度、故障和驱动状态可读；</li>
 <li>初始 <code>DAMP</code> 下机器人没有主动运动。</li>
 </ul>
-<h2 id="_5">启动失败<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<h2 id="_5">启动失败<a class="headerlink" href="#_5" title="Permanent link">¶</a></h2>
 <table>
 <thead>
 <tr>
@@ -238,7 +234,7 @@
 </tr>
 </tbody>
 </table>
-<p>启动后继续执行 <a href="4.runtime-checks.html">状态检查与停止</a>，不要直接切换运动模式。</p>
+<p>启动后继续执行 <a href="4.runtime-checks.html">状态检查与停止</a>，不要直接切换运动模式。</p></div>
               
             </div>
           </div><footer>
@@ -279,7 +275,6 @@
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
       <script src="../js/copy-code.js"></script>
-      <script src="../search/main.js"></script>
     <script>
         jQuery(function () {
             SphinxRtdTheme.Navigation.enable(true);

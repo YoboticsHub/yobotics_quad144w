@@ -37,11 +37,7 @@
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
           <a href="../index.html" class="icon icon-home"> quad144w/Y20W 轮足机器人控制框架使用说明书
-        </a><div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
-      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
-  </form>
-</div>
+        </a>
       </div>
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
@@ -155,7 +151,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="61">6.1 服务结构<a class="headerlink" href="#61" title="Permanent link">&para;</a></h1>
+                <div><h1 id="61">6.1 服务结构<a class="headerlink" href="#61" title="Permanent link">¶</a></h1>
 <p><code>WebRTC_server/</code> 在机器人端采集视频，通过 WebRTC 推送给客户端，并把 DataChannel JSON 转成 Y20W 高层 LCM 命令。</p>
 <pre><code class="language-text">远端客户端
   | WebSocket 信令 (8765)
@@ -173,7 +169,7 @@ signaling_server.py + publisher.py
 <li><code>config.json</code>：视频、码率、LCM 通道和信令地址。</li>
 </ul>
 <p>WebRTC 是远程传输层，不绕过控制器安全检查。客户端命令仍由 Y20W 状态机处理。</p>
-<h2 id="_1">进程生命周期<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h2 id="_1">进程生命周期<a class="headerlink" href="#_1" title="Permanent link">¶</a></h2>
 <p><code>control_publisher.py</code> 先启动信令服务，等待端口 <code>8765</code> 就绪，再等待外部客户端连接。外部客户端生成就绪标记后才启动 publisher。信令断开、publisher 退出或 PeerConnection 失败时，组件通过 <code>restart.flag</code> 请求管理进程重启。</p>
 <pre><code class="language-text">control_publisher.py
   +-- signaling_server.py :8765
@@ -184,14 +180,14 @@ signaling_server.py + publisher.py
          +-- 创建 WebRTC Offer 和 DataChannel
          +-- LCM 命令发布与状态订阅
 </code></pre>
-<h2 id="_2">边界<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h2 id="_2">边界<a class="headerlink" href="#_2" title="Permanent link">¶</a></h2>
 <ul>
 <li>信令 WebSocket 只转发会话描述，不承载视频帧；</li>
 <li>DataChannel JSON 被转换为高层 <code>sport_client_cmd_t</code>；</li>
 <li>publisher 固定设置 <code>rc_enable=1</code>，不会替客户端管理完整的模式生命周期；</li>
 <li>当前转发层只做类型转换，没有运动范围限幅；</li>
 <li>控制安全仍需由客户端、控制器状态机和现场急停共同保证。</li>
-</ul>
+</ul></div>
               
             </div>
           </div><footer>
@@ -232,7 +228,6 @@ signaling_server.py + publisher.py
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
       <script src="../js/copy-code.js"></script>
-      <script src="../search/main.js"></script>
     <script>
         jQuery(function () {
             SphinxRtdTheme.Navigation.enable(true);

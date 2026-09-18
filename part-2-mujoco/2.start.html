@@ -37,11 +37,7 @@
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
           <a href="../index.html" class="icon icon-home"> quad144w/Y20W 轮足机器人控制框架使用说明书
-        </a><div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
-      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
-  </form>
-</div>
+        </a>
       </div>
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
@@ -163,20 +159,20 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="22">2.2 启动与停止<a class="headerlink" href="#22" title="Permanent link">&para;</a></h1>
-<h2 id="_1">图形模式<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+                <div><h1 id="22">2.2 启动与停止<a class="headerlink" href="#22" title="Permanent link">¶</a></h1>
+<h2 id="_1">图形模式<a class="headerlink" href="#_1" title="Permanent link">¶</a></h2>
 <pre><code class="language-bash">conda activate quad_controller
 bash scripts/start_mujoco.sh --config config_sim.yaml
 </code></pre>
-<h2 id="_2">无图形模式<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h2 id="_2">无图形模式<a class="headerlink" href="#_2" title="Permanent link">¶</a></h2>
 <pre><code class="language-bash">bash scripts/start_mujoco.sh --config config_sim.yaml --headless
 </code></pre>
-<h2 id="_3">自定义控制器参数<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<h2 id="_3">自定义控制器参数<a class="headerlink" href="#_3" title="Permanent link">¶</a></h2>
 <p><code>start_mujoco.sh</code> 识别自身参数后，会把剩余参数传给控制器。查看脚本参数：</p>
 <pre><code class="language-bash">bash scripts/start_mujoco.sh --help
 </code></pre>
 <p>脚本会检查 <code>simulation.enable_mujoco</code>、场景文件、Python 依赖和控制器入口，并自动设置动态库路径。x86_64 仿真默认使用 <code>bin/ybt_ctrl</code> 与 <code>lib/</code>。</p>
-<h2 id="_4">脚本执行顺序<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<h2 id="_4">脚本执行顺序<a class="headerlink" href="#_4" title="Permanent link">¶</a></h2>
 <p><code>start_mujoco.sh</code> 会：</p>
 <ol>
 <li>解析配置路径和 headless 参数；</li>
@@ -188,7 +184,7 @@ bash scripts/start_mujoco.sh --config config_sim.yaml
 <li>收到退出信号时清理两个进程。</li>
 </ol>
 <p>使用包装脚本可以让仿真和控制器共享同一配置与环境。直接分别启动时，需自行保证这些变量和停止顺序一致。</p>
-<h2 id="_5">启动成功标志<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<h2 id="_5">启动成功标志<a class="headerlink" href="#_5" title="Permanent link">¶</a></h2>
 <ul>
 <li>终端明确显示正在使用的配置和场景；</li>
 <li>图形模式出现 Y20W 场景，headless 模式没有 DISPLAY 错误；</li>
@@ -196,9 +192,9 @@ bash scripts/start_mujoco.sh --config config_sim.yaml
 <li>关节状态、命令和 IMU 通道持续出现；</li>
 <li>初始状态下模型没有高速发散。</li>
 </ul>
-<h2 id="_6">正常停止<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<h2 id="_6">正常停止<a class="headerlink" href="#_6" title="Permanent link">¶</a></h2>
 <p>按 <code>Ctrl+C</code>，等待脚本清理两个进程。不要在同一组 LCM 通道上同时启动多套仿真，否则命令与状态可能互相串扰。</p>
-<p>停止后若再次启动出现异常，先检查是否还有旧的控制器或 MuJoCo 进程，而不是更改通道名绕过问题。</p>
+<p>停止后若再次启动出现异常，先检查是否还有旧的控制器或 MuJoCo 进程，而不是更改通道名绕过问题。</p></div>
               
             </div>
           </div><footer>
@@ -239,7 +235,6 @@ bash scripts/start_mujoco.sh --config config_sim.yaml
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
       <script src="../js/copy-code.js"></script>
-      <script src="../search/main.js"></script>
     <script>
         jQuery(function () {
             SphinxRtdTheme.Navigation.enable(true);

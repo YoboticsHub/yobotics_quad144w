@@ -37,11 +37,7 @@
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
           <a href="../index.html" class="icon icon-home"> quad144w/Y20W 轮足机器人控制框架使用说明书
-        </a><div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
-      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
-  </form>
-</div>
+        </a>
       </div>
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
@@ -165,9 +161,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="64">6.4 故障排查<a class="headerlink" href="#64" title="Permanent link">&para;</a></h1>
+                <div><h1 id="64">6.4 故障排查<a class="headerlink" href="#64" title="Permanent link">¶</a></h1>
 <p>WebRTC 链路包含摄像头、编码、信令、ICE、DataChannel 和 LCM。排查时按层验证，避免同时改视频参数、网络和控制协议。</p>
-<h2 id="1">1. 进程与端口<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<h2 id="1">1. 进程与端口<a class="headerlink" href="#1" title="Permanent link">¶</a></h2>
 <pre><code class="language-bash">ss -lntp | grep 8765
 </code></pre>
 <table>
@@ -201,14 +197,14 @@
 </tr>
 </tbody>
 </table>
-<h2 id="2">2. 视频源<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
+<h2 id="2">2. 视频源<a class="headerlink" href="#2" title="Permanent link">¶</a></h2>
 <p>USB 模式：</p>
 <pre><code class="language-bash">ls -l /dev/video*
 </code></pre>
 <p>检查设备索引、权限、占用进程和摄像头支持的分辨率/帧率。</p>
 <p>RTSP 模式应先在独立播放器或 OpenCV 中确认 <code>rtsp_url</code> 可读。当前默认 URL 是本机 <code>rtsp://127.0.0.1:8554/back</code>，这要求本机已有 RTSP 服务。</p>
 <p>排除真实摄像头时，将 <code>use_camera</code> 设为 <code>false</code>。虚拟画面可用而真实画面失败，问题位于视频源或采集；两者都失败则继续检查 WebRTC 协商。</p>
-<h2 id="3">3. 信令与连接<a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
+<h2 id="3">3. 信令与连接<a class="headerlink" href="#3" title="Permanent link">¶</a></h2>
 <ul>
 <li>远端客户端使用机器人可达 IP，不使用 <code>localhost</code>；</li>
 <li>防火墙允许 TCP 8765；</li>
@@ -216,7 +212,7 @@
 <li>收到重复或过期 Answer 时检查客户端是否创建了多套会话；</li>
 <li>PeerConnection 关闭会请求重启，持续关闭通常是 ICE 或网络路径问题。</li>
 </ul>
-<h2 id="4">4. 视频质量与延迟<a class="headerlink" href="#4" title="Permanent link">&para;</a></h2>
+<h2 id="4">4. 视频质量与延迟<a class="headerlink" href="#4" title="Permanent link">¶</a></h2>
 <p>按以下顺序调整：</p>
 <ol>
 <li>先降低分辨率；</li>
@@ -226,7 +222,7 @@
 <li>保持控制 LCM 链路单独可测。</li>
 </ol>
 <p>低码率不一定降低延迟；过低会增加画面破碎或编码压力。日志中的上行速率只是诊断依据，应结合端到端画面观察。</p>
-<h2 id="5-datachannel">5. DataChannel<a class="headerlink" href="#5-datachannel" title="Permanent link">&para;</a></h2>
+<h2 id="5-datachannel">5. DataChannel<a class="headerlink" href="#5-datachannel" title="Permanent link">¶</a></h2>
 <table>
 <thead>
 <tr>
@@ -263,7 +259,7 @@
 </tr>
 </tbody>
 </table>
-<h2 id="6-lcm">6. LCM<a class="headerlink" href="#6-lcm" title="Permanent link">&para;</a></h2>
+<h2 id="6-lcm">6. LCM<a class="headerlink" href="#6-lcm" title="Permanent link">¶</a></h2>
 <pre><code class="language-bash">bash scripts/monitor_lcm.sh --no-gui
 </code></pre>
 <p>确认：</p>
@@ -274,7 +270,7 @@
 <li>多网卡环境的多播路由正确；</li>
 <li>状态正常但控制异常时，API 编号和 <code>rc_enable</code> 符合预期。</li>
 </ul>
-<h2 id="_1">安全恢复<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h2 id="_1">安全恢复<a class="headerlink" href="#_1" title="Permanent link">¶</a></h2>
 <p>如果远程控制失去响应：</p>
 <ol>
 <li>使用现场手柄、急停或独立安全入口停止机器人；</li>
@@ -283,7 +279,7 @@
 <li>保存信令、publisher、控制器和 LCM 日志；</li>
 <li>在仿真或支架环境复现后再恢复远程控制。</li>
 </ol>
-<p>不要在机器人仍运动时反复重启 WebRTC 进程来“抢回”控制权。</p>
+<p>不要在机器人仍运动时反复重启 WebRTC 进程来“抢回”控制权。</p></div>
               
             </div>
           </div><footer>
@@ -321,7 +317,6 @@
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
       <script src="../js/copy-code.js"></script>
-      <script src="../search/main.js"></script>
     <script>
         jQuery(function () {
             SphinxRtdTheme.Navigation.enable(true);

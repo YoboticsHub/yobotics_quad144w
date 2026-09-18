@@ -37,11 +37,7 @@
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
           <a href="../index.html" class="icon icon-home"> quad144w/Y20W 轮足机器人控制框架使用说明书
-        </a><div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
-      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
-  </form>
-</div>
+        </a>
       </div>
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
@@ -161,20 +157,20 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="24">2.4 仿真调试<a class="headerlink" href="#24" title="Permanent link">&para;</a></h1>
-<h2 id="lcm">LCM 监控<a class="headerlink" href="#lcm" title="Permanent link">&para;</a></h2>
+                <div><h1 id="24">2.4 仿真调试<a class="headerlink" href="#24" title="Permanent link">¶</a></h1>
+<h2 id="lcm">LCM 监控<a class="headerlink" href="#lcm" title="Permanent link">¶</a></h2>
 <pre><code class="language-bash">bash scripts/monitor_lcm.sh --no-gui
 bash scripts/monitor_lcm.sh
 bash scripts/launch_lcm_spy.sh
 </code></pre>
 <p>无终端消息时检查 <code>config_sim.yaml</code> 的通道名、LCM Python 模块和本机多播配置。</p>
-<h2 id="_1">日志查看<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h2 id="_1">日志查看<a class="headerlink" href="#_1" title="Permanent link">¶</a></h2>
 <p>仿真默认把控制器日志写入 <code>log/robot_log.txt</code>，RL CSV 路径由各策略块的 <code>log_file_path</code> 决定。</p>
 <pre><code class="language-bash">python3 scripts/data_viewer.py
 python3 scripts/motor_trace_viewer.py log/motor_trace.csv
 </code></pre>
 <p>重点比较期望/实际关节位置、速度和扭矩，轮关节变量名称包含 <code>wheel</code>。</p>
-<h2 id="_2">常见问题<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h2 id="_2">常见问题<a class="headerlink" href="#_2" title="Permanent link">¶</a></h2>
 <table>
 <thead>
 <tr>
@@ -205,7 +201,7 @@ python3 scripts/motor_trace_viewer.py log/motor_trace.csv
 </tr>
 </tbody>
 </table>
-<h2 id="_3">调试闭环<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<h2 id="_3">调试闭环<a class="headerlink" href="#_3" title="Permanent link">¶</a></h2>
 <ol>
 <li>记录可复现的模式、速度命令和配置文件。</li>
 <li>用 LCM 监控确认输入、状态和输出通道是否连续。</li>
@@ -213,7 +209,7 @@ python3 scripts/motor_trace_viewer.py log/motor_trace.csv
 <li>回到 <code>DAMP</code>，一次只修改一个参数。</li>
 <li>重复相同操作并比较修改前后的日志。</li>
 </ol>
-<h2 id="_4">现象到行动<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<h2 id="_4">现象到行动<a class="headerlink" href="#_4" title="Permanent link">¶</a></h2>
 <table>
 <thead>
 <tr>
@@ -250,7 +246,7 @@ python3 scripts/motor_trace_viewer.py log/motor_trace.csv
 </tr>
 </tbody>
 </table>
-<p>定位外部算法问题时继续阅读 <a href="../part-5-lcm-dev/1.structure.html">通信结构</a>和 <a href="../part-5-lcm-dev/5.walk-onnx.html">ONNX 行走示例</a>。</p>
+<p>定位外部算法问题时继续阅读 <a href="../part-5-lcm-dev/1.structure.html">通信结构</a>和 <a href="../part-5-lcm-dev/5.walk-onnx.html">ONNX 行走示例</a>。</p></div>
               
             </div>
           </div><footer>
@@ -291,7 +287,6 @@ python3 scripts/motor_trace_viewer.py log/motor_trace.csv
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
       <script src="../js/copy-code.js"></script>
-      <script src="../search/main.js"></script>
     <script>
         jQuery(function () {
             SphinxRtdTheme.Navigation.enable(true);

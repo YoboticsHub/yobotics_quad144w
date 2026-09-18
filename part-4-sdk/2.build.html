@@ -37,11 +37,7 @@
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
           <a href="../index.html" class="icon icon-home"> quad144w/Y20W 轮足机器人控制框架使用说明书
-        </a><div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
-      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
-  </form>
-</div>
+        </a>
       </div>
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
@@ -159,30 +155,30 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="42-sdk">4.2 编译 SDK<a class="headerlink" href="#42-sdk" title="Permanent link">&para;</a></h1>
-<h2 id="_1">依赖<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+                <div><h1 id="42-sdk">4.2 编译 SDK<a class="headerlink" href="#42-sdk" title="Permanent link">¶</a></h1>
+<h2 id="_1">依赖<a class="headerlink" href="#_1" title="Permanent link">¶</a></h2>
 <pre><code class="language-bash">sudo apt-get install -y build-essential cmake liblcm-dev libeigen3-dev
 </code></pre>
-<h2 id="_2">编译<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h2 id="_2">编译<a class="headerlink" href="#_2" title="Permanent link">¶</a></h2>
 <pre><code class="language-bash">cmake -S yobotics_sdk -B yobotics_sdk/build
 cmake --build yobotics_sdk/build -j4
 </code></pre>
-<p><img alt="CMake 配置" src="../assets/sdk/cmake-configure.png" /></p>
-<p><img alt="SDK 编译" src="../assets/sdk/cmake-build.png" /></p>
+<p><img alt="CMake 配置" src="../assets/sdk/cmake-configure.png"></p>
+<p><img alt="SDK 编译" src="../assets/sdk/cmake-build.png"></p>
 <p>成功后包含：</p>
 <pre><code class="language-text">yobotics_sdk/build/yobot_sport_client
 yobotics_sdk/build/yobot_robot_state_client
 yobotics_sdk/build/yobot_http_server
 yobotics_sdk/lib/libyobotics_sdk.a
 </code></pre>
-<p><img alt="构建结果" src="../assets/sdk/sdk-build-results.png" /></p>
-<h2 id="lcm-url">LCM URL<a class="headerlink" href="#lcm-url" title="Permanent link">&para;</a></h2>
+<p><img alt="构建结果" src="../assets/sdk/sdk-build-results.png"></p>
+<h2 id="lcm-url">LCM URL<a class="headerlink" href="#lcm-url" title="Permanent link">¶</a></h2>
 <p>SDK 默认使用 <code>udpm://239.255.76.67:7667?ttl=255</code>。跨机器或指定其他多播地址时：</p>
 <pre><code class="language-bash">export YOBOTICS_LCM_URL='udpm://239.255.76.67:7667?ttl=255'
 </code></pre>
-<p><img alt="检查 LCM URL" src="../assets/sdk/lcm-url.png" /></p>
+<p><img alt="检查 LCM URL" src="../assets/sdk/lcm-url.png"></p>
 <p>业务程序链接静态库时至少需要 SDK include、<code>libyobotics_sdk.a</code>、LCM 和 pthread。</p>
-<h2 id="_3">编译验收<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<h2 id="_3">编译验收<a class="headerlink" href="#_3" title="Permanent link">¶</a></h2>
 <pre><code class="language-bash">test -x yobotics_sdk/build/yobot_sport_client
 test -x yobotics_sdk/build/yobot_robot_state_client
 test -x yobotics_sdk/build/yobot_http_server
@@ -214,7 +210,7 @@ test -f yobotics_sdk/lib/libyobotics_sdk.a
 </tr>
 </tbody>
 </table>
-<p>该 CMake 工程只构建 SDK 静态库和三个现有示例，不构建控制器，也不提供 RK3588 打包或部署流程。</p>
+<p>该 CMake 工程只构建 SDK 静态库和三个现有示例，不构建控制器，也不提供 RK3588 打包或部署流程。</p></div>
               
             </div>
           </div><footer>
@@ -255,7 +251,6 @@ test -f yobotics_sdk/lib/libyobotics_sdk.a
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
       <script src="../js/copy-code.js"></script>
-      <script src="../search/main.js"></script>
     <script>
         jQuery(function () {
             SphinxRtdTheme.Navigation.enable(true);

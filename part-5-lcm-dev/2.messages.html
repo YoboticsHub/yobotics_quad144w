@@ -37,11 +37,7 @@
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
           <a href="../index.html" class="icon icon-home"> quad144w/Y20W 轮足机器人控制框架使用说明书
-        </a><div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
-      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
-  </form>
-</div>
+        </a>
       </div>
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
@@ -169,9 +165,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="52-16">5.2 16 维消息协议<a class="headerlink" href="#52-16" title="Permanent link">&para;</a></h1>
+                <div><h1 id="52-16">5.2 16 维消息协议<a class="headerlink" href="#52-16" title="Permanent link">¶</a></h1>
 <p>Y20W 有 12 个腿关节和 4 个轮关节。算法通常使用每条腿连续排列的 16 维向量，LCM 协议则将其拆成 12 维主数组和 4 维 supplement 数组。</p>
-<h2 id="_1">关节索引<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h2 id="_1">关节索引<a class="headerlink" href="#_1" title="Permanent link">¶</a></h2>
 <p>算法使用以下交错顺序：</p>
 <table>
 <thead>
@@ -317,7 +313,7 @@ LCM supplement:
 <p class="admonition-title">两种 16 维排列不能直接互换</p>
 <p>算法向量是每腿四项交错排列；LCM 消息在序列化时是 12 项主数组加 4 项 supplement。即使长度都为 16，顺序错误仍会把轮关节命令发送到腿关节。</p>
 </div>
-<h2 id="development_state_t"><code>development_state_t</code><a class="headerlink" href="#development_state_t" title="Permanent link">&para;</a></h2>
+<h2 id="development_state_t"><code>development_state_t</code><a class="headerlink" href="#development_state_t" title="Permanent link">¶</a></h2>
 <p>控制器通过 <code>Y20W_development_state</code> 发布：</p>
 <table>
 <thead>
@@ -401,7 +397,7 @@ LCM supplement:
 </tbody>
 </table>
 <p><code>development_state_t</code> 不包含温度、关节故障、腿使能标志或 SPI 驱动状态。需要这些信息时，另行订阅 <code>Y20W_QUAD_JOINT_STATE</code> 的 <code>quad_joint_state_t</code>。</p>
-<h2 id="development_command_t"><code>development_command_t</code><a class="headerlink" href="#development_command_t" title="Permanent link">&para;</a></h2>
+<h2 id="development_command_t"><code>development_command_t</code><a class="headerlink" href="#development_command_t" title="Permanent link">¶</a></h2>
 <p>外部算法通过 <code>Y20W_development_command</code> 发布：</p>
 <table>
 <thead>
@@ -453,7 +449,7 @@ LCM supplement:
 <pre><code class="language-text">tau_cmd = tau_des + kp * (q_des - q) + kd * (qd_des - qd)
 </code></pre>
 <p>该表达式用于理解字段角色，最终限幅和执行行为由控制器与驱动实现决定。轮关节常用于速度控制，但协议仍同时提供位置、速度、扭矩、Kp 和 Kd；必须按当前控制策略设置，不能仅凭 <code>wheel</code> 名称猜测单位或模式。</p>
-<h2 id="_2">原始关节状态<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h2 id="_2">原始关节状态<a class="headerlink" href="#_2" title="Permanent link">¶</a></h2>
 <p><code>quad_joint_state_t</code> 除 12+4 位置、速度和扭矩外，还包含：</p>
 <table>
 <thead>
@@ -482,7 +478,7 @@ LCM supplement:
 </tbody>
 </table>
 <p>实机安全监控应同时查看 DEVELOPMENT 状态和原始关节状态。只订阅 development 状态无法判断温度与驱动故障。</p>
-<h2 id="python">Python 重组示例<a class="headerlink" href="#python" title="Permanent link">&para;</a></h2>
+<h2 id="python">Python 重组示例<a class="headerlink" href="#python" title="Permanent link">¶</a></h2>
 <pre><code class="language-python">def interleave_y20w(main, wheel):
     values = []
     for leg in range(4):
@@ -498,19 +494,19 @@ assert len(dof_qd) == 16
 </code></pre>
 <p>使用项目封装发送交错 16 维命令：</p>
 <pre><code class="language-python">command = {
-    &quot;enable_development_mode&quot;: True,
-    &quot;joint_positions&quot;: q_des_16,
-    &quot;joint_velocities&quot;: qd_des_16,
-    &quot;joint_torques&quot;: tau_des_16,
-    &quot;joint_kp&quot;: kp_16,
-    &quot;joint_kd&quot;: kd_16,
+    "enable_development_mode": True,
+    "joint_positions": q_des_16,
+    "joint_velocities": qd_des_16,
+    "joint_torques": tau_des_16,
+    "joint_kp": kp_16,
+    "joint_kd": kd_16,
 }
 
 with algorithm.latest_command_lock:
     algorithm.latest_command = command
 </code></pre>
 <p><code>LCMInterface.send_command()</code> 会把长度正好为 16 的输入按每腿四项拆分。也可以显式传入 12 维主数组和对应的 <code>*_supplement</code> 参数。</p>
-<h2 id="c">C++ 重组示例<a class="headerlink" href="#c" title="Permanent link">&para;</a></h2>
+<h2 id="c">C++ 重组示例<a class="headerlink" href="#c" title="Permanent link">¶</a></h2>
 <pre><code class="language-cpp">#include &lt;array&gt;
 
 std::array&lt;float, 16&gt; interleaveY20W(
@@ -526,7 +522,7 @@ std::array&lt;float, 16&gt; interleaveY20W(
 }
 </code></pre>
 <p>发布 C++ 消息时应逐字段填充 <code>joint_des_q</code> 和 <code>joint_des_q_supplement</code>，速度、扭矩、Kp、Kd 使用同样的拆分方法，并将 <code>robot_id</code> 设置为 <code>Y20W</code>。</p>
-<h2 id="lcminterface"><code>LCMInterface</code> 输入规则<a class="headerlink" href="#lcminterface" title="Permanent link">&para;</a></h2>
+<h2 id="lcminterface"><code>LCMInterface</code> 输入规则<a class="headerlink" href="#lcminterface" title="Permanent link">¶</a></h2>
 <table>
 <thead>
 <tr>
@@ -566,7 +562,7 @@ std::array&lt;float, 16&gt; interleaveY20W(
 </tbody>
 </table>
 <p>为避免“长度正确但语义错误”，自定义算法应固定使用交错 16 维形式，或始终显式传入 12+4 两组数据，不要混用。</p>
-<h2 id="_3">类型生成与兼容<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<h2 id="_3">类型生成与兼容<a class="headerlink" href="#_3" title="Permanent link">¶</a></h2>
 <p>根目录 <code>.lcm</code> 文件修改后执行：</p>
 <pre><code class="language-bash">bash scripts/generate_lcm_types.sh
 </code></pre>
@@ -579,7 +575,7 @@ std::array&lt;float, 16&gt; interleaveY20W(
 <li>跨机器运行的另一端。</li>
 </ol>
 <p>只有字段数量相同并不代表兼容。看到通道但解码报错时，优先检查是否混用了旧生成文件。</p>
-<h2 id="_4">验收清单<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<h2 id="_4">验收清单<a class="headerlink" href="#_4" title="Permanent link">¶</a></h2>
 <ul>
 <li>[ ] 16 维算法顺序逐项核对，不只检查长度。</li>
 <li>[ ] 四个 wheel 正确进入 supplement 索引 0 至 3。</li>
@@ -588,7 +584,7 @@ std::array&lt;float, 16&gt; interleaveY20W(
 <li>[ ] 温度和故障从原始关节状态读取，不误认为 development 状态字段。</li>
 <li>[ ] 所有通信进程使用同一版 LCM 类型。</li>
 </ul>
-<p>完成协议核对后，再进入 <a href="3.development-mode.html">DEVELOPMENT 模式</a>。</p>
+<p>完成协议核对后，再进入 <a href="3.development-mode.html">DEVELOPMENT 模式</a>。</p></div>
               
             </div>
           </div><footer>
@@ -629,7 +625,6 @@ std::array&lt;float, 16&gt; interleaveY20W(
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
       <script src="../js/copy-code.js"></script>
-      <script src="../search/main.js"></script>
     <script>
         jQuery(function () {
             SphinxRtdTheme.Navigation.enable(true);

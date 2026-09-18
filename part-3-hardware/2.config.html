@@ -37,11 +37,7 @@
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
           <a href="../index.html" class="icon icon-home"> quad144w/Y20W 轮足机器人控制框架使用说明书
-        </a><div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
-      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
-  </form>
-</div>
+        </a>
       </div>
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
@@ -167,41 +163,41 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="32">3.2 配置实机参数<a class="headerlink" href="#32" title="Permanent link">&para;</a></h1>
+                <div><h1 id="32">3.2 配置实机参数<a class="headerlink" href="#32" title="Permanent link">¶</a></h1>
 <p>实机使用根目录 <code>config.yaml</code>。至少核对以下配置。</p>
-<h2 id="_1">电机通信<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h2 id="_1">电机通信<a class="headerlink" href="#_1" title="Permanent link">¶</a></h2>
 <pre><code class="language-yaml">motor_communication:
-  type: &quot;spi&quot;
-  board: &quot;rk3588&quot;
-  spi_device0: &quot;/dev/spidev2.0&quot;
-  spi_device1: &quot;/dev/spidev2.1&quot;
+  type: "spi"
+  board: "rk3588"
+  spi_device0: "/dev/spidev2.0"
+  spi_device1: "/dev/spidev2.1"
 </code></pre>
 <p><code>board</code> 支持 <code>rk3588</code> 或 <code>upboard</code>，用于选择对应的 SPI 帧与转换逻辑；它与当前 CPU 架构不是同一个概念。设备节点必须以现场系统为准。</p>
-<h2 id="imu">IMU<a class="headerlink" href="#imu" title="Permanent link">&para;</a></h2>
+<h2 id="imu">IMU<a class="headerlink" href="#imu" title="Permanent link">¶</a></h2>
 <pre><code class="language-yaml">imu:
-  type: &quot;lord&quot;
-  port_base: &quot;/dev/ttyUSB&quot;
+  type: "lord"
+  port_base: "/dev/ttyUSB"
   port_number: 0
 </code></pre>
 <p><code>lord</code> 使用 <code>port_base + port_number</code>，<code>hipnuc</code> 使用配置的完整串口路径。确认设备权限、串口未被其他进程占用。</p>
-<h2 id="_2">电源与时钟同步<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h2 id="_2">电源与时钟同步<a class="headerlink" href="#_2" title="Permanent link">¶</a></h2>
 <ul>
 <li><code>power_reader</code> 控制电源/BMS 数据读取，检查 CAN 接口或对应设备。</li>
 <li><code>tsync_cdc</code> 控制时间同步 CDC 串口，默认设备为 <code>/dev/ttyACM2</code>。</li>
 </ul>
 <p>现场没有对应硬件时，应根据交付配置明确关闭相关功能，而不是保留错误设备号反复启动。</p>
-<h2 id="_3">通道和资源<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<h2 id="_3">通道和资源<a class="headerlink" href="#_3" title="Permanent link">¶</a></h2>
 <pre><code class="language-yaml">development:
-  robot_id: &quot;Y20W&quot;
-  state_channel: &quot;Y20W_development_state&quot;
-  command_channel: &quot;Y20W_development_command&quot;
+  robot_id: "Y20W"
+  state_channel: "Y20W_development_state"
+  command_channel: "Y20W_development_command"
 gamepad:
-  lcm_control_channel: &quot;QUAD_ROBOT_CONTROL_Y20W&quot;
-  lcm_state_channel: &quot;QUAD_ROBOT_STATE_Y20W&quot;
+  lcm_control_channel: "QUAD_ROBOT_CONTROL_Y20W"
+  lcm_state_channel: "QUAD_ROBOT_STATE_Y20W"
 safety_checker:
-  urdf_path: &quot;resources/robots/quad144w/urdf/sduog144_V2_s.urdf&quot;
+  urdf_path: "resources/robots/quad144w/urdf/sduog144_V2_s.urdf"
 </code></pre>
-<h2 id="_4">策略与控制周期<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<h2 id="_4">策略与控制周期<a class="headerlink" href="#_4" title="Permanent link">¶</a></h2>
 <p><code>rl_walk</code> 当前关键参数如下：</p>
 <table>
 <thead>
@@ -260,7 +256,7 @@ safety_checker:
 </tbody>
 </table>
 <p>模型文件、默认 16 维姿态、Kp/Kd、缩放和控制周期必须成套修改。只替换 ONNX 文件可能让维度正确但语义错误。</p>
-<h2 id="_5">手柄与上层控制<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<h2 id="_5">手柄与上层控制<a class="headerlink" href="#_5" title="Permanent link">¶</a></h2>
 <table>
 <thead>
 <tr>
@@ -298,7 +294,7 @@ safety_checker:
 </tbody>
 </table>
 <p>首次实机测试应使用更保守的独立配置，先校准手柄，再验证模式按键和零位，最后逐步开放速度。</p>
-<h2 id="_6">安全检查<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<h2 id="_6">安全检查<a class="headerlink" href="#_6" title="Permanent link">¶</a></h2>
 <p><code>enable_safety_check</code> 是总开关；各 <code>enable_*_check</code> 决定具体检查是否启用。当前配置并非所有检查都开启，不能只看到总开关为 <code>true</code> 就认为姿态、关节位置、速度、扭矩和硬件丢失均受保护。</p>
 <table>
 <thead>
@@ -342,14 +338,14 @@ safety_checker:
 </tbody>
 </table>
 <p>启用或关闭任何安全项前，应在支架环境验证触发条件、状态机结果和恢复方式。不要仅为消除日志关闭保护。</p>
-<h2 id="_7">配置验收<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<h2 id="_7">配置验收<a class="headerlink" href="#_7" title="Permanent link">¶</a></h2>
 <pre><code class="language-bash">test -e /dev/spidev2.0
 test -e /dev/spidev2.1
 test -e /dev/ttyUSB0
 test -e /dev/ttyACM2
 test -f resources/robots/quad144w/urdf/sduog144_V2_s.urdf
 </code></pre>
-<p>设备名仅用于核对当前默认配置，现场系统应以实际枚举结果为准。缺少可选硬件时，要明确关闭对应读取器并记录原因。</p>
+<p>设备名仅用于核对当前默认配置，现场系统应以实际枚举结果为准。缺少可选硬件时，要明确关闭对应读取器并记录原因。</p></div>
               
             </div>
           </div><footer>
@@ -390,7 +386,6 @@ test -f resources/robots/quad144w/urdf/sduog144_V2_s.urdf
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
       <script src="../js/copy-code.js"></script>
-      <script src="../search/main.js"></script>
     <script>
         jQuery(function () {
             SphinxRtdTheme.Navigation.enable(true);

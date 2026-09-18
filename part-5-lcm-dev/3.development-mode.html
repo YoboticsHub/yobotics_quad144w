@@ -37,11 +37,7 @@
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
           <a href="../index.html" class="icon icon-home"> quad144w/Y20W 轮足机器人控制框架使用说明书
-        </a><div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
-      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
-  </form>
-</div>
+        </a>
       </div>
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
@@ -179,9 +175,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="53-development">5.3 DEVELOPMENT 模式<a class="headerlink" href="#53-development" title="Permanent link">&para;</a></h1>
+                <div><h1 id="53-development">5.3 DEVELOPMENT 模式<a class="headerlink" href="#53-development" title="Permanent link">¶</a></h1>
 <p>DEVELOPMENT 模式让独立 Python 进程读取控制器整理后的机器人状态，并持续提交 16 维轮足命令。它是控制器状态机中的一种运行模式，不是“算法进程启动”的同义词。</p>
-<h2 id="_1">五个不同阶段<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h2 id="_1">五个不同阶段<a class="headerlink" href="#_1" title="Permanent link">¶</a></h2>
 <table>
 <thead>
 <tr>
@@ -219,7 +215,7 @@
 </tbody>
 </table>
 <p>调试时必须逐级确认，不能从“看到了命令通道”直接推断机器人已由算法控制。</p>
-<h2 id="_2">推荐生命周期<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h2 id="_2">推荐生命周期<a class="headerlink" href="#_2" title="Permanent link">¶</a></h2>
 <pre><code class="language-text">启动控制器
   -&gt; DEVELOPMENT 状态持续发布
   -&gt; 启动算法并校验配置/模型
@@ -232,7 +228,7 @@
   -&gt; 连续发送约 100 ms 的 enable=0 清零命令
   -&gt; 控制器回到 DAMP 等安全模式
 </code></pre>
-<h2 id="algorithmbase"><code>AlgorithmBase</code> 初始化顺序<a class="headerlink" href="#algorithmbase" title="Permanent link">&para;</a></h2>
+<h2 id="algorithmbase"><code>AlgorithmBase</code> 初始化顺序<a class="headerlink" href="#algorithmbase" title="Permanent link">¶</a></h2>
 <ol>
 <li>解析 <code>--config</code> 路径并读取 YAML。</li>
 <li>创建 <code>LCMInterface</code>，订阅 <code>lcm.state_channel</code>。</li>
@@ -245,8 +241,8 @@
 <li><code>run()</code> 启动推理线程和 LCM 发送线程。</li>
 </ol>
 <p>配置路径相对算法脚本或当前工作目录解析。推荐始终从项目根目录传入完整相对路径，便于复现。</p>
-<h2 id="_3">两个并行循环<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
-<h3 id="_4">推理循环<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<h2 id="_3">两个并行循环<a class="headerlink" href="#_3" title="Permanent link">¶</a></h2>
+<h3 id="_4">推理循环<a class="headerlink" href="#_4" title="Permanent link">¶</a></h3>
 <p>推理循环按 <code>execution.frequency</code> 运行：</p>
 <ol>
 <li>读取最新状态缓存；</li>
@@ -258,14 +254,14 @@
 <li>在锁保护下更新 <code>action_buffer</code>；</li>
 <li>调用 <code>process_action()</code> 更新最新命令缓存。</li>
 </ol>
-<h3 id="_5">发送循环<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<h3 id="_5">发送循环<a class="headerlink" href="#_5" title="Permanent link">¶</a></h3>
 <p>发送循环按 <code>execution.lcm_send_frequency</code> 运行。它重复发布最近一次完整命令，使控制器不依赖较慢的模型推理频率。例如 walk 默认 <code>50 Hz</code> 推理、<code>500 Hz</code> 发送。</p>
 <p><code>action_buffer_lock</code> 保护历史动作，<code>latest_command_lock</code> 保护待发送命令，<code>state_lock</code> 保护运行状态。自定义算法更新这些共享对象时应沿用相同锁。</p>
 <div class="admonition note">
 <p class="admonition-title">频率并非实时保证</p>
 <p>当前实现使用 Python 线程和 <code>time.sleep()</code> 调度。配置值是目标频率，不是硬实时承诺。CPU 负载、推理时间和调试打印都会影响实际频率，应通过 LCM 监控测量。</p>
 </div>
-<h2 id="_6">关键配置<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<h2 id="_6">关键配置<a class="headerlink" href="#_6" title="Permanent link">¶</a></h2>
 <table>
 <thead>
 <tr>
@@ -321,7 +317,7 @@
 </tbody>
 </table>
 <p><code>auto_start</code> 只改变算法进程内部状态并开始发送使能命令。是否真正进入 DEVELOPMENT 仍由控制器决定。</p>
-<h2 id="_7">预热行为<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<h2 id="_7">预热行为<a class="headerlink" href="#_7" title="Permanent link">¶</a></h2>
 <p>walk 的预热需要 actor、encoder 和真实状态：</p>
 <ul>
 <li>每次最多等待约 5 秒获取状态；</li>
@@ -331,7 +327,7 @@
 <li><code>warmup_count &lt;= 0</code>、模型为空或 encoder 为空时跳过预热。</li>
 </ul>
 <p>预热用于发现模型加载、维度和明显动作异常，不替代仿真稳定性测试，也不检查实际关节限位。</p>
-<h2 id="_8">子类扩展接口<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<h2 id="_8">子类扩展接口<a class="headerlink" href="#_8" title="Permanent link">¶</a></h2>
 <table>
 <thead>
 <tr>
@@ -380,7 +376,7 @@
 </tr>
 </tbody>
 </table>
-<h2 id="_9">最小规则算法模板<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<h2 id="_9">最小规则算法模板<a class="headerlink" href="#_9" title="Permanent link">¶</a></h2>
 <pre><code class="language-python">import numpy as np
 from algorithm_base import AlgorithmBase
 
@@ -389,7 +385,7 @@ class MyAlgorithm(AlgorithmBase):
     def _load_policy(self):
         self.model = None
         self.encoder = None
-        self.policy_type = &quot;none&quot;
+        self.policy_type = "none"
 
     def compute_observation(self, state):
         return np.asarray(state.rpy, dtype=np.float32)
@@ -405,16 +401,16 @@ class MyAlgorithm(AlgorithmBase):
 
         with self.latest_command_lock:
             self.latest_command = {
-                &quot;enable_development_mode&quot;: True,
-                &quot;joint_positions&quot;: self.model_params[&quot;default_joint_pos&quot;] + action,
-                &quot;joint_velocities&quot;: np.zeros(16, dtype=np.float32),
-                &quot;joint_torques&quot;: np.zeros(16, dtype=np.float32),
-                &quot;joint_kp&quot;: self.model_params[&quot;joint_stiffness&quot;],
-                &quot;joint_kd&quot;: self.model_params[&quot;joint_damping&quot;],
+                "enable_development_mode": True,
+                "joint_positions": self.model_params["default_joint_pos"] + action,
+                "joint_velocities": np.zeros(16, dtype=np.float32),
+                "joint_torques": np.zeros(16, dtype=np.float32),
+                "joint_kp": self.model_params["joint_stiffness"],
+                "joint_kd": self.model_params["joint_damping"],
             }
 </code></pre>
 <p>模板中的 16 维数组使用每腿 <code>[hip, thigh, calf, wheel]</code> 顺序。<code>LCMInterface</code> 在发送时拆成 12+4。</p>
-<h2 id="_10">正常启动<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
+<h2 id="_10">正常启动<a class="headerlink" href="#_10" title="Permanent link">¶</a></h2>
 <ol>
 <li>按 <a href="../part-2-mujoco/2.start.html">MuJoCo 启动说明</a>启动仿真或按 <a href="../part-3-hardware/3.run.html">实机启动说明</a>启动控制器。</li>
 <li>确认 <code>Y20W_development_state</code> 持续更新。</li>
@@ -423,7 +419,7 @@ class MyAlgorithm(AlgorithmBase):
 <li>通过手柄或当前控制入口进入 DEVELOPMENT。</li>
 <li>查看状态 <code>mode</code>、关节响应和命令频率。</li>
 </ol>
-<h2 id="_11">正常停止<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
+<h2 id="_11">正常停止<a class="headerlink" href="#_11" title="Permanent link">¶</a></h2>
 <p>优先将控制器切回 DAMP 或其他安全模式，再结束算法。使用 <code>Ctrl+C</code> 时，框架会执行结束流程，并按发送频率持续发送约 <code>100 ms</code> 的禁用命令。</p>
 <pre><code class="language-text">切回安全模式 -&gt; 确认运动停止 -&gt; Ctrl+C -&gt; 确认命令 enable=0 -&gt; 停止控制器
 </code></pre>
@@ -431,7 +427,7 @@ class MyAlgorithm(AlgorithmBase):
 <p class="admonition-title">不要只关闭终端</p>
 <p>关闭算法进程不等于控制器已经退出 DEVELOPMENT。实机上必须观察状态机和机器人响应，确认已经进入安全模式。</p>
 </div>
-<h2 id="_12">异常处理边界<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h2>
+<h2 id="_12">异常处理边界<a class="headerlink" href="#_12" title="Permanent link">¶</a></h2>
 <table>
 <thead>
 <tr>
@@ -479,7 +475,7 @@ class MyAlgorithm(AlgorithmBase):
 </tbody>
 </table>
 <p>当前框架没有在本地根据 <code>last_state_time</code> 自动触发状态超时停机。实机算法应把“状态新鲜度”和“连续推理失败次数”作为上线前必须验证的失效场景。</p>
-<p>接下来建议先完成 <a href="4.wave.html">wave 规则示例</a>，再运行 ONNX 策略。</p>
+<p>接下来建议先完成 <a href="4.wave.html">wave 规则示例</a>，再运行 ONNX 策略。</p></div>
               
             </div>
           </div><footer>
@@ -520,7 +516,6 @@ class MyAlgorithm(AlgorithmBase):
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
       <script src="../js/copy-code.js"></script>
-      <script src="../search/main.js"></script>
     <script>
         jQuery(function () {
             SphinxRtdTheme.Navigation.enable(true);

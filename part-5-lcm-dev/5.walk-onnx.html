@@ -37,11 +37,7 @@
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
           <a href="../index.html" class="icon icon-home"> quad144w/Y20W 轮足机器人控制框架使用说明书
-        </a><div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
-      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
-  </form>
-</div>
+        </a>
       </div>
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
@@ -199,9 +195,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="55-onnx">5.5 ONNX 行走示例<a class="headerlink" href="#55-onnx" title="Permanent link">&para;</a></h1>
+                <div><h1 id="55-onnx">5.5 ONNX 行走示例<a class="headerlink" href="#55-onnx" title="Permanent link">¶</a></h1>
 <p><code>walk_algorithm</code> 使用 encoder 和 actor 两个 ONNX 模型，把 Y20W 状态转换为 57 维观测，并输出 16 维轮足动作。该示例展示了完整策略推理链路，也要求模型训练约定与部署端完全一致。</p>
-<h2 id="_1">执行链路<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h2 id="_1">执行链路<a class="headerlink" href="#_1" title="Permanent link">¶</a></h2>
 <pre><code class="language-text">development_state_t
   -&gt; 状态重排和缩放
   -&gt; 57 维 observation
@@ -214,7 +210,7 @@
   -&gt; development_command_t (12+4)
 </code></pre>
 <p>encoder 必须有 3 个输入：观测、hidden、cell。actor 必须有 4 个输入：观测、latent、hidden、cell。代码从 ONNX session 读取实际输入名称和末维形状，并维护两组循环状态。</p>
-<h2 id="_2">启动命令<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h2 id="_2">启动命令<a class="headerlink" href="#_2" title="Permanent link">¶</a></h2>
 <pre><code class="language-bash">python3 external_algorithms/walk_algorithm/run_algorithm.py \
   --config external_algorithms/walk_algorithm/config.yaml
 </code></pre>
@@ -223,8 +219,8 @@
 external_algorithms/walk_algorithm/HumanActornet.onnx
 </code></pre>
 <p>启动前应先用 wave 完成通信和关节映射验证。这样 ONNX 异常和底层链路异常不会混在一起排查。</p>
-<h2 id="_3">配置与优先级<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
-<h3 id="_4">策略配置<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<h2 id="_3">配置与优先级<a class="headerlink" href="#_3" title="Permanent link">¶</a></h2>
+<h3 id="_4">策略配置<a class="headerlink" href="#_4" title="Permanent link">¶</a></h3>
 <table>
 <thead>
 <tr>
@@ -266,7 +262,7 @@ external_algorithms/walk_algorithm/HumanActornet.onnx
 </tr>
 </tbody>
 </table>
-<h3 id="_5">模型参数<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<h3 id="_5">模型参数<a class="headerlink" href="#_5" title="Permanent link">¶</a></h3>
 <table>
 <thead>
 <tr>
@@ -338,7 +334,7 @@ external_algorithms/walk_algorithm/HumanActornet.onnx
 <p class="admonition-title">Warning</p>
 <p>当前 metadata 读取失败只打印警告，程序可能继续使用 YAML 参数。开启该功能后必须阅读启动日志，不能只依据配置文件判断最终参数。</p>
 </div>
-<h2 id="57">57 维观测逐项说明<a class="headerlink" href="#57" title="Permanent link">&para;</a></h2>
+<h2 id="57">57 维观测逐项说明<a class="headerlink" href="#57" title="Permanent link">¶</a></h2>
 <table>
 <thead>
 <tr>
@@ -388,17 +384,17 @@ external_algorithms/walk_algorithm/HumanActornet.onnx
 </tbody>
 </table>
 <p>总维度为 <code>3 + 3 + 3 + 16 + 16 + 16 = 57</code>。</p>
-<h3 id="_6">角速度<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<h3 id="_6">角速度<a class="headerlink" href="#_6" title="Permanent link">¶</a></h3>
 <p>角速度直接取 <code>development_state_t.omega</code>。训练和部署必须使用相同机体系、轴方向和单位。</p>
-<h3 id="_7">重力投影<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<h3 id="_7">重力投影<a class="headerlink" href="#_7" title="Permanent link">¶</a></h3>
 <p>代码按四元数 <code>[w, x, y, z]</code> 计算机身坐标系中的重力方向。它向策略提供 roll/pitch 姿态信息，同时避免直接使用欧拉角的不连续性。</p>
 <p>若上游四元数顺序是 <code>[x, y, z, w]</code>，计算仍能运行，但观测语义完全错误。替换状态来源时必须先做静止姿态和单轴倾斜测试。</p>
-<h3 id="_8">速度命令<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<h3 id="_8">速度命令<a class="headerlink" href="#_8" title="Permanent link">¶</a></h3>
 <p>观测使用：</p>
 <pre><code class="language-text">[前向速度 v_des[0], 横向速度 v_des[1], 偏航角速度 omega_des[2]]
 </code></pre>
 <p><code>v_des[2]</code> 和 <code>omega_des[0:2]</code> 不进入当前策略观测。</p>
-<h3 id="_9">关节位置与速度<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<h3 id="_9">关节位置与速度<a class="headerlink" href="#_9" title="Permanent link">¶</a></h3>
 <p>LCM 的 12+4 状态重排为：</p>
 <pre><code class="language-text">[LF_hip, LF_thigh, LF_calf, LF_wheel,
  RF_hip, RF_thigh, RF_calf, RF_wheel,
@@ -406,13 +402,13 @@ external_algorithms/walk_algorithm/HumanActornet.onnx
  RR_hip, RR_thigh, RR_calf, RR_wheel]
 </code></pre>
 <p>位置先减去 <code>default_joint_pos</code>，速度不减零位。两者分别乘各自缩放。</p>
-<h3 id="_10">历史动作<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<h3 id="_10">历史动作<a class="headerlink" href="#_10" title="Permanent link">¶</a></h3>
 <p><code>action_buffer</code> 初始化为全零。每次推理成功并通过有限值检查后，基类在锁保护下保存当前动作；下一次观测读取它作为最后 16 维输入。</p>
-<h3 id="_11">观测裁剪<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
+<h3 id="_11">观测裁剪<a class="headerlink" href="#_11" title="Permanent link">¶</a></h3>
 <p><code>compute_observation()</code> 使用 <code>model_params.obs_clip_range</code>，配置未提供时默认裁剪到 <code>[-100, 100]</code>。基类推理前也会对绝对值超过 <code>100</code> 的观测再次裁剪。</p>
 <p>裁剪可以阻止数值爆炸，但持续触发裁剪通常意味着缩放、单位或传感器状态错误，应修复来源而不是依赖裁剪维持运行。</p>
-<h2 id="encoder-actor">Encoder 与 Actor 推理<a class="headerlink" href="#encoder-actor" title="Permanent link">&para;</a></h2>
-<h3 id="encoder">Encoder<a class="headerlink" href="#encoder" title="Permanent link">&para;</a></h3>
+<h2 id="encoder-actor">Encoder 与 Actor 推理<a class="headerlink" href="#encoder-actor" title="Permanent link">¶</a></h2>
+<h3 id="encoder">Encoder<a class="headerlink" href="#encoder" title="Permanent link">¶</a></h3>
 <ol>
 <li>读取三个输入的名称和末维；</li>
 <li>将观测 reshape 为 <code>(1, obs_dim)</code>；</li>
@@ -420,7 +416,7 @@ external_algorithms/walk_algorithm/HumanActornet.onnx
 <li>执行 encoder；</li>
 <li>保存输出 latent、新 hidden 和新 cell。</li>
 </ol>
-<h3 id="actor">Actor<a class="headerlink" href="#actor" title="Permanent link">&para;</a></h3>
+<h3 id="actor">Actor<a class="headerlink" href="#actor" title="Permanent link">¶</a></h3>
 <ol>
 <li>读取四个输入：observation、latent、hidden、cell；</li>
 <li>将观测和 latent reshape 为二维 batch；</li>
@@ -430,7 +426,7 @@ external_algorithms/walk_algorithm/HumanActornet.onnx
 <li>如果还有 hidden/cell 输出，则更新循环状态。</li>
 </ol>
 <p>每次重新开始 DEVELOPMENT 时，encoder 和 actor 的循环状态都会清零。</p>
-<h2 id="16">16 维动作处理<a class="headerlink" href="#16" title="Permanent link">&para;</a></h2>
+<h2 id="16">16 维动作处理<a class="headerlink" href="#16" title="Permanent link">¶</a></h2>
 <p><code>process_action()</code> 依次执行：</p>
 <ol>
 <li>拒绝 <code>None</code> 或空动作；</li>
@@ -453,7 +449,7 @@ tau_des = 0
 <p class="admonition-title">NaN 回退的边界</p>
 <p>基类会在更新 <code>action_buffer</code> 前拒绝 NaN/Inf，因此 walk 中对上一动作的回退通常只能使用最近一次有效动作。持续保持旧动作未必安全，自研算法应增加动作新鲜度和连续失败处理。</p>
 </div>
-<h2 id="_12">模型预热<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h2>
+<h2 id="_12">模型预热<a class="headerlink" href="#_12" title="Permanent link">¶</a></h2>
 <p>默认预热执行 500 次真实状态推理：</p>
 <ol>
 <li>等待 <code>Y20W_development_state</code>；</li>
@@ -464,7 +460,7 @@ tau_des = 0
 <li>最终检测到动作异常时打印观测、动作和异常索引并退出。</li>
 </ol>
 <p>预热期间需要控制器持续发布状态，但不应据此认为关节命令已经生效。预热通过只说明模型能够在当前状态上执行且未触发该动作阈值。</p>
-<h2 id="_13">替换模型验收表<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h2>
+<h2 id="_13">替换模型验收表<a class="headerlink" href="#_13" title="Permanent link">¶</a></h2>
 <table>
 <thead>
 <tr>
@@ -551,7 +547,7 @@ tau_des = 0
 </tr>
 </tbody>
 </table>
-<h2 id="_14">仿真验收流程<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h2>
+<h2 id="_14">仿真验收流程<a class="headerlink" href="#_14" title="Permanent link">¶</a></h2>
 <ol>
 <li>用 wave 验证 DEVELOPMENT 链路和 16 维顺序。</li>
 <li>在不进入 DEVELOPMENT 的情况下启动 walk，观察模型加载和 500 次预热。</li>
@@ -563,7 +559,7 @@ tau_des = 0
 <li>验证 <code>Ctrl+C</code>、模式切换和控制器停止时的退出行为。</li>
 </ol>
 <p>建议记录：状态与命令频率、推理耗时、观测最大绝对值、动作最大绝对值、姿态、16 维位置/速度、轮速和异常计数。</p>
-<h2 id="_15">故障排查<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h2>
+<h2 id="_15">故障排查<a class="headerlink" href="#_15" title="Permanent link">¶</a></h2>
 <table>
 <thead>
 <tr>
@@ -642,7 +638,7 @@ tau_des = 0
 </tr>
 </tbody>
 </table>
-<h2 id="_16">成功标志<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h2>
+<h2 id="_16">成功标志<a class="headerlink" href="#_16" title="Permanent link">¶</a></h2>
 <ul>
 <li>两个模型加载成功，输入数量和形状符合代码预期；</li>
 <li>500 次预热完成且无最终动作越界；</li>
@@ -651,7 +647,7 @@ tau_des = 0
 <li>零命令和小幅单轴命令在仿真中可重复运行；</li>
 <li>异常退出后控制器能够回到安全模式。</li>
 </ul>
-<p>满足这些条件后，再按 <a href="6.hardware.html">自定义算法与实机接入</a>执行分阶段验证。</p>
+<p>满足这些条件后，再按 <a href="6.hardware.html">自定义算法与实机接入</a>执行分阶段验证。</p></div>
               
             </div>
           </div><footer>
@@ -692,7 +688,6 @@ tau_des = 0
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
       <script src="../js/copy-code.js"></script>
-      <script src="../search/main.js"></script>
     <script>
         jQuery(function () {
             SphinxRtdTheme.Navigation.enable(true);

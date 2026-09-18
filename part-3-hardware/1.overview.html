@@ -37,11 +37,7 @@
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
           <a href="../index.html" class="icon icon-home"> quad144w/Y20W 轮足机器人控制框架使用说明书
-        </a><div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
-      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
-  </form>
-</div>
+        </a>
       </div>
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
@@ -155,7 +151,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="31">3.1 实机结构与安全<a class="headerlink" href="#31" title="Permanent link">&para;</a></h1>
+                <div><h1 id="31">3.1 实机结构与安全<a class="headerlink" href="#31" title="Permanent link">¶</a></h1>
 <p>实机控制器读取 IMU 和 SPI 电机状态，运行状态机与策略，再向两路 SPI 设备发送 16 轴命令。SDK、WebRTC 和外部算法通过 LCM 与控制器通信。</p>
 <pre><code class="language-text">遥控器 / SDK / WebRTC       外部算法
           |                    |
@@ -171,7 +167,7 @@
 <p>急停有效、机器人有可靠支撑、轮子离地或区域清空、供电正常、线缆不会卷入轮足、SPI 与 IMU 设备号正确，并且现场人员知道如何立即切回 <code>DAMP</code> 和断电。</p>
 </div>
 <p>实机默认安全检查从 URDF 读取关节限制。不要为了消除报错直接关闭 <code>safety_checker.enable_safety_check</code>；应先定位模型、传感器或参数问题。</p>
-<h2 id="_1">实机数据链<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h2 id="_1">实机数据链<a class="headerlink" href="#_1" title="Permanent link">¶</a></h2>
 <ol>
 <li>两路 SPI 读取 12 个腿关节和 4 个轮关节状态。</li>
 <li>IMU 提供姿态、角速度和加速度。</li>
@@ -181,7 +177,7 @@
 <li>控制器把最终命令写回 SPI，并通过 LCM 发布运行状态。</li>
 </ol>
 <p>Viewer、SDK、WebRTC 和外部算法都依赖控制器发布的状态，不能替代对 SPI、IMU 和物理急停的直接检查。</p>
-<h2 id="_2">上电前清单<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h2 id="_2">上电前清单<a class="headerlink" href="#_2" title="Permanent link">¶</a></h2>
 <ul>
 <li>[ ] 机器人由可靠支架固定，轮子离地或运动区域清空。</li>
 <li>[ ] 急停和断电路径可由现场人员立即操作。</li>
@@ -189,7 +185,7 @@
 <li>[ ] 供电电压正常，线缆不会进入轮子和关节范围。</li>
 <li>[ ] 初始模式为 <code>DAMP</code>，速度和姿态命令清零。</li>
 <li>[ ] 使用的配置、模型和 URDF 已在 MuJoCo 中验证。</li>
-</ul>
+</ul></div>
               
             </div>
           </div><footer>
@@ -230,7 +226,6 @@
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
       <script src="../js/copy-code.js"></script>
-      <script src="../search/main.js"></script>
     <script>
         jQuery(function () {
             SphinxRtdTheme.Navigation.enable(true);

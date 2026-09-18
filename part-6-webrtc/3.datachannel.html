@@ -37,11 +37,7 @@
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
           <a href="../index.html" class="icon icon-home"> quad144w/Y20W 轮足机器人控制框架使用说明书
-        </a><div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
-      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
-  </form>
-</div>
+        </a>
       </div>
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
@@ -161,15 +157,15 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="63-datachannel">6.3 DataChannel 协议<a class="headerlink" href="#63-datachannel" title="Permanent link">&para;</a></h1>
+                <div><h1 id="63-datachannel">6.3 DataChannel 协议<a class="headerlink" href="#63-datachannel" title="Permanent link">¶</a></h1>
 <p>publisher 创建名为 <code>chat</code> 的 DataChannel。客户端发送 JSON 字符串后，publisher 将其转换为 <code>sport_client_cmd_t</code> 并发布到 <code>QUAD_ROBOT_CONTROL_Y20W</code>；控制器状态再以 JSON 字符串回传。</p>
-<h2 id="json">控制 JSON<a class="headerlink" href="#json" title="Permanent link">&para;</a></h2>
+<h2 id="json">控制 JSON<a class="headerlink" href="#json" title="Permanent link">¶</a></h2>
 <pre><code class="language-json">{
-  &quot;mode&quot;: 1002,
-  &quot;v&quot;: [0.2, 0.0, 0.0],
-  &quot;rpy&quot;: [0.0, 0.0, 0.0],
-  &quot;h&quot;: [0.0],
-  &quot;variable&quot;: [0, 0, 0]
+  "mode": 1002,
+  "v": [0.2, 0.0, 0.0],
+  "rpy": [0.0, 0.0, 0.0],
+  "h": [0.0],
+  "variable": [0, 0, 0]
 }
 </code></pre>
 <table>
@@ -258,17 +254,17 @@ step_height = 0
 <p><code>publisher.py</code> 只把 JSON 转为数值，没有对速度、高度或姿态做 SDK/HTTP 那样的范围限制。客户端必须校验类型、数组长度、有限值和安全范围，并由控制器状态确认命令结果。</p>
 </div>
 <p>数组应提供完整长度。<code>v</code> 或 <code>rpy</code> 少于 3 项可能导致固定长度 LCM 字段编码失败；<code>h</code> 为空数组会导致索引错误。JSON 中的字符串数值虽然可能被 <code>float()</code> 接受，也不应作为正式协议使用。</p>
-<h2 id="json_1">状态 JSON<a class="headerlink" href="#json_1" title="Permanent link">&para;</a></h2>
+<h2 id="json_1">状态 JSON<a class="headerlink" href="#json_1" title="Permanent link">¶</a></h2>
 <p>收到 <code>QUAD_ROBOT_STATE_Y20W</code> 后，publisher 回传：</p>
 <pre><code class="language-json">{
-  &quot;code&quot;: 0,
-  &quot;power&quot;: [0.0, 0.0],
-  &quot;rpy&quot;: [0.0, 0.0, 0.0],
-  &quot;v&quot;: [0.0],
-  &quot;h&quot;: [0.0],
-  &quot;state&quot;: 0,
-  &quot;fault&quot;: 0,
-  &quot;env&quot;: [0.0, 0.0, 0.0]
+  "code": 0,
+  "power": [0.0, 0.0],
+  "rpy": [0.0, 0.0, 0.0],
+  "v": [0.0],
+  "h": [0.0],
+  "state": 0,
+  "fault": 0,
+  "env": [0.0, 0.0, 0.0]
 }
 </code></pre>
 <table>
@@ -314,7 +310,7 @@ step_height = 0
 </tbody>
 </table>
 <p>该状态不包含 16 轴关节、温度或驱动故障。需要完整诊断时应同时使用 LCM Monitor 或 SDK 状态客户端。</p>
-<h2 id="_1">客户端发送原则<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h2 id="_1">客户端发送原则<a class="headerlink" href="#_1" title="Permanent link">¶</a></h2>
 <ol>
 <li>连接后先发送 <code>DAMP</code> 和零速度。</li>
 <li>读取状态确认控制器在线。</li>
@@ -323,7 +319,7 @@ step_height = 0
 <li>页面失焦、摇杆释放、DataChannel closing/closed 时立即发送零速度。</li>
 <li>断开前切回 <code>DAMP</code> 并从状态确认。</li>
 </ol>
-<h2 id="_2">校验示例<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h2 id="_2">校验示例<a class="headerlink" href="#_2" title="Permanent link">¶</a></h2>
 <p>客户端发送前至少执行等价检查：</p>
 <pre><code class="language-javascript">function validVector(value, length) {
   return Array.isArray(value) &amp;&amp;
@@ -335,11 +331,11 @@ if (!Number.isInteger(command.mode) ||
     !validVector(command.v, 3) ||
     !validVector(command.rpy, 3) ||
     !validVector(command.h, 1)) {
-  throw new Error(&quot;invalid Y20W control command&quot;);
+  throw new Error("invalid Y20W control command");
 }
 </code></pre>
 <p>还应根据应用设置保守范围和变化率限制。远程链路不能以“控制器可能会限幅”替代客户端校验。</p>
-<h2 id="_3">验收<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<h2 id="_3">验收<a class="headerlink" href="#_3" title="Permanent link">¶</a></h2>
 <ul>
 <li>JSON 字段类型和长度固定；</li>
 <li>命令成功转换为 <code>sport_client_cmd_t</code>；</li>
@@ -347,7 +343,7 @@ if (!Number.isInteger(command.mode) ||
 <li>速度清零后状态和机器人响应恢复；</li>
 <li>DataChannel 断开路径会触发客户端安全动作；</li>
 <li>故障状态在界面上醒目呈现，而不是仅记录日志。</li>
-</ul>
+</ul></div>
               
             </div>
           </div><footer>
@@ -388,7 +384,6 @@ if (!Number.isInteger(command.mode) ||
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
       <script src="../js/copy-code.js"></script>
-      <script src="../search/main.js"></script>
     <script>
         jQuery(function () {
             SphinxRtdTheme.Navigation.enable(true);

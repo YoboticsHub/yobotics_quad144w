@@ -37,11 +37,7 @@
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
           <a href="../index.html" class="icon icon-home"> quad144w/Y20W 轮足机器人控制框架使用说明书
-        </a><div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
-      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
-  </form>
-</div>
+        </a>
       </div>
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
@@ -169,9 +165,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="46-http">4.6 HTTP 服务<a class="headerlink" href="#46-http" title="Permanent link">&para;</a></h1>
+                <div><h1 id="46-http">4.6 HTTP 服务<a class="headerlink" href="#46-http" title="Permanent link">¶</a></h1>
 <p><code>yobot_http_server</code> 把 <code>SportClient</code>、机器人状态和导航客户端封装为带 Bearer Token 的局域网 HTTP 接口。控制循环每约 <code>50 ms</code> 重发当前运动命令，服务退出时会发送零速度、零姿态并切换到 <code>DAMP</code>。</p>
-<h2 id="_1">启动配置<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h2 id="_1">启动配置<a class="headerlink" href="#_1" title="Permanent link">¶</a></h2>
 <pre><code class="language-bash">export SERVER_HOST=0.0.0.0
 export SERVER_PORT=8080
 export ROBOT_HTTP_TOKEN='replace-with-a-private-token'
@@ -214,7 +210,7 @@ yobotics_sdk/build/yobot_http_server
 <p class="admonition-title">Danger</p>
 <p>默认 Token 仅用于本地联调。正式环境必须更换，限制可访问网段，并避免把无 TLS 的控制接口直接暴露到公网。</p>
 </div>
-<h2 id="_2">鉴权和响应<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h2 id="_2">鉴权和响应<a class="headerlink" href="#_2" title="Permanent link">¶</a></h2>
 <p>所有 GET、POST 请求都需要：</p>
 <pre><code class="language-text">Authorization: Bearer &lt;ROBOT_HTTP_TOKEN&gt;
 </code></pre>
@@ -246,7 +242,7 @@ yobotics_sdk/build/yobot_http_server
 </tbody>
 </table>
 <p>统一响应包含 <code>code</code>、<code>msg</code>，成功接口通常还包含 <code>data</code>。</p>
-<h2 id="_3">接口总览<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<h2 id="_3">接口总览<a class="headerlink" href="#_3" title="Permanent link">¶</a></h2>
 <table>
 <thead>
 <tr>
@@ -288,18 +284,18 @@ yobotics_sdk/build/yobot_http_server
 </tr>
 </tbody>
 </table>
-<h2 id="_4">运动命令<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<h2 id="_4">运动命令<a class="headerlink" href="#_4" title="Permanent link">¶</a></h2>
 <pre><code class="language-bash">curl -X POST 'http://127.0.0.1:8080/control/motion' \
   -H 'Authorization: Bearer replace-with-a-private-token' \
   -H 'Content-Type: application/json' \
   -d '{
-    &quot;mode&quot;: &quot;rl_walk&quot;,
-    &quot;vx&quot;: 0.2,
-    &quot;vy&quot;: 0.0,
-    &quot;vyaw&quot;: 0.0,
-    &quot;body_height&quot;: 0.0,
-    &quot;roll&quot;: 0.0,
-    &quot;pitch&quot;: 0.0
+    "mode": "rl_walk",
+    "vx": 0.2,
+    "vy": 0.0,
+    "vyaw": 0.0,
+    "body_height": 0.0,
+    "roll": 0.0,
+    "pitch": 0.0
   }'
 </code></pre>
 <p>请求只需包含要更新的字段，未提供字段保留缓存值。</p>
@@ -350,7 +346,7 @@ yobotics_sdk/build/yobot_http_server
 </tbody>
 </table>
 <p>非 <code>rl_walk</code>、<code>development</code> 模式会自动把速度、高度和姿态字段清零。HTTP 限制是接口保护范围，不代表机器人在所有地形和模式下都适合使用边界值。</p>
-<h2 id="_5">状态读取<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<h2 id="_5">状态读取<a class="headerlink" href="#_5" title="Permanent link">¶</a></h2>
 <pre><code class="language-bash">curl 'http://127.0.0.1:8080/control/status' \
   -H 'Authorization: Bearer replace-with-a-private-token'
 </code></pre>
@@ -364,29 +360,29 @@ yobotics_sdk/build/yobot_http_server
 <li><code>nav_state</code>：导航原始响应及解析后的位姿/速度。</li>
 </ul>
 <p>当前 HTTP 状态 JSON 没有输出四个 supplement wheel 数组，也没有输出 <code>spi_driver_status</code>。需要完整 16 轴状态时使用 <code>yobot_robot_state_client</code> 或直接订阅 <code>quad_joint_state_t</code>。</p>
-<h2 id="_6">停止接口<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<h2 id="_6">停止接口<a class="headerlink" href="#_6" title="Permanent link">¶</a></h2>
 <pre><code class="language-bash">curl -X POST 'http://127.0.0.1:8080/control/stop' \
   -H 'Authorization: Bearer replace-with-a-private-token'
 </code></pre>
 <p>该接口把缓存恢复为默认命令：<code>DAMP</code>、导航关闭、速度/高度/姿态为零。HTTP 成功只表示缓存已经更新，仍需读取机器人状态确认模式切换。</p>
-<h2 id="_7">导航接口<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<h2 id="_7">导航接口<a class="headerlink" href="#_7" title="Permanent link">¶</a></h2>
 <p>导航能力依赖仓库外部的上层导航进程和相应 LCM 通道。只启动 HTTP 服务并不会产生定位、地图或路径规划能力。</p>
 <p>启用导航前必须先进入 <code>rl_walk</code>：</p>
 <pre><code class="language-bash">curl -X POST 'http://127.0.0.1:8080/control/nav/enable' \
   -H 'Authorization: Bearer replace-with-a-private-token' \
   -H 'Content-Type: application/json' \
-  -d '{&quot;nav_enabled&quot;: true}'
+  -d '{"nav_enabled": true}'
 </code></pre>
 <p>其他模式下启用会返回 <code>400</code>。</p>
 <p><code>/control/nav</code> 的 <code>cmd_type</code> 支持映射、割草、定位、导航、目标程序、发送/清除目标以及整套启动/停止命令。发送目标时还必须提供：</p>
 <pre><code class="language-json">{
-  &quot;cmd_type&quot;: &quot;send_goal&quot;,
-  &quot;name&quot;: &quot;1&quot;,
-  &quot;pos&quot;: [1.0, 2.0, 0.0, 0.0, 0.0, 0.0, 1.0],
-  &quot;stay_time&quot;: 2.0,
-  &quot;play&quot;: false,
-  &quot;speech_text&quot;: &quot;&quot;,
-  &quot;actions&quot;: []
+  "cmd_type": "send_goal",
+  "name": "1",
+  "pos": [1.0, 2.0, 0.0, 0.0, 0.0, 0.0, 1.0],
+  "stay_time": 2.0,
+  "play": false,
+  "speech_text": "",
+  "actions": []
 }
 </code></pre>
 <p><code>pos</code> 必须包含 7 个数值。<code>actions</code> 必须是对象数组，其中可选 <code>flag</code> 和 <code>duration</code> 必须为数值。</p>
@@ -395,7 +391,7 @@ yobotics_sdk/build/yobot_http_server
   -H 'Authorization: Bearer replace-with-a-private-token'
 </code></pre>
 <p>响应会给出最近请求码、预期响应码、是否收到确认、是否到达目标，以及导航位置、姿态和速度。</p>
-<h2 id="_8">联调顺序<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<h2 id="_8">联调顺序<a class="headerlink" href="#_8" title="Permanent link">¶</a></h2>
 <ol>
 <li>启动控制器和 SDK 状态客户端。</li>
 <li>启动 HTTP 服务，确认监听成功。</li>
@@ -405,7 +401,7 @@ yobotics_sdk/build/yobot_http_server
 <li>调用 <code>/control/stop</code>，确认速度清零和 DAMP。</li>
 <li>只有部署了导航系统后才测试导航接口。</li>
 </ol>
-<h2 id="_9">故障排查<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<h2 id="_9">故障排查<a class="headerlink" href="#_9" title="Permanent link">¶</a></h2>
 <table>
 <thead>
 <tr>
@@ -452,7 +448,7 @@ yobotics_sdk/build/yobot_http_server
 </tr>
 </tbody>
 </table>
-<p>按 <code>Ctrl+C</code> 正常退出服务，等待控制线程发送零命令和 <code>DAMP</code>。实机上仍应通过独立安全入口确认机器人停止。</p>
+<p>按 <code>Ctrl+C</code> 正常退出服务，等待控制线程发送零命令和 <code>DAMP</code>。实机上仍应通过独立安全入口确认机器人停止。</p></div>
               
             </div>
           </div><footer>
@@ -493,7 +489,6 @@ yobotics_sdk/build/yobot_http_server
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
       <script src="../js/copy-code.js"></script>
-      <script src="../search/main.js"></script>
     <script>
         jQuery(function () {
             SphinxRtdTheme.Navigation.enable(true);

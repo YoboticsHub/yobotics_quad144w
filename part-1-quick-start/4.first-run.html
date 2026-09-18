@@ -37,11 +37,7 @@
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
           <a href="../index.html" class="icon icon-home"> quad144w/Y20W 轮足机器人控制框架使用说明书
-        </a><div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
-      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
-  </form>
-</div>
+        </a>
       </div>
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
@@ -163,31 +159,31 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="14">1.4 首次运行<a class="headerlink" href="#14" title="Permanent link">&para;</a></h1>
-<h2 id="1">1. 检查包完整性<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+                <div><h1 id="14">1.4 首次运行<a class="headerlink" href="#14" title="Permanent link">¶</a></h1>
+<h2 id="1">1. 检查包完整性<a class="headerlink" href="#1" title="Permanent link">¶</a></h2>
 <pre><code class="language-bash">test -x bin/ybt_ctrl
 test -f config_sim.yaml
 test -f resources_sim/robots/quad144w/scene_terrain.xml
 test -f actor_model/y20w_v3/terrain/HumanActornet.onnx
 </code></pre>
 <p>在 RK3588 上将第一项换成 <code>bin_rk3588/ybt_ctrl</code>。</p>
-<h2 id="2">2. 配置环境<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
+<h2 id="2">2. 配置环境<a class="headerlink" href="#2" title="Permanent link">¶</a></h2>
 <pre><code class="language-bash">bash scripts/setup_conda_env.sh
 conda activate quad_controller
 </code></pre>
-<h2 id="3">3. 启动仿真<a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
+<h2 id="3">3. 启动仿真<a class="headerlink" href="#3" title="Permanent link">¶</a></h2>
 <pre><code class="language-bash">bash scripts/start_mujoco.sh --config config_sim.yaml
 </code></pre>
 <p>成功时应看到 MuJoCo 窗口、控制器进入初始模式，并持续产生关节/IMU LCM 消息。另开终端检查：</p>
 <pre><code class="language-bash">bash scripts/monitor_lcm.sh --no-gui
 </code></pre>
-<h2 id="4">4. 停止<a class="headerlink" href="#4" title="Permanent link">&para;</a></h2>
+<h2 id="4">4. 停止<a class="headerlink" href="#4" title="Permanent link">¶</a></h2>
 <p>在启动仿真的终端按 <code>Ctrl+C</code>。脚本会终止控制器和 MuJoCo 子进程。确认没有残留后再修改配置或启动下一次测试。</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>首次运行只完成仿真验证。实机启动前还必须阅读第三部分并检查急停、支架、SPI、IMU、供电和安全参数。</p>
 </div>
-<h2 id="_1">首次运行成功标志<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h2 id="_1">首次运行成功标志<a class="headerlink" href="#_1" title="Permanent link">¶</a></h2>
 <ul>
 <li>启动脚本没有配置、动态库或模型路径错误；</li>
 <li>MuJoCo 场景中只出现一台 Y20W，初始姿态可控；</li>
@@ -195,7 +191,7 @@ conda activate quad_controller
 <li><code>Ctrl+C</code> 后控制器与仿真进程一起退出；</li>
 <li>再次启动不会提示端口、共享资源或重复进程冲突。</li>
 </ul>
-<h2 id="_2">首次失败时<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h2 id="_2">首次失败时<a class="headerlink" href="#_2" title="Permanent link">¶</a></h2>
 <table>
 <thead>
 <tr>
@@ -226,7 +222,7 @@ conda activate quad_controller
 </tr>
 </tbody>
 </table>
-<p>完成本页后按 <a href="../part-2-mujoco/3.verify.html">模型与模式验证</a>逐项检查，不要直接跳到实机。</p>
+<p>完成本页后按 <a href="../part-2-mujoco/3.verify.html">模型与模式验证</a>逐项检查，不要直接跳到实机。</p></div>
               
             </div>
           </div><footer>
@@ -267,7 +263,6 @@ conda activate quad_controller
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
       <script src="../js/copy-code.js"></script>
-      <script src="../search/main.js"></script>
     <script>
         jQuery(function () {
             SphinxRtdTheme.Navigation.enable(true);
