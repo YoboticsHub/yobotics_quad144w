@@ -14,8 +14,10 @@ model_params:
   num_obs: 57
   # 关节顺序：每条腿 [hip, thigh, calf, wheel]
   default_joint_pos: [0.0, -0.8, 1.6, 0.0, 0.0, -0.8, 1.6, 0.0, 0.0, -0.8, 1.6, 0.0, 0.0, -0.8, 1.6, 0.0]
-  joint_stiffness: [8, 8, 8, 0, 8, 8, 8, 0, 8, 8, 8, 0, 8, 8, 8, 0]
-  joint_damping: [0.2, 0.2, 0.2, 0.5, 0.2, 0.2, 0.2, 0.5, 0.2, 0.2, 0.2, 0.5, 0.2, 0.2, 0.2, 0.5]
+  joint_stiffness: [60, 60, 60, 0, 60, 60, 60, 0, 60, 60, 60, 0, 60, 60, 60, 0]
+  joint_damping: [2, 2, 2, 5, 2, 2, 2, 5, 2, 2, 2, 5, 2, 2, 2, 5]
+  #joint_stiffness: [8, 8, 8, 0, 8, 8, 8, 0, 8, 8, 8, 0, 8, 8, 8, 0]  # Kp（16关节）rcCommand
+  #joint_damping: [0.2, 0.2, 0.2, 0.5, 0.2, 0.2, 0.2, 0.5, 0.2, 0.2, 0.2, 0.5, 0.2, 0.2, 0.2, 0.5]
   action_scale: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
 
 lcm:
@@ -46,3 +48,5 @@ joint_mapping:
 debug:
   print_config: true
   print_metadata: false
+  print_timing: true
+  command_timeout_risk_ms: 50.0

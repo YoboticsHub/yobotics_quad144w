@@ -113,6 +113,7 @@ class AlgorithmBase(ABC):
         self.state_lock = threading.Lock()  # 保护 development_mode_active, running, execution_start_time
         self.action_buffer_lock = threading.Lock()  # 保护 action_buffer
         self.latest_command_lock = threading.Lock()  # 保护 latest_command
+        self.execution_wakeup = threading.Event()
         
         # LCM接口
         self.lcm_interface = LCMInterface(self.config)
@@ -137,13 +138,30 @@ class AlgorithmBase(ABC):
         # 执行控制
         self.execution_frequency = self.config['execution']['frequency']  # 策略推理频率（如50Hz）
         self.execution_period = 1.0 / self.execution_frequency if self.execution_frequency > 0 else 0.02
-        self.lcm_send_frequency = self.config['execution'].get('lcm_send_frequency', 500.0)  # LCM发送频率（500Hz）
-        self.lcm_send_period = 1.0 / self.lcm_send_frequency if self.lcm_send_frequency > 0 else 0.002
+        self.inference_check_frequency = self.config['execution'].get('inference_check_frequency', 500.0)
+        self.inference_check_period = (
+            1.0 / self.inference_check_frequency
+            if self.inference_check_frequency > 0
+            else 0.002
+        )
+        max_lcm_send_frequency = 200.0
+        configured_lcm_send_frequency = self.config['execution'].get('lcm_send_frequency', max_lcm_send_frequency)
+        if configured_lcm_send_frequency > max_lcm_send_frequency:
+            print(
+                f"[{self.__class__.__name__}] WARNING: Configured LCM send frequency "
+                f"{configured_lcm_send_frequency} Hz exceeds max {max_lcm_send_frequency} Hz; "
+                f"clamping to {max_lcm_send_frequency} Hz"
+            )
+        self.lcm_send_frequency = min(configured_lcm_send_frequency, max_lcm_send_frequency)
+        self.lcm_send_period = 1.0 / self.lcm_send_frequency if self.lcm_send_frequency > 0 else 0.005
         self.auto_start = self.config['execution']['auto_start']
         self.auto_end = self.config['execution']['auto_end']
         self.max_execution_time = self.config['execution']['max_execution_time']
+        debug_config = self.config.get('debug', {})
+        self.print_timing = bool(debug_config.get('print_timing', False))
+        self.command_timeout_risk_ms = float(debug_config.get('command_timeout_risk_ms', 50.0))
 
-        # 最新的控制命令缓存（用于500Hz发送）
+        # 最新的控制命令缓存（由发送线程按固定周期发布）
         self.latest_command = None
         
         print(f"[{self.__class__.__name__}] Initialized: {self.config['algorithm_name']}")
@@ -506,6 +524,8 @@ class AlgorithmBase(ABC):
             print(f"[{self.__class__.__name__}] Starting development mode...")
             self.development_mode_active = True
             self.execution_start_time = time.time()
+        with self.latest_command_lock:
+            self.latest_command = None
 
         # 每次重新进入开发模式时，推理状态从 0 开始
         self._reset_inference_states()
@@ -513,11 +533,12 @@ class AlgorithmBase(ABC):
         # 调用子类的初始化方法（在锁外调用，避免死锁）
         self.on_development_mode_start()
         
-        # 初始化命令缓存（空命令，只是启用标志）
+        # 初始化命令缓存；如果子类已准备完整命令，则不覆盖。
         with self.latest_command_lock:
-            self.latest_command = {
-                'enable_development_mode': True,
-            }
+            if self.latest_command is None:
+                self.latest_command = {
+                    'enable_development_mode': True,
+                }
     
     def _end_development_mode(self):
         """结束开发模式（线程安全）"""
@@ -666,12 +687,25 @@ class AlgorithmBase(ABC):
     def _execution_loop(self):
         """执行循环"""
         print(f"[{self.__class__.__name__}] Execution loop started")
+        next_inference_time = time.monotonic()
         
         while True:
             # 线程安全地检查 running 标志
             with self.state_lock:
                 if not self.running:
                     break
+
+            now = time.monotonic()
+            if now < next_inference_time:
+                self.execution_wakeup.wait(
+                    timeout=min(self.inference_check_period, next_inference_time - now)
+                )
+                self.execution_wakeup.clear()
+                continue
+
+            # 使用绝对时间表，推理耗时不再叠加到配置周期中。
+            elapsed_periods = int((now - next_inference_time) / self.execution_period) + 1
+            next_inference_time += elapsed_periods * self.execution_period
             
             try:
                 # 检查是否超时（线程安全地读取 execution_start_time）
@@ -693,20 +727,17 @@ class AlgorithmBase(ABC):
                     dev_mode_active = self.development_mode_active
                 
                 if state is None or not dev_mode_active:
-                    time.sleep(self.execution_period)
                     continue
                 
                 # 计算观测（子类实现）
                 obs = self.compute_observation(state)
                 
                 if obs is None:
-                    time.sleep(self.execution_period)
                     continue
                 
                 # 检查观测是否包含 NaN 或 Inf
                 if np.any(np.isnan(obs)) or np.any(np.isinf(obs)):
                     print(f"[{self.__class__.__name__}] WARNING: Observation contains NaN/Inf, skipping inference")
-                    time.sleep(self.execution_period)
                     continue
                 
                 # 运行推理
@@ -716,7 +747,6 @@ class AlgorithmBase(ABC):
                     # 再次检查 action 是否有效（防止推理返回 NaN）
                     if np.any(np.isnan(action)) or np.any(np.isinf(action)):
                         print(f"[{self.__class__.__name__}] WARNING: Inference returned NaN/Inf action, skipping")
-                        time.sleep(self.execution_period)
                         continue
                     
                     # 更新动作缓冲区（线程安全）
@@ -726,9 +756,6 @@ class AlgorithmBase(ABC):
                     # 处理动作并更新命令缓存（子类实现，不直接发送）
                     self.process_action(state, action)
                 
-                # 控制策略推理频率
-                time.sleep(self.execution_period)
-                
             except KeyboardInterrupt:
                 print(f"[{self.__class__.__name__}] Execution loop interrupted")
                 break
@@ -736,17 +763,23 @@ class AlgorithmBase(ABC):
                 print(f"[{self.__class__.__name__}] Error in execution loop: {e}")
                 import traceback
                 traceback.print_exc()
-                time.sleep(self.execution_period)
         
         print(f"[{self.__class__.__name__}] Execution loop ended")
     
     def _lcm_send_loop(self):
-        """LCM发送循环（500Hz）"""
+        """LCM发送循环，使用固定deadline避免sleep漂移。"""
         print(f"[{self.__class__.__name__}] LCM send loop started ({self.lcm_send_frequency} Hz)")
         
         # 用于跟踪结束命令发送次数
         end_command_sent_count = 0
-        end_command_target_count = int(self.lcm_send_frequency * 0.1)  # 发送100ms（约50次@500Hz）
+        end_command_target_count = max(1, int(self.lcm_send_frequency * 0.1))  # 结束命令发送100ms
+        next_send_time = time.monotonic()
+        last_send_time = None
+        timing_window_start = next_send_time
+        timing_window_count = 0
+        timing_window_max_interval_ms = 0.0
+        timing_window_timeout_count = 0
+        timeout_risk_s = self.command_timeout_risk_ms / 1000.0
         
         while True:
             # 线程安全地检查 running 标志
@@ -756,6 +789,11 @@ class AlgorithmBase(ABC):
             if not running and end_command_sent_count >= end_command_target_count:
                 break
             try:
+                now = time.monotonic()
+                if now < next_send_time:
+                    time.sleep(next_send_time - now)
+                    continue
+
                 # 获取最新的命令并发送
                 with self.latest_command_lock:
                     command = self.latest_command
@@ -772,12 +810,43 @@ class AlgorithmBase(ABC):
                     if should_send:
                         # 发送命令
                         self.lcm_interface.send_command(**command)
+                        send_time = time.monotonic()
+                        if last_send_time is not None:
+                            interval_s = send_time - last_send_time
+                            interval_ms = interval_s * 1000.0
+                            timing_window_max_interval_ms = max(timing_window_max_interval_ms, interval_ms)
+                            if interval_s > timeout_risk_s:
+                                timing_window_timeout_count += 1
+                        last_send_time = send_time
+                        timing_window_count += 1
+
                         # 如果是结束命令，增加计数
                         if not command.get('enable_development_mode', True):
                             end_command_sent_count += 1
+
+                        if self.print_timing:
+                            window_elapsed = send_time - timing_window_start
+                            if window_elapsed >= 1.0:
+                                #actual_hz = timing_window_count / window_elapsed
+                                #timing_msg = (
+                                #    f"[{self.__class__.__name__}] LCM timing: "
+                                #    f"actual={actual_hz:.1f} Hz, "
+                                #    f"max_interval={timing_window_max_interval_ms:.1f} ms, "
+                                #    f">{self.command_timeout_risk_ms:.0f}ms={timing_window_timeout_count}"
+                                #)
+                                #if timing_window_max_interval_ms > self.command_timeout_risk_ms:
+                                #    timing_msg += " WARNING: timeout risk"
+                                #print(timing_msg)
+                                timing_window_start = send_time
+                                timing_window_count = 0
+                                timing_window_max_interval_ms = 0.0
+                                timing_window_timeout_count = 0
                 
-                # 控制LCM发送频率（500Hz）
-                time.sleep(self.lcm_send_period)
+                next_send_time += self.lcm_send_period
+                now = time.monotonic()
+                if next_send_time <= now:
+                    missed_periods = int((now - next_send_time) / self.lcm_send_period) + 1
+                    next_send_time += missed_periods * self.lcm_send_period
                 
             except KeyboardInterrupt:
                 print(f"[{self.__class__.__name__}] LCM send loop interrupted")
@@ -786,6 +855,7 @@ class AlgorithmBase(ABC):
                 print(f"[{self.__class__.__name__}] Error in LCM send loop: {e}")
                 import traceback
                 traceback.print_exc()
+                next_send_time = time.monotonic() + self.lcm_send_period
                 time.sleep(self.lcm_send_period)
         
         print(f"[{self.__class__.__name__}] LCM send loop ended")
@@ -797,6 +867,7 @@ class AlgorithmBase(ABC):
         # 线程安全地设置 running 标志
         with self.state_lock:
             self.running = True
+        self.execution_wakeup.clear()
         
         # LCM接口已在_warmup_policy中启动，这里不需要再次启动
         if not self.lcm_started:
@@ -807,7 +878,7 @@ class AlgorithmBase(ABC):
         execution_thread = threading.Thread(target=self._execution_loop, daemon=True)
         execution_thread.start()
         
-        # 启动LCM发送线程（500Hz）
+        # 启动LCM发送线程（按配置频率）
         lcm_send_thread = threading.Thread(target=self._lcm_send_loop, daemon=True)
         lcm_send_thread.start()
         
@@ -827,6 +898,7 @@ class AlgorithmBase(ABC):
             with self.state_lock:
                 self.running = False
                 dev_mode_active = self.development_mode_active
+            self.execution_wakeup.set()
             
             if dev_mode_active:
                 self._end_development_mode()

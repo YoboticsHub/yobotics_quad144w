@@ -41,7 +41,7 @@ lcm:
 # 执行配置
 execution:
   frequency: 50.0  # 策略推理频率（Hz，如50Hz）
-  lcm_send_frequency: 500.0  # LCM发送频率（Hz，固定500Hz）
+  lcm_send_frequency: 200.0  # LCM发送频率（Hz，固定500Hz）
   auto_start: true
   auto_end: true
   max_execution_time: 0.0  # 0表示无限制
