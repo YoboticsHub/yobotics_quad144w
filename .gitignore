@@ -1,0 +1,6 @@
+log/
+lcm-types/python/__pycache__
+mujoco_sim/__pycache__
+external_algorithms/__pycache__
+external_algorithms/walk_algorithm/__pycache__
+external_algorithms/wave_algorithm/__pycache__

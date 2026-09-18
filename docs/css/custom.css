@@ -1,0 +1,45 @@
+.wy-menu-vertical li.current > a,
+.wy-menu-vertical li.on a {
+  background-color: #087ea4;
+  color: #ffffff;
+}
+
+.wy-menu-vertical li.current {
+  background-color: #edf6f8;
+}
+
+.wy-menu-vertical a:hover {
+  background-color: #075f7a;
+  color: #ffffff;
+}
+
+.rst-content table.docutils td,
+.rst-content table.docutils th {
+  white-space: normal;
+}
+
+.code-copy-wrapper {
+  position: relative;
+}
+
+.rst-content .code-copy-wrapper pre code {
+  padding-right: 4.5rem;
+}
+
+.code-copy-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 2;
+  padding: 4px 10px;
+  color: #303030;
+  background: #ffffff;
+  border: 1px solid #b8bdc2;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.code-copy-btn.copied {
+  color: #176b3a;
+  border-color: #176b3a;
+}
