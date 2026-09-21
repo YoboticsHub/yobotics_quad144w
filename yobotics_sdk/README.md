@@ -1,36 +1,36 @@
 # Yobotics Y20W SDK
 
-本目录提供 quad144w/Y20W 的 C++11 SDK、运动控制示例、状态读取示例和 HTTP 服务。SDK 通过 LCM 与控制器通信，不直接访问机器人 SPI 设备。
+This directory provides the C++11 SDK, motion-control example, state-reading example, and HTTP service for quad144w/Y20W. The SDK communicates with the controller through LCM and does not access robot SPI devices directly.
 
-## 通信通道
+## Communication Channels
 
-| 通道 | 用途 |
+| Channel | Purpose |
 | --- | --- |
-| `QUAD_ROBOT_CONTROL_Y20W` | 高层运动命令 |
-| `QUAD_ROBOT_STATE_Y20W` | 高层状态 |
-| `Y20W_QUAD_JOINT_STATE` | 12 个腿关节加 4 个轮关节状态 |
-| `Y20W_QUAD_JOINT_COMMAND` | 关节命令镜像 |
-| `Y20W_development_state` | DEVELOPMENT 状态 |
-| `Y20W_development_command` | DEVELOPMENT 命令 |
+| `QUAD_ROBOT_CONTROL_Y20W` | High-level motion command |
+| `QUAD_ROBOT_STATE_Y20W` | High-level state |
+| `Y20W_QUAD_JOINT_STATE` | 12 leg joints plus 4 wheel joints state |
+| `Y20W_QUAD_JOINT_COMMAND` | Joint command mirror |
+| `Y20W_development_state` | DEVELOPMENT state |
+| `Y20W_development_command` | DEVELOPMENT command |
 
-轮关节保存在各消息的 `*_supplement[4]` 字段中，顺序为 `LF, RF, LR, RR`。
+Wheel joints are stored in each message's `*_supplement[4]` field in `LF, RF, LR, RR` order.
 
-## 编译
+## Build
 
 ```bash
 cmake -S yobotics_sdk -B yobotics_sdk/build
 cmake --build yobotics_sdk/build -j4
 ```
 
-生成三个示例：
+Generated examples:
 
 - `yobotics_sdk/build/yobot_sport_client`
 - `yobotics_sdk/build/yobot_robot_state_client`
 - `yobotics_sdk/build/yobot_http_server`
 
-静态库输出到 `yobotics_sdk/lib/libyobotics_sdk.a`。
+The static library is written to `yobotics_sdk/lib/libyobotics_sdk.a`.
 
-## 运行
+## Run
 
 ```bash
 export YOBOTICS_LCM_URL='udpm://239.255.76.67:7667?ttl=255'
@@ -38,15 +38,15 @@ yobotics_sdk/build/yobot_robot_state_client
 yobotics_sdk/build/yobot_sport_client
 ```
 
-建议先连接 MuJoCo 仿真，再连接实机。运动示例会持续发送 LCM 接管、模式和速度命令；实机运行前必须准备急停和可靠支架。
+Connect to MuJoCo simulation before hardware. The motion example continuously sends LCM takeover, mode, and velocity commands. Before hardware operation, prepare emergency stop and a reliable stand.
 
-## HTTP 服务
+## HTTP Service
 
 ```bash
 export ROBOT_HTTP_TOKEN='replace-with-a-private-token'
 yobotics_sdk/build/yobot_http_server
 ```
 
-服务默认监听 `192.168.1.100:8080`，可通过 `SERVER_HOST`、`SERVER_PORT`、`ROBOT_HTTP_TOKEN` 和 `YOBOTICS_LCM_URL` 调整。生产环境不要继续使用源码中的默认 Token。
+The service listens on `192.168.1.100:8080` by default. Adjust with `SERVER_HOST`, `SERVER_PORT`, `ROBOT_HTTP_TOKEN`, and `YOBOTICS_LCM_URL`. Do not use the source-code default token in production.
 
-完整流程见项目根目录 MkDocs 说明书的“第四部分 Yobotics SDK”。
+See Part 4, "Yobotics SDK", in the root MkDocs manual for the complete flow.

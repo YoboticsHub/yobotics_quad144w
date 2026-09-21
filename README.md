@@ -1,27 +1,27 @@
-# quad144w/Y20W 强化学习控制框架开发说明
+# quad144w/Y20W Reinforcement-Learning Control Framework
 
-> quad144w/Y20W 16 维轮足机器人 RL 控制开发包，支持 MuJoCo 仿真、实机控制、LCM 外部算法接入、WebRTC 远程视频/控制服务，以及 Yobotics SDK 示例。
+> A 16D wheel-legged robot RL control package for quad144w/Y20W, including MuJoCo simulation, hardware control, LCM external-algorithm integration, WebRTC remote video/control, and Yobotics SDK examples.
 
-本文档作为二次开发入口，适用于当前 `yobotics_quad144w` 开发包。控制器入口和运行库已按平台放在 `bin/`、`bin_rk3588/`、`lib/` 与 `lib_rk3588/` 中。
+This document is the entry point for the current `yobotics_quad144w` secondary development package. Controller entries and runtime libraries are provided by platform under `bin/`, `bin_rk3588/`, `lib/`, and `lib_rk3588/`.
 
-完整说明书位于 [docs/index.md](./docs/index.md)，可通过 MkDocs 浏览：
+The full manual is available at [docs/index.md](./docs/index.md) and can be viewed with MkDocs:
 
 ```bash
 python3 -m pip install -r requirements-docs.txt
 mkdocs serve
 ```
 
-按使用目标阅读：
+Read by goal:
 
-- 首次运行：[环境配置与快速开始](./docs/part-1-quick-start/1.framework.md)；
-- 现场运行：[实机结构与安全](./docs/part-3-hardware/1.overview.md)；
-- SDK 集成：[SDK 概览](./docs/part-4-sdk/1.overview.md)；
-- 算法开发：[LCM 通信结构](./docs/part-5-lcm-dev/1.structure.md)到[自定义算法与实机接入](./docs/part-5-lcm-dev/6.hardware.md)；
-- 远程控制：[WebRTC 服务结构](./docs/part-6-webrtc/1.overview.md)。
+- First run: [Environment and Quick Start](./docs/part-1-quick-start/1.framework.md)
+- Field operation: [Hardware Architecture and Safety](./docs/part-3-hardware/1.overview.md)
+- SDK integration: [SDK Overview](./docs/part-4-sdk/1.overview.md)
+- Algorithm development: [LCM Communication Architecture](./docs/part-5-lcm-dev/1.structure.md) through [Custom Algorithms and Hardware Integration](./docs/part-5-lcm-dev/6.hardware.md)
+- Remote control: [WebRTC Service Architecture](./docs/part-6-webrtc/1.overview.md)
 
-## 能力概览
+## Capability Overview
 
-当前配置和控制器支持的主要模式：
+Main modes supported by the current configuration and controller:
 
 - `DAMP`
 - `RECOVERY_STAND`
@@ -31,26 +31,26 @@ mkdocs serve
 - `RL_STAND`
 - `DEVELOPMENT`
 
-主要运行方式：
+Main runtime paths:
 
-1. MuJoCo 仿真：使用 [config_sim.yaml](./config_sim.yaml) 和 [scripts/start_mujoco.sh](./scripts/start_mujoco.sh)。
-2. 实机控制：使用 [config.yaml](./config.yaml) 和 [scripts/run_robot_controller.sh](./scripts/run_robot_controller.sh)。
-3. 外部算法：在 `DEVELOPMENT` 模式下通过 `Y20W_development_state` / `Y20W_development_command` 接入。
-4. 远程控制/视频：通过 [WebRTC_server](./WebRTC_server/) 发布视频并转发 JSON 控制到 Y20W LCM 通道。
+1. MuJoCo simulation with [config_sim.yaml](./config_sim.yaml) and [scripts/start_mujoco.sh](./scripts/start_mujoco.sh).
+2. Hardware control with [config.yaml](./config.yaml) and [scripts/run_robot_controller.sh](./scripts/run_robot_controller.sh).
+3. External algorithms through `Y20W_development_state` / `Y20W_development_command` in `DEVELOPMENT` mode.
+4. Remote control/video through [WebRTC_server](./WebRTC_server/), forwarding video and JSON control to Y20W LCM channels.
 
-外部算法说明见 [external_algorithms/README.md](./external_algorithms/README.md)，SDK 说明见 [yobotics_sdk/README.md](./yobotics_sdk/README.md)，WebRTC 说明见 [WebRTC_server/README.md](./WebRTC_server/README.md)。
+See [external_algorithms/README.md](./external_algorithms/README.md), [yobotics_sdk/README.md](./yobotics_sdk/README.md), and [WebRTC_server/README.md](./WebRTC_server/README.md) for component-specific notes.
 
-## 快速开始
+## Quick Start
 
-推荐先跑 MuJoCo 仿真，确认 Python 环境、LCM、模型文件和控制器产物可用，再上实机。
+Run MuJoCo simulation first to confirm the Python environment, LCM, model files, and controller artifacts before using hardware.
 
-### 1. 环境配置
+### 1. Configure the Environment
 
 ```bash
 bash scripts/setup_conda_env.sh
 ```
 
-若一键配置失败，可按需手动安装：
+If one-click setup fails, install manually as needed:
 
 ```bash
 conda create -n quad_controller python=3.8
@@ -63,39 +63,39 @@ bash scripts/install_python_lcm.sh
 sudo bash scripts/setup_lcm_network.sh
 ```
 
-### 2. 检查控制器
+### 2. Check the Controller
 
-当前二次开发包已经包含控制器入口。x86_64 使用 `bin/ybt_ctrl`，RK3588/aarch64 使用 `bin_rk3588/ybt_ctrl`。
+The package already includes controller entries. Use `bin/ybt_ctrl` on x86_64 and `bin_rk3588/ybt_ctrl` on RK3588/aarch64.
 
-### 3. 启动仿真
+### 3. Start Simulation
 
 ```bash
 conda activate quad_controller
 bash scripts/start_mujoco.sh --config config_sim.yaml
 ```
 
-无图形环境可使用：
+For headless environments:
 
 ```bash
 bash scripts/start_mujoco.sh --config config_sim.yaml --headless
 ```
 
-仿真关键配置：
+Key simulation settings:
 
-- `config_sim.yaml` 中 `simulation.enable_mujoco: true`
+- `simulation.enable_mujoco: true` in `config_sim.yaml`
 - `simulation.mujoco.xml_path: resources_sim/robots/quad144w/scene_terrain.xml`
 - `safety_checker.urdf_path: resources_sim/robots/quad144w/urdf/sduog144_V2_s.urdf`
 - `motor_communication.type: "lcm"`
 
-按 `Ctrl+C` 可停止 MuJoCo 和控制器进程。
+Press `Ctrl+C` to stop both MuJoCo and the controller processes.
 
-## 实机运行
+## Hardware Operation
 
-实机运行前请先完成一次仿真验证，并确认机器人急停、供电、IMU、电机通信、遥控器和支架/安全环境都处于可控状态。
+Before hardware operation, complete one simulation validation and confirm the emergency stop, power, IMU, motor communication, gamepad, stand, and safety environment are under control.
 
-### 1. 配置确认
+### 1. Configuration Checks
 
-实机默认配置为 [config.yaml](./config.yaml)。运行前重点确认：
+The default hardware configuration is [config.yaml](./config.yaml). Before running, check at least:
 
 - `simulation.enable_mujoco: false`
 - `motor_communication.type: "spi"`
@@ -105,109 +105,109 @@ bash scripts/start_mujoco.sh --config config_sim.yaml --headless
 - `development.command_channel: "Y20W_development_command"`
 - `gamepad.lcm_control_channel: "QUAD_ROBOT_CONTROL_Y20W"`
 - `gamepad.lcm_state_channel: "QUAD_ROBOT_STATE_Y20W"`
-- `resources/robots/quad144w/` 下 URDF/XML/mesh 文件完整
-- `actor_model/` 下 ONNX 模型路径与 `config.yaml` 中各 RL 策略块一致
+- URDF/XML/mesh files are complete under `resources/robots/quad144w/`
+- ONNX model paths under `actor_model/` match the RL policy blocks in `config.yaml`
 
-### 2. 启动控制器
+### 2. Start the Controller
 
-在项目根目录运行：
+Run from the project root:
 
 ```bash
 sudo bash scripts/run_robot_controller.sh --config config.yaml
 ```
 
-脚本默认使用 `eth0` 作为 LCM 网卡参数。若现场网卡不同，使用：
+The script uses `eth0` as the default LCM interface. If the onsite interface is different:
 
 ```bash
-sudo bash scripts/run_robot_controller.sh --config config.yaml --iface <网卡名>
+sudo bash scripts/run_robot_controller.sh --config config.yaml --iface <interface-name>
 ```
 
-或通过环境变量指定：
+Or use an environment variable:
 
 ```bash
-LCM_IFACE=<网卡名> sudo -E bash scripts/run_robot_controller.sh --config config.yaml
+LCM_IFACE=<interface-name> sudo -E bash scripts/run_robot_controller.sh --config config.yaml
 ```
 
-脚本会自动设置 `LD_LIBRARY_PATH`：
+The script sets `LD_LIBRARY_PATH` automatically:
 
-- x86_64：优先使用包内 `bin/ybt_ctrl` 和 `lib/`。
-- RK3588/aarch64：可使用包内 `bin_rk3588/ybt_ctrl` 和 `lib_rk3588/`；如果现场包只保留目标架构，也可使用 `bin/ybt_ctrl` 和 `lib/`。
+- x86_64: prefers packaged `bin/ybt_ctrl` and `lib/`.
+- RK3588/aarch64: uses packaged `bin_rk3588/ybt_ctrl` and `lib_rk3588/`; if the onsite package keeps only the target architecture, `bin/ybt_ctrl` and `lib/` may also be used.
 
-### 3. 可选：启动 WebRTC 服务
+### 3. Optional: Start WebRTC
 
-如需视频和远程控制，先确认 [WebRTC_server/config.json](./WebRTC_server/config.json) 中通道与 `config.yaml` 一致：
+For video and remote control, first confirm [WebRTC_server/config.json](./WebRTC_server/config.json) channels match `config.yaml`:
 
 - `lcm.control_channel: "QUAD_ROBOT_CONTROL_Y20W"`
 - `lcm.state_channel: "QUAD_ROBOT_STATE_Y20W"`
 
-启动服务：
+Start the service:
 
 ```bash
 python3 WebRTC_server/control_publisher.py
 ```
 
-远端客户端连接机器人 IP 的信令地址：
+Remote clients connect to the robot IP signaling address:
 
 ```text
 ws://<robot_ip>:8765
 ```
 
-### 4. 运行检查与停止
+### 4. Runtime Checks and Stop
 
-- 控制器日志路径由 `config.yaml` 的 `logging.log_file_path` 决定，当前实机默认值为 `/home/cat/log/robot_log.txt`。
-- 检查 LCM 通道和消息频率：`bash scripts/monitor_lcm.sh --no-gui`。
-- 图形化查看 LCM：`bash scripts/launch_lcm_spy.sh`。
-- 实机状态 MuJoCo 可视化：`bash scripts/start_hardware_viewer.sh`。
-- 查看 RL/电机 CSV 日志：`python3 scripts/data_viewer.py` 或 `python3 scripts/motor_trace_viewer.py log/motor_trace.csv`。
-- 如果收不到状态，优先检查 LCM 网卡、SPI/IMU/电机连接、`config.yaml` 通道和权限。
-- 前台运行时按 `Ctrl+C` 停止控制器；WebRTC 使用 `control_publisher.py` 时同样按 `Ctrl+C`，等待其清理子进程。
+- Controller log path is set by `logging.log_file_path` in `config.yaml`; the current hardware default is `/home/cat/log/robot_log.txt`.
+- Check LCM channels and frequencies: `bash scripts/monitor_lcm.sh --no-gui`.
+- Launch graphical LCM viewer: `bash scripts/launch_lcm_spy.sh`.
+- Visualize hardware state in MuJoCo: `bash scripts/start_hardware_viewer.sh`.
+- View RL/motor CSV logs: `python3 scripts/data_viewer.py` or `python3 scripts/motor_trace_viewer.py log/motor_trace.csv`.
+- If no state is received, check LCM interface, SPI/IMU/motor connections, `config.yaml` channels, and permissions first.
+- Press `Ctrl+C` to stop the foreground controller. For WebRTC via `control_publisher.py`, also use `Ctrl+C` and wait for child-process cleanup.
 
-## 运行入口与目录
+## Runtime Entries and Directories
 
-- `config.yaml`：实机默认配置。
-- `config_sim.yaml`：MuJoCo 仿真默认配置。
-- `actor_model/`：`RL_WALK`、`RL_HIGHSPEED`、`RL_CLIMB`、`RL_STAND` 使用的 ONNX 策略模型。
-- `resources/`：实机配置使用的 quad144w 机器人资源。
-- `resources_sim/`：仿真配置使用的 quad144w 机器人资源。
-- `mujoco_sim/`：MuJoCo 仿真 Python 模块。
-- `scripts/`：环境配置、控制器启动、LCM 监控、网络配置、硬件 Viewer、日志查看等工具脚本。
-- `external_algorithms/`：`DEVELOPMENT` 模式外部算法接入框架。
-- `WebRTC_server/`：WebRTC 视频与远程控制服务。
-- `yobotics_sdk/`：客户侧 SDK、HTTP 控制服务和示例程序。
-- `lcm-types/`：LCM 协议定义及 Python/C++/Java 生成代码。
-- `bin/`、`lib/`：x86_64 控制器入口和运行库目录。
-- `bin_rk3588/`、`lib_rk3588/`：RK3588/aarch64 控制器入口和运行库目录。
+- `config.yaml`: default hardware configuration.
+- `config_sim.yaml`: default MuJoCo simulation configuration.
+- `actor_model/`: ONNX policy models for `RL_WALK`, `RL_HIGHSPEED`, `RL_CLIMB`, and `RL_STAND`.
+- `resources/`: quad144w robot resources used by hardware configuration.
+- `resources_sim/`: quad144w robot resources used by simulation.
+- `mujoco_sim/`: MuJoCo simulation Python module.
+- `scripts/`: environment setup, controller startup, LCM monitoring, network setup, hardware Viewer, and log tools.
+- `external_algorithms/`: external-algorithm framework for `DEVELOPMENT` mode.
+- `WebRTC_server/`: WebRTC video and remote-control service.
+- `yobotics_sdk/`: customer SDK, HTTP control service, and examples.
+- `lcm-types/`: LCM protocol definitions and generated Python/C++/Java code.
+- `bin/`, `lib/`: x86_64 controller entry and runtime libraries.
+- `bin_rk3588/`, `lib_rk3588/`: RK3588/aarch64 controller entry and runtime libraries.
 
-## 各模式说明
+## Mode Summary
 
-| 模式 | 描述 |
+| Mode | Description |
 | --- | --- |
-| `DAMP` | 阻尼/保护模式，常用于停止运动或安全切换。 |
-| `RECOVERY_STAND` | 自动恢复到站立姿态。 |
-| `RL_WALK` | 常规 RL 行走策略，支持速度命令。 |
-| `RL_HIGHSPEED` | 高速 RL 策略，配置块为 `rl_highspeed`。 |
-| `RL_CLIMB` | 攀爬/越障相关 RL 策略，配置块为 `rl_climb`。 |
-| `RL_STAND` | 站立姿态策略，配置块为 `rl_stand`。 |
-| `DEVELOPMENT` | 外部算法开发模式，通过 LCM 接收外部关节命令。 |
+| `DAMP` | Damping/protection mode, commonly used for stopping or safe switching. |
+| `RECOVERY_STAND` | Automatically recover to standing posture. |
+| `RL_WALK` | Normal RL walking policy with velocity commands. |
+| `RL_HIGHSPEED` | High-speed RL policy; config block `rl_highspeed`. |
+| `RL_CLIMB` | Climbing/obstacle RL policy; config block `rl_climb`. |
+| `RL_STAND` | Standing policy; config block `rl_stand`. |
+| `DEVELOPMENT` | External-algorithm development mode receiving joint commands through LCM. |
 
-`config.yaml` 与 `config_sim.yaml` 的 `gamepad.mode_sequence` 决定遥控器/上位机可切换的模式顺序。
+`gamepad.mode_sequence` in `config.yaml` and `config_sim.yaml` defines the mode order available to the gamepad or host controller.
 
-## 配置文件说明
+## Configuration Notes
 
-关键配置集中在 `config.yaml` / `config_sim.yaml`：
+Key settings are in `config.yaml` / `config_sim.yaml`:
 
-- `simulation.enable_mujoco`：仿真/硬件模式切换。
-- `simulation.mujoco.xml_path`：MuJoCo 场景 XML。
-- `motor_communication.type`：通信方式，仿真使用 `lcm`，实机使用 `spi`。
-- `motor_communication.board`：SPI 板端协议，填写 `rk3588`（默认）或 `upboard`，且区分大小写。两种板型都使用 Linux SPI `bits_per_word=8`，区别在于帧布局、校验、SPI 频率和 ab/ad 零点偏移。
-- `rl_walk` / `rl_highspeed` / `rl_climb` / `rl_stand`：各 RL 策略的 actor、encoder、日志和模型参数配置。
-- `development`：外部算法开发模式的 robot_id、状态通道、命令通道和退出自检阈值。
-- `gamepad.device_type`：控制输入类型，当前实机和仿真配置均为 `hybrid`。
-- `gamepad.lcm_control_channel` / `gamepad.lcm_state_channel`：上位机/WebRTC/SDK 控制与状态通道。
-- `safety_checker.urdf_path`：机器人 URDF 路径。
-- `safety_checker`：姿态、关节、硬件丢失等安全检查配置。
+- `simulation.enable_mujoco`: simulation/hardware switch.
+- `simulation.mujoco.xml_path`: MuJoCo scene XML.
+- `motor_communication.type`: communication type; simulation uses `lcm`, hardware uses `spi`.
+- `motor_communication.board`: SPI board protocol, `rk3588` by default or `upboard`; case-sensitive. Both use Linux SPI `bits_per_word=8`, with different frame layout, checksums, SPI frequency, and ab/ad zero offsets.
+- `rl_walk` / `rl_highspeed` / `rl_climb` / `rl_stand`: actor, encoder, logs, and model parameters for each RL policy.
+- `development`: robot_id, state channel, command channel, and exit self-check thresholds for external algorithms.
+- `gamepad.device_type`: control input type; current hardware and simulation configs use `hybrid`.
+- `gamepad.lcm_control_channel` / `gamepad.lcm_state_channel`: host/WebRTC/SDK control and state channels.
+- `safety_checker.urdf_path`: robot URDF path.
+- `safety_checker`: posture, joint, hardware-loss, and related safety checks.
 
-SPI 板型示例：
+SPI board example:
 
 ```yaml
 motor_communication:
@@ -217,9 +217,9 @@ motor_communication:
   spi_device1: "/dev/spidev2.1"
 ```
 
-## DEVELOPMENT 外部算法
+## DEVELOPMENT External Algorithms
 
-外部算法只在 `DEVELOPMENT` 模式下生效，当前保留两个 demo：
+External algorithms only take effect in `DEVELOPMENT` mode. Two demos are included:
 
 ```bash
 python3 external_algorithms/walk_algorithm/run_algorithm.py --config external_algorithms/walk_algorithm/config.yaml
@@ -229,66 +229,66 @@ python3 external_algorithms/walk_algorithm/run_algorithm.py --config external_al
 python3 external_algorithms/wave_algorithm/run_algorithm.py --config external_algorithms/wave_algorithm/config.yaml
 ```
 
-默认 DEVELOPMENT 通道：
+Default DEVELOPMENT channels:
 
 - `robot_id: "Y20W"`
 - `state_channel: "Y20W_development_state"`
 - `command_channel: "Y20W_development_command"`
 
-完整的 16 维协议、57 维观测、框架线程、模型替换和六阶段实机验收见 [第五部分：LCM 与外部算法](./docs/part-5-lcm-dev/1.structure.md)。命令速查见 [external_algorithms/README.md](./external_algorithms/README.md)。
+For the complete 16D protocol, 57D observation, framework threads, model replacement, and six-stage hardware acceptance, see [Part 5: LCM and External Algorithms](./docs/part-5-lcm-dev/1.structure.md). Command quick reference is in [external_algorithms/README.md](./external_algorithms/README.md).
 
-## 开发入口
+## Development Entry Points
 
-- [external_algorithms/README.md](./external_algorithms/README.md)：开发模式外部算法接入说明。
-- [WebRTC_server/README.md](./WebRTC_server/README.md)：远程视频、DataChannel 控制和 LCM 转发说明。
-- [yobotics_sdk/README.md](./yobotics_sdk/README.md)：SDK、HTTP 控制接口和示例程序说明。
-- [scripts/README.md](./scripts/README.md)：脚本入口、参数和排查说明。
-- `lcm-types/`：查看控制协议和消息字段。
+- [external_algorithms/README.md](./external_algorithms/README.md): external-algorithm integration notes.
+- [WebRTC_server/README.md](./WebRTC_server/README.md): remote video, DataChannel control, and LCM forwarding.
+- [yobotics_sdk/README.md](./yobotics_sdk/README.md): SDK, HTTP control API, and examples.
+- [scripts/README.md](./scripts/README.md): script entries, parameters, and troubleshooting.
+- `lcm-types/`: control protocol and message fields.
 
-## 常见问题
+## Common Issues
 
-### 控制器提示找不到动态库
+### Controller Cannot Find Shared Libraries
 
-开发包中检查：
+Check in the package:
 
 ```bash
 ls -l lib/libonnxruntime.so*
 LD_LIBRARY_PATH=$PWD/lib ldd bin/ybt_ctrl.bin
 ```
 
-直接运行真实二进制时需要手动设置 `LD_LIBRARY_PATH`；推荐使用脚本入口启动。
+Running the real binary directly requires manually setting `LD_LIBRARY_PATH`; the script entry is recommended.
 
-### 仿真启动失败
+### Simulation Startup Fails
 
-优先检查：
+Check first:
 
-- `config_sim.yaml` 是否设置 `simulation.enable_mujoco: true`。
-- `resources_sim/robots/quad144w/scene_terrain.xml` 是否存在。
-- Python 环境是否安装 `mujoco`、`pyyaml`、`numpy`、`onnxruntime`。
-- LCM Python 绑定是否可用。
-- `bin/ybt_ctrl` 是否存在并具有执行权限。
+- Whether `simulation.enable_mujoco: true` is set in `config_sim.yaml`.
+- Whether `resources_sim/robots/quad144w/scene_terrain.xml` exists.
+- Whether Python has `mujoco`, `pyyaml`, `numpy`, and `onnxruntime`.
+- Whether Python LCM bindings are available.
+- Whether `bin/ybt_ctrl` exists and is executable.
 
-### LCM 收不到消息
+### No LCM Messages
 
-先运行：
+Run:
 
 ```bash
 sudo bash scripts/setup_lcm_network.sh
 bash scripts/monitor_lcm.sh --no-gui
 ```
 
-如果机器有多网卡，确认 `scripts/setup_lcm_network.sh`、`scripts/run_robot_controller.sh --iface` 和 WebRTC/SDK 进程使用的是同一块网卡与同一组通道。
+On multi-interface machines, confirm `scripts/setup_lcm_network.sh`, `scripts/run_robot_controller.sh --iface`, and WebRTC/SDK processes use the same network interface and channel set.
 
-### WebRTC 控制无响应
+### WebRTC Control Does Not Respond
 
-- 确认 `WebRTC_server/config.json` 的控制通道为 `QUAD_ROBOT_CONTROL_Y20W`。
-- 确认状态通道为 `QUAD_ROBOT_STATE_Y20W`。
-- 确认机器人端 `8765` 端口已监听。
-- 确认控制器配置的 `gamepad.device_type` 支持 LCM 或混合输入。
+- Confirm `WebRTC_server/config.json` control channel is `QUAD_ROBOT_CONTROL_Y20W`.
+- Confirm state channel is `QUAD_ROBOT_STATE_Y20W`.
+- Confirm robot-side port `8765` is listening.
+- Confirm controller `gamepad.device_type` supports LCM or hybrid input.
 
-## 安全注意事项
+## Safety Notes
 
-- 实机上保持安全检查开启，不建议关闭 `safety_checker`。
-- 上机器人前先在支架或安全环境中验证模式切换、速度限幅和急停。
-- 替换 ONNX 策略后，确认模型输入输出维度、关节顺序、默认关节位置和动作缩放一致。
-- 调试结束时切回 `DAMP` 或停止控制器/WebRTC 服务，避免命令残留。
+- Keep safety checks enabled on hardware; disabling `safety_checker` is not recommended.
+- Before hardware operation, validate mode switching, velocity limits, and emergency stop on a stand or in a safe environment.
+- After replacing ONNX policies, confirm model input/output dimensions, joint order, default joint positions, and action scaling.
+- At the end of debugging, switch back to `DAMP` or stop the controller/WebRTC service to avoid command leftovers.

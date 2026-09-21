@@ -1,53 +1,53 @@
-# WebRTC_server 使用说明
+# WebRTC_server User Guide
 
-`WebRTC_server` 用于在机器人端启动 WebRTC 视频 / 数据发布服务。它通过摄像头采集视频，经 WebRTC 推送给远端客户端；同时通过 DataChannel 接收 JSON 控制消息，并转发到 Y20W 的 LCM 控制通道，也会把机器人状态从 LCM 状态通道回传给客户端。
+`WebRTC_server` starts the robot-side WebRTC video/data publishing service. It captures camera video and streams it to a remote client through WebRTC. It also receives JSON control messages through DataChannel, forwards them to the Y20W LCM control channel, and sends robot state from the LCM state channel back to the client.
 
-## 目录内容
+## Directory Contents
 
-- `control_publisher.py`：推荐入口，负责同时启动 `signaling_server.py` 和 `publisher.py`，并监控 `restart.flag` 后自动重启。
-- `signaling_server.py`：WebSocket 信令服务器，默认监听 `0.0.0.0:8765`，用于转发 WebRTC Offer / Answer / ICE 消息。
-- `publisher.py`：WebRTC 发布端，读取摄像头画面，建立 P2P 连接，处理 DataChannel 和 LCM 通信。
-- `config.json`：运行配置，包括摄像头、LCM 通道、信令地址和低时延码率参数。
-- `test.py`：测试 / 调试版本发布端，一般优先使用 `publisher.py` 或 `control_publisher.py`。
-- `[Yobotics]JSON格式列表.docx`：控制 / 状态 JSON 字段说明文档。
+- `control_publisher.py`: recommended entry. Starts `signaling_server.py` and `publisher.py`, monitors `restart.flag`, and restarts automatically.
+- `signaling_server.py`: WebSocket signaling server, listening on `0.0.0.0:8765` by default, used to forward WebRTC Offer / Answer / ICE messages.
+- `publisher.py`: WebRTC publisher that reads camera frames, establishes the P2P connection, and handles DataChannel plus LCM communication.
+- `config.json`: runtime configuration for camera, LCM channels, signaling address, and low-latency bitrate parameters.
+- `test.py`: test/debug publisher; normally use `publisher.py` or `control_publisher.py` first.
+- `[Yobotics]JSON格式列表.docx`: control/state JSON field reference.
 
-## 前置条件
+## Prerequisites
 
-### Python 依赖
+### Python Dependencies
 
-建议在项目 Conda 环境中运行：
+Run in the project Conda environment when possible:
 
 ```bash
 conda activate robot_controller
 python -m pip install websockets aiortc opencv-python numpy av
 ```
 
-如果需要 LCM 控制与状态回传，还需要：
+For LCM control and state return, also install Python LCM:
 
 ```bash
 python -m pip install lcm
 ```
 
-或使用项目脚本安装：
+Or use the project script:
 
 ```bash
 bash scripts/install_python_lcm.sh
 ```
 
-### LCM 类型文件
+### LCM Type Files
 
-`publisher.py` 会从项目根目录的 `lcm-types/python/` 导入：
+`publisher.py` imports these files from root `lcm-types/python/`:
 
 - `sport_client_cmd_t.py`
 - `sport_client_state_t.py`
 
-如果缺失，请先在项目根目录生成：
+If missing, generate them from the project root:
 
 ```bash
 bash scripts/generate_lcm_types.sh
 ```
 
-部署包中应保持如下结构，`WebRTC_server/` 和 `lcm-types/` 与 `build/` 同级：
+The deployment package should keep `WebRTC_server/` and `lcm-types/` beside `build/`:
 
 ```text
 robot-software/
@@ -56,9 +56,9 @@ robot-software/
 └── WebRTC_server/
 ```
 
-## 配置说明
+## Configuration
 
-编辑 `WebRTC_server/config.json`：
+Edit `WebRTC_server/config.json`:
 
 ```json
 {
@@ -87,29 +87,29 @@ robot-software/
 }
 ```
 
-常用字段：
+Common fields:
 
-- `use_camera`：是否启用真实摄像头；设为 `false` 时使用虚拟画面。
-- `camera.device_index`：OpenCV 摄像头编号，对应 `/dev/video*`。
-- `camera.width/height/fps`：采集分辨率和帧率。
-- `lcm.url`：LCM 多播地址。
-- `lcm.control_channel`：DataChannel 收到控制 JSON 后发布到的 LCM 通道，当前为 `QUAD_ROBOT_CONTROL_Y20W`。
-- `lcm.state_channel`：订阅机器人状态并回传给客户端的 LCM 通道，当前为 `QUAD_ROBOT_STATE_Y20W`。
-- `signaling.server`：发布端连接的 WebSocket 信令地址。
-- `webrtc.*`：低时延和码率控制参数。
+- `use_camera`: whether to enable a real camera; when `false`, a virtual image is used.
+- `camera.device_index`: OpenCV camera index, matching `/dev/video*`.
+- `camera.width/height/fps`: capture resolution and frame rate.
+- `lcm.url`: LCM multicast URL.
+- `lcm.control_channel`: LCM channel where DataChannel control JSON is published, currently `QUAD_ROBOT_CONTROL_Y20W`.
+- `lcm.state_channel`: LCM channel subscribed for robot state and returned to the client, currently `QUAD_ROBOT_STATE_Y20W`.
+- `signaling.server`: WebSocket signaling address used by the publisher.
+- `webrtc.*`: low-latency and bitrate-control parameters.
 
-## DataChannel 控制 JSON
+## DataChannel Control JSON
 
-`publisher.py` 会将客户端发来的 JSON 转换为 `sport_client_cmd_t` 并发布到 `lcm.control_channel`。
+`publisher.py` converts client JSON into `sport_client_cmd_t` and publishes it to `lcm.control_channel`.
 
-支持字段：
+Supported fields:
 
-- `mode`：SDK API ID / 模式编号，转换为 `sport_client_cmd_t.api`。
-- `v`：三维速度数组 `[vx, vy, vyaw]`。
-- `rpy`：姿态数组 `[roll, pitch, yaw]`。
-- `h`：机身高度数组，例如 `[0.0]`。
+- `mode`: SDK API ID / mode number, converted to `sport_client_cmd_t.api`.
+- `v`: 3D velocity array `[vx, vy, vyaw]`.
+- `rpy`: posture array `[roll, pitch, yaw]`.
+- `h`: body-height array, for example `[0.0]`.
 
-示例：
+Example:
 
 ```json
 {
@@ -120,7 +120,7 @@ robot-software/
 }
 ```
 
-机器人状态会通过 DataChannel 回传，主要字段包括：
+Robot state is returned through DataChannel. Main fields include:
 
 - `power`
 - `rpy`
@@ -129,106 +129,102 @@ robot-software/
 - `state`
 - `fault`
 
-## 启动方法
+## Startup
 
-### 推荐方式：统一启动
+### Recommended: Unified Entry
 
-在机器人部署包目录：
+From the robot deployment package directory:
 
 ```bash
 python3 WebRTC_server/control_publisher.py
 ```
 
-该方式会自动启动：
+This starts automatically:
 
 - `signaling_server.py`
 - `publisher.py`
 
-控制脚本按键：
+Current managed mode runs in the foreground and exits with `Ctrl+C`. Older keyboard commands may exist in historical deployments, but the current MkDocs manual documents the managed startup flow.
 
-- `s`：启动 / 重启 publisher
-- `q`：停止 publisher
-- `e`：退出控制脚本并停止全部子进程
+### Separate Startup for Debugging
 
-### 分开启动：调试用
-
-终端 1：启动信令服务器。
+Terminal 1, start the signaling server:
 
 ```bash
 python3 WebRTC_server/signaling_server.py
 ```
 
-终端 2：启动 WebRTC 发布端。
+Terminal 2, start the WebRTC publisher:
 
 ```bash
 python3 WebRTC_server/publisher.py
 ```
 
-远端客户端需要连接到机器人 IP 的 `ws://<robot_ip>:8765` 作为信令地址。
+Remote clients should connect to the robot IP at `ws://<robot_ip>:8765` as the signaling address.
 
-## 运行检查
+## Runtime Checks
 
-### 检查摄像头
+### Check Camera
 
 ```bash
 ls /dev/video*
 ```
 
-如果 `config.json` 中 `camera.device_index` 为 `4`，通常对应 `/dev/video4`。摄像头编号不匹配时，修改 `device_index`。
+If `camera.device_index` in `config.json` is `4`, it usually maps to `/dev/video4`. Change `device_index` if the camera number differs.
 
-### 检查端口
+### Check Port
 
 ```bash
 ss -lntp | grep 8765
 ```
 
-能看到 `0.0.0.0:8765` 表示信令服务器已监听。
+`0.0.0.0:8765` means the signaling server is listening.
 
-### 检查 LCM
+### Check LCM
 
 ```bash
 bash scripts/monitor_lcm.sh --no-gui
 ```
 
-如果收不到 LCM 消息，先配置多播网络：
+If no LCM messages are received, configure multicast first:
 
 ```bash
 sudo bash scripts/setup_lcm_network.sh
 ```
 
-## 常见问题
+## Common Issues
 
-### 摄像头打不开
+### Camera Cannot Open
 
-- 检查 `/dev/video*` 是否存在。
-- 修改 `config.json` 的 `camera.device_index`。
-- 确认当前用户有摄像头读取权限，必要时临时使用 `sudo` 运行。
+- Check whether `/dev/video*` exists.
+- Change `camera.device_index` in `config.json`.
+- Confirm the current user has camera read permission; use `sudo` temporarily if needed.
 
-### LCM 模块导入失败
+### LCM Module Import Fails
 
-- 确认已安装 Python LCM。
-- 确认 `lcm-types/python/` 存在并包含 `sport_client_cmd_t.py`、`sport_client_state_t.py`。
-- 在部署包中确认 `WebRTC_server/` 和 `lcm-types/` 与 `build/` 同级。
+- Confirm Python LCM is installed.
+- Confirm `lcm-types/python/` exists and contains `sport_client_cmd_t.py` and `sport_client_state_t.py`.
+- In the deployment package, confirm `WebRTC_server/` and `lcm-types/` are beside `build/`.
 
-### 客户端无法连接
+### Client Cannot Connect
 
-- 确认机器人端 `8765` 端口已监听。
-- 确认客户端信令地址使用机器人 IP，例如 `ws://192.168.1.134:8765`。
-- 确认机器人与客户端在同一网络或路由可达。
+- Confirm robot-side port `8765` is listening.
+- Confirm the client signaling address uses the robot IP, such as `ws://192.168.1.134:8765`.
+- Confirm the robot and client are on the same network or routable.
 
-### 视频延迟较高
+### Video Latency Is High
 
-- 降低 `camera.width`、`camera.height` 或 `camera.fps`。
-- 降低 `webrtc.max_bitrate_kbps`。
-- 保持 `webrtc.low_latency` 为 `true`。
+- Reduce `camera.width`, `camera.height`, or `camera.fps`.
+- Reduce `webrtc.max_bitrate_kbps`.
+- Keep `webrtc.low_latency` set to `true`.
 
-### 控制无响应
+### Control Has No Response
 
-- 确认 `config.json` 中的 LCM URL 与机器人状态机侧一致。
-- 确认控制通道为 `QUAD_ROBOT_CONTROL_Y20W`。
-- 确认状态通道为 `QUAD_ROBOT_STATE_Y20W`。
-- 确认客户端发送的 JSON 字段名为 `mode`、`v`、`rpy`、`h`。
+- Confirm the LCM URL in `config.json` matches the robot state machine.
+- Confirm the control channel is `QUAD_ROBOT_CONTROL_Y20W`.
+- Confirm the state channel is `QUAD_ROBOT_STATE_Y20W`.
+- Confirm the client sends JSON fields named `mode`, `v`, `rpy`, and `h`.
 
-## 停止服务
+## Stop Service
 
-前台运行时按 `Ctrl+C` 停止。若使用 `control_publisher.py`，也可以输入 `e` 停止 publisher 和 signaling server 后退出。
+Press `Ctrl+C` in the foreground process. When using `control_publisher.py`, wait for publisher and signaling server cleanup before restarting or powering off.

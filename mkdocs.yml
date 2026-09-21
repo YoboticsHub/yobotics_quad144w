@@ -1,21 +1,115 @@
-site_name: quad144w/Y20W 轮足机器人控制框架使用说明书
-site_description: quad144w/Y20W 的环境配置、仿真、实机运行、SDK、LCM 外部算法和 WebRTC 文档
-site_author: 山东优宝特智能机器人有限公司
+site_name: quad144w/Y20W Wheel-Legged Robot Control Framework Manual
+site_description: Environment setup, simulation, hardware operation, SDK, LCM external algorithms, and WebRTC documentation for quad144w/Y20W
+site_author: Shandong Yobotics Intelligent Robotics Co., Ltd.
 
 use_directory_urls: false
 
 plugins:
   - mkdocs-video
+  - i18n:
+      docs_structure: folder
+      fallback_to_default: true
+      languages:
+        - locale: en
+          default: true
+          name: English
+          build: true
+          site_name: quad144w/Y20W Wheel-Legged Robot Control Framework Manual
+          site_description: Environment setup, simulation, hardware operation, SDK, LCM external algorithms, and WebRTC documentation for quad144w/Y20W
+          theme:
+            locale: en
+          nav:
+            - Home: index.md
+            - Part 1 Environment and Quick Start:
+                - 1.1 Framework and Robot: part-1-quick-start/1.framework.md
+                - 1.2 System and Environment: part-1-quick-start/2.system-requirements.md
+                - 1.3 Package Directory: part-1-quick-start/3.package-directory.md
+                - 1.4 First Run: part-1-quick-start/4.first-run.md
+            - Part 2 MuJoCo Simulation:
+                - 2.1 Simulation Architecture: part-2-mujoco/1.overview.md
+                - 2.2 Start and Stop: part-2-mujoco/2.start.md
+                - 2.3 Model and Mode Verification: part-2-mujoco/3.verify.md
+                - 2.4 Simulation Debugging: part-2-mujoco/4.debug.md
+            - Part 3 Hardware Operation:
+                - 3.1 Hardware Architecture and Safety: part-3-hardware/1.overview.md
+                - 3.2 Configure Hardware Parameters: part-3-hardware/2.config.md
+                - 3.3 Start the Controller: part-3-hardware/3.run.md
+                - 3.4 State Checks and Stop: part-3-hardware/4.runtime-checks.md
+                - 3.5 Viewers and Logs: part-3-hardware/5.logs-and-viewers.md
+            - Part 4 Yobotics SDK:
+                - 4.1 SDK Overview: part-4-sdk/1.overview.md
+                - 4.2 Build the SDK: part-4-sdk/2.build.md
+                - 4.3 Motion Control: part-4-sdk/3.motion-control.md
+                - 4.4 State Reading: part-4-sdk/4.state-read.md
+                - 4.5 Simulation and Hardware Use: part-4-sdk/5.examples.md
+                - 4.6 HTTP Service: part-4-sdk/6.http.md
+            - Part 5 LCM and External Algorithms:
+                - 5.1 Communication Architecture and Channels: part-5-lcm-dev/1.structure.md
+                - 5.2 16D Message Protocol: part-5-lcm-dev/2.messages.md
+                - 5.3 DEVELOPMENT Mode and Framework: part-5-lcm-dev/3.development-mode.md
+                - 5.4 wave Rule Example: part-5-lcm-dev/4.wave.md
+                - 5.5 ONNX Walking Example: part-5-lcm-dev/5.walk-onnx.md
+                - 5.6 Custom Algorithms and Hardware Integration: part-5-lcm-dev/6.hardware.md
+            - Part 6 WebRTC:
+                - 6.1 Service Architecture: part-6-webrtc/1.overview.md
+                - 6.2 Configuration and Startup: part-6-webrtc/2.config-and-run.md
+                - 6.3 DataChannel Protocol: part-6-webrtc/3.datachannel.md
+                - 6.4 Troubleshooting: part-6-webrtc/4.troubleshooting.md
+        - locale: zh
+          name: 中文
+          build: true
+          site_name: quad144w/Y20W 轮足机器人控制框架使用说明书
+          site_description: quad144w/Y20W 的环境配置、仿真、实机运行、SDK、LCM 外部算法和 WebRTC 文档
+          theme:
+            locale: zh_CN
+          nav:
+            - 首页: index.md
+            - 第一部分 环境配置与快速开始:
+                - 1.1 框架与机器人: part-1-quick-start/1.framework.md
+                - 1.2 系统与环境: part-1-quick-start/2.system-requirements.md
+                - 1.3 开发包目录: part-1-quick-start/3.package-directory.md
+                - 1.4 首次运行: part-1-quick-start/4.first-run.md
+            - 第二部分 MuJoCo 仿真:
+                - 2.1 仿真结构: part-2-mujoco/1.overview.md
+                - 2.2 启动与停止: part-2-mujoco/2.start.md
+                - 2.3 模型与模式验证: part-2-mujoco/3.verify.md
+                - 2.4 仿真调试: part-2-mujoco/4.debug.md
+            - 第三部分 实机运行:
+                - 3.1 实机结构与安全: part-3-hardware/1.overview.md
+                - 3.2 配置实机参数: part-3-hardware/2.config.md
+                - 3.3 启动控制器: part-3-hardware/3.run.md
+                - 3.4 状态检查与停止: part-3-hardware/4.runtime-checks.md
+                - 3.5 Viewer 与日志: part-3-hardware/5.logs-and-viewers.md
+            - 第四部分 Yobotics SDK:
+                - 4.1 SDK 概览: part-4-sdk/1.overview.md
+                - 4.2 编译 SDK: part-4-sdk/2.build.md
+                - 4.3 运动控制: part-4-sdk/3.motion-control.md
+                - 4.4 状态读取: part-4-sdk/4.state-read.md
+                - 4.5 仿真与实机使用: part-4-sdk/5.examples.md
+                - 4.6 HTTP 服务: part-4-sdk/6.http.md
+            - 第五部分 LCM 与外部算法:
+                - 5.1 通信结构与通道: part-5-lcm-dev/1.structure.md
+                - 5.2 16 维消息协议: part-5-lcm-dev/2.messages.md
+                - 5.3 DEVELOPMENT 模式与框架: part-5-lcm-dev/3.development-mode.md
+                - 5.4 wave 规则示例: part-5-lcm-dev/4.wave.md
+                - 5.5 ONNX 行走示例: part-5-lcm-dev/5.walk-onnx.md
+                - 5.6 自定义算法与实机接入: part-5-lcm-dev/6.hardware.md
+            - 第六部分 WebRTC:
+                - 6.1 服务结构: part-6-webrtc/1.overview.md
+                - 6.2 配置与启动: part-6-webrtc/2.config-and-run.md
+                - 6.3 DataChannel 协议: part-6-webrtc/3.datachannel.md
+                - 6.4 故障排查: part-6-webrtc/4.troubleshooting.md
 
 extra_css:
   - css/custom.css
 
 extra_javascript:
   - js/copy-code.js
+  - js/language-switcher.js
 
 theme:
   name: readthedocs
-  language: zh
+  locale: en
   highlightjs: true
   hljs_languages:
     - yaml
@@ -34,39 +128,39 @@ markdown_extensions:
   - sane_lists
 
 nav:
-  - 首页: index.md
-  - 第一部分 环境配置与快速开始:
-      - 1.1 框架与机器人: part-1-quick-start/1.framework.md
-      - 1.2 系统与环境: part-1-quick-start/2.system-requirements.md
-      - 1.3 开发包目录: part-1-quick-start/3.package-directory.md
-      - 1.4 首次运行: part-1-quick-start/4.first-run.md
-  - 第二部分 MuJoCo 仿真:
-      - 2.1 仿真结构: part-2-mujoco/1.overview.md
-      - 2.2 启动与停止: part-2-mujoco/2.start.md
-      - 2.3 模型与模式验证: part-2-mujoco/3.verify.md
-      - 2.4 仿真调试: part-2-mujoco/4.debug.md
-  - 第三部分 实机运行:
-      - 3.1 实机结构与安全: part-3-hardware/1.overview.md
-      - 3.2 配置实机参数: part-3-hardware/2.config.md
-      - 3.3 启动控制器: part-3-hardware/3.run.md
-      - 3.4 状态检查与停止: part-3-hardware/4.runtime-checks.md
-      - 3.5 Viewer 与日志: part-3-hardware/5.logs-and-viewers.md
-  - 第四部分 Yobotics SDK:
-      - 4.1 SDK 概览: part-4-sdk/1.overview.md
-      - 4.2 编译 SDK: part-4-sdk/2.build.md
-      - 4.3 运动控制: part-4-sdk/3.motion-control.md
-      - 4.4 状态读取: part-4-sdk/4.state-read.md
-      - 4.5 仿真与实机使用: part-4-sdk/5.examples.md
-      - 4.6 HTTP 服务: part-4-sdk/6.http.md
-  - 第五部分 LCM 与外部算法:
-      - 5.1 通信结构与通道: part-5-lcm-dev/1.structure.md
-      - 5.2 16 维消息协议: part-5-lcm-dev/2.messages.md
-      - 5.3 DEVELOPMENT 模式与框架: part-5-lcm-dev/3.development-mode.md
-      - 5.4 wave 规则示例: part-5-lcm-dev/4.wave.md
-      - 5.5 ONNX 行走示例: part-5-lcm-dev/5.walk-onnx.md
-      - 5.6 自定义算法与实机接入: part-5-lcm-dev/6.hardware.md
-  - 第六部分 WebRTC:
-      - 6.1 服务结构: part-6-webrtc/1.overview.md
-      - 6.2 配置与启动: part-6-webrtc/2.config-and-run.md
-      - 6.3 DataChannel 协议: part-6-webrtc/3.datachannel.md
-      - 6.4 故障排查: part-6-webrtc/4.troubleshooting.md
+  - Home: index.md
+  - Part 1 Environment and Quick Start:
+      - 1.1 Framework and Robot: part-1-quick-start/1.framework.md
+      - 1.2 System and Environment: part-1-quick-start/2.system-requirements.md
+      - 1.3 Package Directory: part-1-quick-start/3.package-directory.md
+      - 1.4 First Run: part-1-quick-start/4.first-run.md
+  - Part 2 MuJoCo Simulation:
+      - 2.1 Simulation Architecture: part-2-mujoco/1.overview.md
+      - 2.2 Start and Stop: part-2-mujoco/2.start.md
+      - 2.3 Model and Mode Verification: part-2-mujoco/3.verify.md
+      - 2.4 Simulation Debugging: part-2-mujoco/4.debug.md
+  - Part 3 Hardware Operation:
+      - 3.1 Hardware Architecture and Safety: part-3-hardware/1.overview.md
+      - 3.2 Configure Hardware Parameters: part-3-hardware/2.config.md
+      - 3.3 Start the Controller: part-3-hardware/3.run.md
+      - 3.4 State Checks and Stop: part-3-hardware/4.runtime-checks.md
+      - 3.5 Viewers and Logs: part-3-hardware/5.logs-and-viewers.md
+  - Part 4 Yobotics SDK:
+      - 4.1 SDK Overview: part-4-sdk/1.overview.md
+      - 4.2 Build the SDK: part-4-sdk/2.build.md
+      - 4.3 Motion Control: part-4-sdk/3.motion-control.md
+      - 4.4 State Reading: part-4-sdk/4.state-read.md
+      - 4.5 Simulation and Hardware Use: part-4-sdk/5.examples.md
+      - 4.6 HTTP Service: part-4-sdk/6.http.md
+  - Part 5 LCM and External Algorithms:
+      - 5.1 Communication Architecture and Channels: part-5-lcm-dev/1.structure.md
+      - 5.2 16D Message Protocol: part-5-lcm-dev/2.messages.md
+      - 5.3 DEVELOPMENT Mode and Framework: part-5-lcm-dev/3.development-mode.md
+      - 5.4 wave Rule Example: part-5-lcm-dev/4.wave.md
+      - 5.5 ONNX Walking Example: part-5-lcm-dev/5.walk-onnx.md
+      - 5.6 Custom Algorithms and Hardware Integration: part-5-lcm-dev/6.hardware.md
+  - Part 6 WebRTC:
+      - 6.1 Service Architecture: part-6-webrtc/1.overview.md
+      - 6.2 Configuration and Startup: part-6-webrtc/2.config-and-run.md
+      - 6.3 DataChannel Protocol: part-6-webrtc/3.datachannel.md
+      - 6.4 Troubleshooting: part-6-webrtc/4.troubleshooting.md

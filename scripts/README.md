@@ -1,117 +1,117 @@
-# quad144w 二次开发包脚本说明
+# quad144w Package Scripts
 
-本目录是 `yobotics_quad144w` 开发包中的 `scripts/` 目录说明。这里的脚本用于启动 quad144w/Y20W 控制器、启动 MuJoCo 仿真、配置 LCM 网络、监控 LCM 消息、准备 Python 环境、查看实机姿态和分析 CSV 日志。
+This directory documents the `scripts/` folder in the `yobotics_quad144w` package. The scripts start the quad144w/Y20W controller, start MuJoCo simulation, configure LCM networking, monitor LCM messages, prepare the Python environment, view hardware posture, and analyze CSV logs.
 
-## 使用前准备
+## Before Use
 
-建议在开发包根目录执行命令：
+Run commands from the package root:
 
 ```bash
 cd yobotics_quad144w
 chmod +x scripts/*.sh
 ```
 
-如果使用仿真或 Python 工具，先准备环境：
+If you use simulation or Python tools, prepare the environment first:
 
 ```bash
 bash scripts/setup_conda_env.sh
 ```
 
-如果只需要修复 Python LCM 绑定：
+To repair only Python LCM bindings:
 
 ```bash
 bash scripts/install_python_lcm.sh
 ```
 
-开发包常见目录如下：
+Common package layout:
 
 ```text
 yobotics_quad144w/
-├── bin/                  # 控制器入口脚本 ybt_ctrl 与真实二进制 ybt_ctrl.bin
-├── bin_rk3588/           # RK3588/aarch64 控制器入口
-├── lib/                  # 运行所需动态库
-├── lib_rk3588/           # RK3588/aarch64 运行所需动态库
-├── log/                  # 运行日志目录
-├── lcm-types/            # LCM 类型定义和生成结果
-├── mujoco_sim/           # MuJoCo 仿真代码
-├── resources/            # 实机机器人资源
-├── resources_sim/        # 仿真机器人资源
-├── scripts/              # 本说明文档描述的脚本
-├── config.yaml           # 实机配置
-└── config_sim.yaml       # 仿真配置
+├── bin/                  # controller wrapper ybt_ctrl and real binary ybt_ctrl.bin
+├── bin_rk3588/           # RK3588/aarch64 controller entry
+├── lib/                  # runtime shared libraries
+├── lib_rk3588/           # RK3588/aarch64 runtime shared libraries
+├── log/                  # runtime logs
+├── lcm-types/            # LCM type definitions and generated results
+├── mujoco_sim/           # MuJoCo simulation code
+├── resources/            # hardware robot resources
+├── resources_sim/        # simulation robot resources
+├── scripts/              # scripts described here
+├── config.yaml           # hardware configuration
+└── config_sim.yaml       # simulation configuration
 ```
 
-## 推荐工作流
+## Recommended Workflow
 
 ```bash
-# 1. 配置 Python/LCM 环境
+# 1. Configure Python/LCM environment
 bash scripts/setup_conda_env.sh
 
-# 2. 启动仿真
+# 2. Start simulation
 bash scripts/start_mujoco.sh --config config_sim.yaml
 
-# 3. 监控 LCM
+# 3. Monitor LCM
 bash scripts/monitor_lcm.sh --no-gui
 
-# 4. 实机启动
+# 4. Start hardware controller
 sudo bash scripts/run_robot_controller.sh --config config.yaml --iface eth0
 ```
 
-## 运行控制器
+## Controller Startup
 
 ### `run_robot_controller.sh`
 
-用于启动实物控制器，并自动设置当前架构对应的动态库路径。
+Starts the hardware controller and sets the shared-library path for the current architecture.
 
 ```bash
 sudo bash scripts/run_robot_controller.sh --config config.yaml
 ```
 
-默认 LCM 网卡为 `eth0`。如现场机器使用其他网卡：
+The default LCM interface is `eth0`. If the onsite machine uses another interface:
 
 ```bash
-sudo bash scripts/run_robot_controller.sh --config config.yaml --iface <网卡名>
+sudo bash scripts/run_robot_controller.sh --config config.yaml --iface <interface-name>
 ```
 
-也可以通过环境变量指定：
+Or use an environment variable:
 
 ```bash
-LCM_IFACE=<网卡名> sudo -E bash scripts/run_robot_controller.sh --config config.yaml
+LCM_IFACE=<interface-name> sudo -E bash scripts/run_robot_controller.sh --config config.yaml
 ```
 
-该脚本会按当前系统架构选择控制器入口和动态库：
+Architecture selection:
 
-- x86_64：优先使用 `bin/ybt_ctrl` 和 `lib/`。
-- RK3588/aarch64：优先使用 `bin_rk3588/ybt_ctrl` 和 `lib_rk3588/`，不存在时回退到 `bin/ybt_ctrl` 和 `lib/`。
+- x86_64: prefers `bin/ybt_ctrl` and `lib/`.
+- RK3588/aarch64: prefers `bin_rk3588/ybt_ctrl` and `lib_rk3588/`, falling back to `bin/ybt_ctrl` and `lib/` when absent.
 
-直接运行 `ybt_ctrl.bin` 时不会自动设置完整库路径，优先使用该脚本或对应目录下的 `ybt_ctrl` 包装入口。
+Running `ybt_ctrl.bin` directly does not set the full library path. Prefer this script or the `ybt_ctrl` wrapper in the matching directory.
 
 ### `run_controller.sh`
 
-保留的源码树兼容入口。当前二次开发包不包含控制器源码，日常运行请使用 `run_robot_controller.sh`。
+Legacy source-tree compatible entry. The current secondary development package does not include controller source; use `run_robot_controller.sh` for normal operation.
 
 ### `run_human_debug.sh`
 
-保留的旧版调试入口，用于兼容已有调试流程。新开发包实机启动优先使用 `run_robot_controller.sh`。
+Legacy debug entry retained for existing workflows. New hardware runs should prefer `run_robot_controller.sh`.
 
-## MuJoCo 仿真
+## MuJoCo Simulation
 
 ### `start_mujoco.sh`
 
-用于启动 MuJoCo 仿真器并启动控制器：
+Starts the MuJoCo simulator and controller:
 
 ```bash
 bash scripts/start_mujoco.sh --config config_sim.yaml
 bash scripts/start_mujoco.sh --config config_sim.yaml --headless
 ```
 
-仿真依赖 `config_sim.yaml`、`resources_sim/`、`mujoco_sim/`、`actor_model/` 和 `lcm-types/`。
+Simulation depends on `config_sim.yaml`, `resources_sim/`, `mujoco_sim/`, `actor_model/`, and `lcm-types/`.
 
-如果提示找不到控制器，先确认开发包内存在 `bin/ybt_ctrl`，并具有执行权限。
+If the controller is not found, confirm `bin/ybt_ctrl` exists in the package and is executable.
 
 ### `start_hardware_viewer.sh` / `hardware_mujoco_viewer.py`
 
-用于把实物机器人发布的 LCM 反馈实时显示到 MuJoCo Viewer 中，只刷新模型姿态，不推进完整仿真闭环。
+Displays hardware LCM feedback in a MuJoCo Viewer. It only refreshes model posture and does not run a full simulation control loop.
 
 ```bash
 bash scripts/start_hardware_viewer.sh
@@ -120,51 +120,51 @@ bash scripts/start_hardware_viewer.sh --lcm-url "udpm://239.255.76.67:7667?ttl=2
 bash scripts/start_hardware_viewer.sh --viewer-hz 30
 ```
 
-默认参数：
+Defaults:
 
-- XML：`resources/robots/quad144w/scene_terrain.xml`
-- 关节状态通道：`Y20W_QUAD_JOINT_STATE`
-- 机器人状态通道：`QUAD_ROBOT_STATE_Y20W`
-- Viewer 刷新率：`60 Hz`
+- XML: `resources/robots/quad144w/scene_terrain.xml`
+- Joint state channel: `Y20W_QUAD_JOINT_STATE`
+- Robot state channel: `QUAD_ROBOT_STATE_Y20W`
+- Viewer refresh rate: `60 Hz`
 
-如果 Viewer 中模型没有动作，先确认控制器正在发布以上通道，并检查 LCM URL 和网卡配置。
+If the model does not move in the Viewer, confirm the controller is publishing these channels and check LCM URL/interface configuration.
 
-## LCM 工具
+## LCM Tools
 
 ### `setup_lcm_network.sh`
 
-配置 LCM 多播网络：
+Configures LCM multicast networking:
 
 ```bash
 sudo bash scripts/setup_lcm_network.sh
 ```
 
-该脚本会修改网络配置，远程调试时请先确认目标网卡，避免影响 SSH 连接。
+This script changes network configuration. During remote debugging, confirm the target interface first to avoid disrupting SSH.
 
 ### `monitor_lcm.sh` / `monitor_lcm.py`
 
-查看 LCM 通道和消息频率：
+View LCM channels and message frequencies:
 
 ```bash
 bash scripts/monitor_lcm.sh --no-gui
 python3 scripts/monitor_lcm.py --no-gui
 ```
 
-如果 GUI 环境可用，也可以不带 `--no-gui` 运行。没有消息时优先检查 `setup_lcm_network.sh`、控制器进程、仿真进程和通道配置是否一致。
+If GUI is available, run without `--no-gui`. If there are no messages, check `setup_lcm_network.sh`, controller process, simulation process, and channel configuration.
 
 ### `launch_lcm_spy.sh`
 
-启动系统中的 `lcm-spy`：
+Starts system `lcm-spy`:
 
 ```bash
 bash scripts/launch_lcm_spy.sh
 ```
 
-需要系统已安装 LCM 工具链。
+Requires the LCM toolchain to be installed.
 
 ### `generate_lcm_types.sh`
 
-当修改 `.lcm` 文件或生成代码缺失时重新生成类型：
+Regenerates types after `.lcm` changes or missing generated code:
 
 ```bash
 bash scripts/generate_lcm_types.sh
@@ -172,104 +172,62 @@ bash scripts/generate_lcm_types.sh
 
 ### `make_types_no_java.sh`
 
-生成不包含 Java 输出的 LCM 类型，适用于只需要 C++/Python 类型的开发场景：
+Generates LCM types without Java output for C++/Python-only development:
 
 ```bash
 bash scripts/make_types_no_java.sh
 ```
 
-## 环境和辅助工具
+## Environment and Helper Tools
 
-### `setup_conda_env.sh`
+- `setup_conda_env.sh`: creates/configures the environment for simulation, LCM monitoring, and Python tools.
+- `install_python_lcm.sh`: installs or repairs Python LCM bindings.
+- `remove_conda_env.sh`: removes the Conda environment created by the scripts.
+- `calibrate_gamepad.py`: calibrates gamepad input.
+- `data_viewer.py`: views RL CSV logs grouped by leg, joint, or variable type, including quad144w `hip/thigh/calf/wheel` columns.
+- `motor_trace_viewer.py`: views motor trace logs such as `motor_trace.csv`, with presets for angle, torque, and IMU.
+- `show_network_bandwidth.sh`: displays network-interface bandwidth usage.
 
-创建或配置仿真、LCM 监控和 Python 工具所需环境：
-
-```bash
-bash scripts/setup_conda_env.sh
-```
-
-### `install_python_lcm.sh`
-
-安装或修复 Python LCM 绑定：
-
-```bash
-bash scripts/install_python_lcm.sh
-```
-
-### `remove_conda_env.sh`
-
-移除脚本创建的 conda 环境：
-
-```bash
-bash scripts/remove_conda_env.sh
-```
-
-### `calibrate_gamepad.py`
-
-校准游戏手柄输入：
+Examples:
 
 ```bash
 python3 scripts/calibrate_gamepad.py
-```
-
-### `data_viewer.py`
-
-查看 RL 日志 CSV，支持按腿、关节、变量类型分组，也支持 quad144w 的 `hip/thigh/calf/wheel` 列名。
-
-```bash
-python3 scripts/data_viewer.py
 python3 scripts/data_viewer.py log/log_RL_walk.csv
-```
-
-### `motor_trace_viewer.py`
-
-查看 `motor_trace.csv` 一类电机追踪日志，支持角度、扭矩、IMU 等常用预设。
-
-```bash
-python3 scripts/motor_trace_viewer.py
 python3 scripts/motor_trace_viewer.py log/motor_trace.csv
-```
-
-### `show_network_bandwidth.sh`
-
-查看指定网卡带宽占用：
-
-```bash
-bash scripts/show_network_bandwidth.sh
 bash scripts/show_network_bandwidth.sh eth0 1
 ```
 
-## 常见问题
+## Common Issues
 
-### 控制器提示找不到动态库
+### Controller Cannot Find Shared Libraries
 
-确认位于开发包根目录，并优先使用：
+Run from the package root and prefer:
 
 ```bash
 sudo bash scripts/run_robot_controller.sh --config config.yaml
 ```
 
-同时检查：
+Also check:
 
 ```bash
 ls -l bin/ybt_ctrl bin/ybt_ctrl.bin
 ls -l lib/libonnxruntime.so*
 ```
 
-### LCM 监控没有消息
+### LCM Monitor Has No Messages
 
-建议按顺序检查：
+Check in order:
 
 ```bash
 sudo bash scripts/setup_lcm_network.sh
 bash scripts/monitor_lcm.sh --no-gui
 ```
 
-同时确认控制器或仿真进程已经启动，并且使用同一组 Y20W LCM 通道。
+Confirm the controller or simulation is running and using the same Y20W LCM channels.
 
-### 图形界面打不开
+### GUI Cannot Open
 
-无头服务器或 SSH 环境可以使用文本模式：
+On headless servers or SSH sessions, use text/headless mode:
 
 ```bash
 bash scripts/monitor_lcm.sh --no-gui
