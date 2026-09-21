@@ -3,9 +3,9 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="山东优宝特智能机器人有限公司" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Shandong Yobotics Intelligent Robotics Co., Ltd." />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>4.2 编译 SDK - quad144w/Y20W 轮足机器人控制框架使用说明书</title>
+    <title>4.2 Build the SDK - quad144w/Y20W Wheel-Legged Robot Control Framework Manual</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,8 +13,8 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "4.2 \u7f16\u8bd1 SDK";
-        var mkdocs_page_input_path = "part-4-sdk/2.build.md";
+        var mkdocs_page_name = "4.2 Build the SDK";
+        var mkdocs_page_input_path = "en/part-4-sdk/2.build.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -36,99 +36,99 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
-          <a href="../index.html" class="icon icon-home"> quad144w/Y20W 轮足机器人控制框架使用说明书
+          <a href="../index.html" class="icon icon-home"> quad144w/Y20W Wheel-Legged Robot Control Framework Manual
         </a>
       </div>
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../index.html">首页</a>
+                <li class="toctree-l1"><a class="reference internal" href="../index.html">Home</a>
                 </li>
               </ul>
-              <p class="caption"><span class="caption-text">第一部分 环境配置与快速开始</span></p>
+              <p class="caption"><span class="caption-text">Part 1 Environment and Quick Start</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-1-quick-start/1.framework.html">1.1 框架与机器人</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-1-quick-start/1.framework.html">1.1 Framework and Robot</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-1-quick-start/2.system-requirements.html">1.2 系统与环境</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-1-quick-start/2.system-requirements.html">1.2 System and Environment</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-1-quick-start/3.package-directory.html">1.3 开发包目录</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-1-quick-start/3.package-directory.html">1.3 Package Directory</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-1-quick-start/4.first-run.html">1.4 首次运行</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-1-quick-start/4.first-run.html">1.4 First Run</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">第二部分 MuJoCo 仿真</span></p>
+              <p class="caption"><span class="caption-text">Part 2 MuJoCo Simulation</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-2-mujoco/1.overview.html">2.1 仿真结构</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-2-mujoco/1.overview.html">2.1 Simulation Architecture</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-2-mujoco/2.start.html">2.2 启动与停止</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-2-mujoco/2.start.html">2.2 Start and Stop</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-2-mujoco/3.verify.html">2.3 模型与模式验证</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-2-mujoco/3.verify.html">2.3 Model and Mode Verification</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-2-mujoco/4.debug.html">2.4 仿真调试</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-2-mujoco/4.debug.html">2.4 Simulation Debugging</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">第三部分 实机运行</span></p>
+              <p class="caption"><span class="caption-text">Part 3 Hardware Operation</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-3-hardware/1.overview.html">3.1 实机结构与安全</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-3-hardware/1.overview.html">3.1 Hardware Architecture and Safety</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-3-hardware/2.config.html">3.2 配置实机参数</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-3-hardware/2.config.html">3.2 Configure Hardware Parameters</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-3-hardware/3.run.html">3.3 启动控制器</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-3-hardware/3.run.html">3.3 Start the Controller</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-3-hardware/4.runtime-checks.html">3.4 状态检查与停止</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-3-hardware/4.runtime-checks.html">3.4 State Checks and Stop</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-3-hardware/5.logs-and-viewers.html">3.5 Viewer 与日志</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-3-hardware/5.logs-and-viewers.html">3.5 Viewers and Logs</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">第四部分 Yobotics SDK</span></p>
+              <p class="caption"><span class="caption-text">Part 4 Yobotics SDK</span></p>
               <ul class="current">
-                  <li class="toctree-l1"><a class="reference internal" href="1.overview.html">4.1 SDK 概览</a>
+                  <li class="toctree-l1"><a class="reference internal" href="1.overview.html">4.1 SDK Overview</a>
                   </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="#">4.2 编译 SDK</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">4.2 Build the SDK</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#_1">依赖</a>
+    <li class="toctree-l2"><a class="reference internal" href="#dependencies">Dependencies</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_2">编译</a>
+    <li class="toctree-l2"><a class="reference internal" href="#build">Build</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#lcm-url">LCM URL</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_3">编译验收</a>
+    <li class="toctree-l2"><a class="reference internal" href="#build-acceptance">Build Acceptance</a>
     </li>
     </ul>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="3.motion-control.html">4.3 运动控制</a>
+                  <li class="toctree-l1"><a class="reference internal" href="3.motion-control.html">4.3 Motion Control</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="4.state-read.html">4.4 状态读取</a>
+                  <li class="toctree-l1"><a class="reference internal" href="4.state-read.html">4.4 State Reading</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="5.examples.html">4.5 仿真与实机使用</a>
+                  <li class="toctree-l1"><a class="reference internal" href="5.examples.html">4.5 Simulation and Hardware Use</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="6.http.html">4.6 HTTP 服务</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">第五部分 LCM 与外部算法</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/1.structure.html">5.1 通信结构与通道</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/2.messages.html">5.2 16 维消息协议</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/3.development-mode.html">5.3 DEVELOPMENT 模式与框架</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/4.wave.html">5.4 wave 规则示例</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/5.walk-onnx.html">5.5 ONNX 行走示例</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/6.hardware.html">5.6 自定义算法与实机接入</a>
+                  <li class="toctree-l1"><a class="reference internal" href="6.http.html">4.6 HTTP Service</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">第六部分 WebRTC</span></p>
+              <p class="caption"><span class="caption-text">Part 5 LCM and External Algorithms</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-6-webrtc/1.overview.html">6.1 服务结构</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/1.structure.html">5.1 Communication Architecture and Channels</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-6-webrtc/2.config-and-run.html">6.2 配置与启动</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/2.messages.html">5.2 16D Message Protocol</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-6-webrtc/3.datachannel.html">6.3 DataChannel 协议</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/3.development-mode.html">5.3 DEVELOPMENT Mode and Framework</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-6-webrtc/4.troubleshooting.html">6.4 故障排查</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/4.wave.html">5.4 wave Rule Example</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/5.walk-onnx.html">5.5 ONNX Walking Example</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/6.hardware.html">5.6 Custom Algorithms and Hardware Integration</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Part 6 WebRTC</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-6-webrtc/1.overview.html">6.1 Service Architecture</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-6-webrtc/2.config-and-run.html">6.2 Configuration and Startup</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-6-webrtc/3.datachannel.html">6.3 DataChannel Protocol</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-6-webrtc/4.troubleshooting.html">6.4 Troubleshooting</a>
                   </li>
               </ul>
       </div>
@@ -138,15 +138,15 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
       <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">quad144w/Y20W 轮足机器人控制框架使用说明书</a>
+          <a href="../index.html">quad144w/Y20W Wheel-Legged Robot Control Framework Manual</a>
         
       </nav>
       <div class="wy-nav-content">
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../index.html" class="icon icon-home" aria-label="Docs"></a></li>
-          <li class="breadcrumb-item">第四部分 Yobotics SDK</li>
-      <li class="breadcrumb-item active">4.2 编译 SDK</li>
+          <li class="breadcrumb-item">Part 4 Yobotics SDK</li>
+      <li class="breadcrumb-item active">4.2 Build the SDK</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -155,30 +155,30 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <div><h1 id="42-sdk">4.2 编译 SDK<a class="headerlink" href="#42-sdk" title="Permanent link">¶</a></h1>
-<h2 id="_1">依赖<a class="headerlink" href="#_1" title="Permanent link">¶</a></h2>
+                <div><h1 id="42-build-the-sdk">4.2 Build the SDK<a class="headerlink" href="#42-build-the-sdk" title="Permanent link">¶</a></h1>
+<h2 id="dependencies">Dependencies<a class="headerlink" href="#dependencies" title="Permanent link">¶</a></h2>
 <pre><code class="language-bash">sudo apt-get install -y build-essential cmake liblcm-dev libeigen3-dev
 </code></pre>
-<h2 id="_2">编译<a class="headerlink" href="#_2" title="Permanent link">¶</a></h2>
+<h2 id="build">Build<a class="headerlink" href="#build" title="Permanent link">¶</a></h2>
 <pre><code class="language-bash">cmake -S yobotics_sdk -B yobotics_sdk/build
 cmake --build yobotics_sdk/build -j4
 </code></pre>
-<p><img alt="CMake 配置" src="../assets/sdk/cmake-configure.png"></p>
-<p><img alt="SDK 编译" src="../assets/sdk/cmake-build.png"></p>
-<p>成功后包含：</p>
+<p><img alt="CMake configuration" src="../assets/sdk/cmake-configure.png"></p>
+<p><img alt="SDK build" src="../assets/sdk/cmake-build.png"></p>
+<p>A successful build contains:</p>
 <pre><code class="language-text">yobotics_sdk/build/yobot_sport_client
 yobotics_sdk/build/yobot_robot_state_client
 yobotics_sdk/build/yobot_http_server
 yobotics_sdk/lib/libyobotics_sdk.a
 </code></pre>
-<p><img alt="构建结果" src="../assets/sdk/sdk-build-results.png"></p>
+<p><img alt="Build results" src="../assets/sdk/sdk-build-results.png"></p>
 <h2 id="lcm-url">LCM URL<a class="headerlink" href="#lcm-url" title="Permanent link">¶</a></h2>
-<p>SDK 默认使用 <code>udpm://239.255.76.67:7667?ttl=255</code>。跨机器或指定其他多播地址时：</p>
+<p>The SDK uses <code>udpm://239.255.76.67:7667?ttl=255</code> by default. For cross-machine use or another multicast address:</p>
 <pre><code class="language-bash">export YOBOTICS_LCM_URL='udpm://239.255.76.67:7667?ttl=255'
 </code></pre>
-<p><img alt="检查 LCM URL" src="../assets/sdk/lcm-url.png"></p>
-<p>业务程序链接静态库时至少需要 SDK include、<code>libyobotics_sdk.a</code>、LCM 和 pthread。</p>
-<h2 id="_3">编译验收<a class="headerlink" href="#_3" title="Permanent link">¶</a></h2>
+<p><img alt="Check LCM URL" src="../assets/sdk/lcm-url.png"></p>
+<p>When linking the static library from a business program, you need at least the SDK include directory, <code>libyobotics_sdk.a</code>, LCM, and pthread.</p>
+<h2 id="build-acceptance">Build Acceptance<a class="headerlink" href="#build-acceptance" title="Permanent link">¶</a></h2>
 <pre><code class="language-bash">test -x yobotics_sdk/build/yobot_sport_client
 test -x yobotics_sdk/build/yobot_robot_state_client
 test -x yobotics_sdk/build/yobot_http_server
@@ -187,36 +187,36 @@ test -f yobotics_sdk/lib/libyobotics_sdk.a
 <table>
 <thead>
 <tr>
-<th>失败现象</th>
-<th>检查</th>
+<th>Failure</th>
+<th>Check</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>找不到 LCM</td>
-<td><code>liblcm-dev</code>、<code>find_library</code> 搜索目录和架构</td>
+<td>LCM not found</td>
+<td><code>liblcm-dev</code>, <code>find_library</code> search directories, and architecture</td>
 </tr>
 <tr>
-<td>找不到头文件</td>
-<td>CMake 是否以 <code>yobotics_sdk</code> 为源码目录</td>
+<td>Header not found</td>
+<td>Whether CMake uses <code>yobotics_sdk</code> as the source directory</td>
 </tr>
 <tr>
-<td>链接 pthread 失败</td>
-<td>系统构建工具链是否完整</td>
+<td>pthread link failure</td>
+<td>Whether the system build toolchain is complete</td>
 </tr>
 <tr>
-<td>程序启动后没有状态</td>
-<td><code>YOBOTICS_LCM_URL</code> 与控制器是否一致</td>
+<td>Program starts but has no state</td>
+<td>Whether <code>YOBOTICS_LCM_URL</code> matches the controller</td>
 </tr>
 </tbody>
 </table>
-<p>该 CMake 工程只构建 SDK 静态库和三个现有示例，不构建控制器，也不提供 RK3588 打包或部署流程。</p></div>
+<p>This CMake project only builds the SDK static library and three existing examples. It does not build the controller or provide RK3588 packaging/deployment flow.</p></div>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="1.overview.html" class="btn btn-neutral float-left" title="4.1 SDK 概览"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="3.motion-control.html" class="btn btn-neutral float-right" title="4.3 运动控制">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="1.overview.html" class="btn btn-neutral float-left" title="4.1 SDK Overview"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="3.motion-control.html" class="btn btn-neutral float-right" title="4.3 Motion Control">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -251,6 +251,7 @@ test -f yobotics_sdk/lib/libyobotics_sdk.a
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
       <script src="../js/copy-code.js"></script>
+      <script src="../js/language-switcher.js"></script>
     <script>
         jQuery(function () {
             SphinxRtdTheme.Navigation.enable(true);

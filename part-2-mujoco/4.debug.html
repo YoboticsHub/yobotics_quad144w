@@ -3,9 +3,9 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="山东优宝特智能机器人有限公司" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Shandong Yobotics Intelligent Robotics Co., Ltd." />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>2.4 仿真调试 - quad144w/Y20W 轮足机器人控制框架使用说明书</title>
+    <title>2.4 Simulation Debugging - quad144w/Y20W Wheel-Legged Robot Control Framework Manual</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,8 +13,8 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "2.4 \u4eff\u771f\u8c03\u8bd5";
-        var mkdocs_page_input_path = "part-2-mujoco/4.debug.md";
+        var mkdocs_page_name = "2.4 Simulation Debugging";
+        var mkdocs_page_input_path = "en/part-2-mujoco/4.debug.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -36,101 +36,101 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
-          <a href="../index.html" class="icon icon-home"> quad144w/Y20W 轮足机器人控制框架使用说明书
+          <a href="../index.html" class="icon icon-home"> quad144w/Y20W Wheel-Legged Robot Control Framework Manual
         </a>
       </div>
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../index.html">首页</a>
+                <li class="toctree-l1"><a class="reference internal" href="../index.html">Home</a>
                 </li>
               </ul>
-              <p class="caption"><span class="caption-text">第一部分 环境配置与快速开始</span></p>
+              <p class="caption"><span class="caption-text">Part 1 Environment and Quick Start</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-1-quick-start/1.framework.html">1.1 框架与机器人</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-1-quick-start/1.framework.html">1.1 Framework and Robot</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-1-quick-start/2.system-requirements.html">1.2 系统与环境</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-1-quick-start/2.system-requirements.html">1.2 System and Environment</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-1-quick-start/3.package-directory.html">1.3 开发包目录</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-1-quick-start/3.package-directory.html">1.3 Package Directory</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-1-quick-start/4.first-run.html">1.4 首次运行</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-1-quick-start/4.first-run.html">1.4 First Run</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">第二部分 MuJoCo 仿真</span></p>
+              <p class="caption"><span class="caption-text">Part 2 MuJoCo Simulation</span></p>
               <ul class="current">
-                  <li class="toctree-l1"><a class="reference internal" href="1.overview.html">2.1 仿真结构</a>
+                  <li class="toctree-l1"><a class="reference internal" href="1.overview.html">2.1 Simulation Architecture</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="2.start.html">2.2 启动与停止</a>
+                  <li class="toctree-l1"><a class="reference internal" href="2.start.html">2.2 Start and Stop</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="3.verify.html">2.3 模型与模式验证</a>
+                  <li class="toctree-l1"><a class="reference internal" href="3.verify.html">2.3 Model and Mode Verification</a>
                   </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="#">2.4 仿真调试</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">2.4 Simulation Debugging</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#lcm">LCM 监控</a>
+    <li class="toctree-l2"><a class="reference internal" href="#lcm-monitoring">LCM Monitoring</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_1">日志查看</a>
+    <li class="toctree-l2"><a class="reference internal" href="#log-viewing">Log Viewing</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_2">常见问题</a>
+    <li class="toctree-l2"><a class="reference internal" href="#common-issues">Common Issues</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_3">调试闭环</a>
+    <li class="toctree-l2"><a class="reference internal" href="#debug-loop">Debug Loop</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_4">现象到行动</a>
+    <li class="toctree-l2"><a class="reference internal" href="#symptom-to-action">Symptom to Action</a>
     </li>
     </ul>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">第三部分 实机运行</span></p>
+              <p class="caption"><span class="caption-text">Part 3 Hardware Operation</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-3-hardware/1.overview.html">3.1 实机结构与安全</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-3-hardware/1.overview.html">3.1 Hardware Architecture and Safety</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-3-hardware/2.config.html">3.2 配置实机参数</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-3-hardware/2.config.html">3.2 Configure Hardware Parameters</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-3-hardware/3.run.html">3.3 启动控制器</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-3-hardware/3.run.html">3.3 Start the Controller</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-3-hardware/4.runtime-checks.html">3.4 状态检查与停止</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-3-hardware/4.runtime-checks.html">3.4 State Checks and Stop</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-3-hardware/5.logs-and-viewers.html">3.5 Viewer 与日志</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-3-hardware/5.logs-and-viewers.html">3.5 Viewers and Logs</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">第四部分 Yobotics SDK</span></p>
+              <p class="caption"><span class="caption-text">Part 4 Yobotics SDK</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-4-sdk/1.overview.html">4.1 SDK 概览</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-4-sdk/1.overview.html">4.1 SDK Overview</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-4-sdk/2.build.html">4.2 编译 SDK</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-4-sdk/2.build.html">4.2 Build the SDK</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-4-sdk/3.motion-control.html">4.3 运动控制</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-4-sdk/3.motion-control.html">4.3 Motion Control</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-4-sdk/4.state-read.html">4.4 状态读取</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-4-sdk/4.state-read.html">4.4 State Reading</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-4-sdk/5.examples.html">4.5 仿真与实机使用</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-4-sdk/5.examples.html">4.5 Simulation and Hardware Use</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-4-sdk/6.http.html">4.6 HTTP 服务</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-4-sdk/6.http.html">4.6 HTTP Service</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">第五部分 LCM 与外部算法</span></p>
+              <p class="caption"><span class="caption-text">Part 5 LCM and External Algorithms</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/1.structure.html">5.1 通信结构与通道</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/1.structure.html">5.1 Communication Architecture and Channels</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/2.messages.html">5.2 16 维消息协议</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/2.messages.html">5.2 16D Message Protocol</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/3.development-mode.html">5.3 DEVELOPMENT 模式与框架</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/3.development-mode.html">5.3 DEVELOPMENT Mode and Framework</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/4.wave.html">5.4 wave 规则示例</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/4.wave.html">5.4 wave Rule Example</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/5.walk-onnx.html">5.5 ONNX 行走示例</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/5.walk-onnx.html">5.5 ONNX Walking Example</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/6.hardware.html">5.6 自定义算法与实机接入</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/6.hardware.html">5.6 Custom Algorithms and Hardware Integration</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">第六部分 WebRTC</span></p>
+              <p class="caption"><span class="caption-text">Part 6 WebRTC</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-6-webrtc/1.overview.html">6.1 服务结构</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-6-webrtc/1.overview.html">6.1 Service Architecture</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-6-webrtc/2.config-and-run.html">6.2 配置与启动</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-6-webrtc/2.config-and-run.html">6.2 Configuration and Startup</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-6-webrtc/3.datachannel.html">6.3 DataChannel 协议</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-6-webrtc/3.datachannel.html">6.3 DataChannel Protocol</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-6-webrtc/4.troubleshooting.html">6.4 故障排查</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-6-webrtc/4.troubleshooting.html">6.4 Troubleshooting</a>
                   </li>
               </ul>
       </div>
@@ -140,15 +140,15 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
       <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">quad144w/Y20W 轮足机器人控制框架使用说明书</a>
+          <a href="../index.html">quad144w/Y20W Wheel-Legged Robot Control Framework Manual</a>
         
       </nav>
       <div class="wy-nav-content">
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../index.html" class="icon icon-home" aria-label="Docs"></a></li>
-          <li class="breadcrumb-item">第二部分 MuJoCo 仿真</li>
-      <li class="breadcrumb-item active">2.4 仿真调试</li>
+          <li class="breadcrumb-item">Part 2 MuJoCo Simulation</li>
+      <li class="breadcrumb-item active">2.4 Simulation Debugging</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -157,102 +157,102 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <div><h1 id="24">2.4 仿真调试<a class="headerlink" href="#24" title="Permanent link">¶</a></h1>
-<h2 id="lcm">LCM 监控<a class="headerlink" href="#lcm" title="Permanent link">¶</a></h2>
+                <div><h1 id="24-simulation-debugging">2.4 Simulation Debugging<a class="headerlink" href="#24-simulation-debugging" title="Permanent link">¶</a></h1>
+<h2 id="lcm-monitoring">LCM Monitoring<a class="headerlink" href="#lcm-monitoring" title="Permanent link">¶</a></h2>
 <pre><code class="language-bash">bash scripts/monitor_lcm.sh --no-gui
 bash scripts/monitor_lcm.sh
 bash scripts/launch_lcm_spy.sh
 </code></pre>
-<p>无终端消息时检查 <code>config_sim.yaml</code> 的通道名、LCM Python 模块和本机多播配置。</p>
-<h2 id="_1">日志查看<a class="headerlink" href="#_1" title="Permanent link">¶</a></h2>
-<p>仿真默认把控制器日志写入 <code>log/robot_log.txt</code>，RL CSV 路径由各策略块的 <code>log_file_path</code> 决定。</p>
+<p>If no terminal messages appear, check the channel names in <code>config_sim.yaml</code>, the LCM Python module, and local multicast configuration.</p>
+<h2 id="log-viewing">Log Viewing<a class="headerlink" href="#log-viewing" title="Permanent link">¶</a></h2>
+<p>Simulation writes controller logs to <code>log/robot_log.txt</code> by default. RL CSV paths are defined by each policy block's <code>log_file_path</code>.</p>
 <pre><code class="language-bash">python3 scripts/data_viewer.py
 python3 scripts/motor_trace_viewer.py log/motor_trace.csv
 </code></pre>
-<p>重点比较期望/实际关节位置、速度和扭矩，轮关节变量名称包含 <code>wheel</code>。</p>
-<h2 id="_2">常见问题<a class="headerlink" href="#_2" title="Permanent link">¶</a></h2>
+<p>Focus on comparing desired and actual joint position, velocity, and torque. Wheel-joint variables include <code>wheel</code> in their names.</p>
+<h2 id="common-issues">Common Issues<a class="headerlink" href="#common-issues" title="Permanent link">¶</a></h2>
 <table>
 <thead>
 <tr>
-<th>现象</th>
-<th>检查项</th>
+<th>Symptom</th>
+<th>Check</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>场景文件不存在</td>
-<td><code>simulation.mujoco.xml_path</code> 是否指向 <code>resources_sim/</code></td>
+<td>Scene file does not exist</td>
+<td>Whether <code>simulation.mujoco.xml_path</code> points to <code>resources_sim/</code></td>
 </tr>
 <tr>
-<td>控制器找不到动态库</td>
-<td>使用启动脚本，不要绕过包装入口直接运行 <code>.bin</code></td>
+<td>Controller cannot find shared libraries</td>
+<td>Use the startup script; do not bypass the wrapper and run <code>.bin</code> directly</td>
 </tr>
 <tr>
-<td>模型加载失败</td>
-<td>actor/encoder 路径、ONNX Runtime 和模型输入输出维度</td>
+<td>Model loading fails</td>
+<td>actor/encoder paths, ONNX Runtime, and model input/output dimensions</td>
 </tr>
 <tr>
-<td>机器人突然发散</td>
-<td>关节顺序、默认角、PD、action scale、控制周期</td>
+<td>Robot suddenly diverges</td>
+<td>Joint order, default angles, PD, action scale, and control period</td>
 </tr>
 <tr>
-<td>模式无法切换</td>
-<td><code>gamepad.device_type</code>、输入设备与 <code>mode_sequence</code></td>
+<td>Mode cannot switch</td>
+<td><code>gamepad.device_type</code>, input device, and <code>mode_sequence</code></td>
 </tr>
 </tbody>
 </table>
-<h2 id="_3">调试闭环<a class="headerlink" href="#_3" title="Permanent link">¶</a></h2>
+<h2 id="debug-loop">Debug Loop<a class="headerlink" href="#debug-loop" title="Permanent link">¶</a></h2>
 <ol>
-<li>记录可复现的模式、速度命令和配置文件。</li>
-<li>用 LCM 监控确认输入、状态和输出通道是否连续。</li>
-<li>用日志 Viewer 比较期望值与实际值，定位到具体关节。</li>
-<li>回到 <code>DAMP</code>，一次只修改一个参数。</li>
-<li>重复相同操作并比较修改前后的日志。</li>
+<li>Record a reproducible mode, velocity command, and configuration file.</li>
+<li>Use LCM monitoring to confirm input, state, and output channels are continuous.</li>
+<li>Use log viewers to compare desired and actual values and locate the affected joint.</li>
+<li>Return to <code>DAMP</code> and change only one parameter at a time.</li>
+<li>Repeat the same operation and compare logs before and after the change.</li>
 </ol>
-<h2 id="_4">现象到行动<a class="headerlink" href="#_4" title="Permanent link">¶</a></h2>
+<h2 id="symptom-to-action">Symptom to Action<a class="headerlink" href="#symptom-to-action" title="Permanent link">¶</a></h2>
 <table>
 <thead>
 <tr>
-<th>现象</th>
-<th>立即行动</th>
-<th>下一步证据</th>
+<th>Symptom</th>
+<th>Immediate action</th>
+<th>Next evidence</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>模型高速发散</td>
-<td>切回安全模式并停止</td>
-<td>发散前的关节目标、实际值和 PD</td>
+<td>Model diverges rapidly</td>
+<td>Switch back to a safe mode and stop</td>
+<td>Joint target, actual value, and PD before divergence</td>
 </tr>
 <tr>
-<td>某个 wheel 方向错误</td>
-<td>停止 wheel 命令</td>
-<td>supplement 索引和 XML 轴向</td>
+<td>One wheel direction is wrong</td>
+<td>Stop wheel commands</td>
+<td>supplement index and XML axis direction</td>
 </tr>
 <tr>
-<td>状态频率正常但动作卡顿</td>
-<td>检查命令频率</td>
-<td>推理耗时、CPU 和发送循环</td>
+<td>State frequency is normal but motion stutters</td>
+<td>Check command frequency</td>
+<td>Inference time, CPU, and send loop</td>
 </tr>
 <tr>
-<td>只有外部算法模式异常</td>
-<td>改用 wave 低幅值复测</td>
-<td>区分模型问题与 DEVELOPMENT 链路问题</td>
+<td>Only external algorithm mode is abnormal</td>
+<td>Retest with low-amplitude wave</td>
+<td>Separate model issues from DEVELOPMENT link issues</td>
 </tr>
 <tr>
-<td>所有模式均异常</td>
-<td>检查底层状态与模型</td>
-<td>XML、关节顺序、控制周期和通道串扰</td>
+<td>All modes are abnormal</td>
+<td>Check lower-level state and model</td>
+<td>XML, joint order, control period, and channel interference</td>
 </tr>
 </tbody>
 </table>
-<p>定位外部算法问题时继续阅读 <a href="../part-5-lcm-dev/1.structure.html">通信结构</a>和 <a href="../part-5-lcm-dev/5.walk-onnx.html">ONNX 行走示例</a>。</p></div>
+<p>When locating external-algorithm issues, continue with <a href="../part-5-lcm-dev/1.structure.html">Communication Architecture</a> and <a href="../part-5-lcm-dev/5.walk-onnx.html">ONNX Walking Example</a>.</p></div>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="3.verify.html" class="btn btn-neutral float-left" title="2.3 模型与模式验证"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../part-3-hardware/1.overview.html" class="btn btn-neutral float-right" title="3.1 实机结构与安全">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="3.verify.html" class="btn btn-neutral float-left" title="2.3 Model and Mode Verification"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../part-3-hardware/1.overview.html" class="btn btn-neutral float-right" title="3.1 Hardware Architecture and Safety">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -287,6 +287,7 @@ python3 scripts/motor_trace_viewer.py log/motor_trace.csv
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
       <script src="../js/copy-code.js"></script>
+      <script src="../js/language-switcher.js"></script>
     <script>
         jQuery(function () {
             SphinxRtdTheme.Navigation.enable(true);

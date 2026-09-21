@@ -3,9 +3,9 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="山东优宝特智能机器人有限公司" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Shandong Yobotics Intelligent Robotics Co., Ltd." />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>4.3 运动控制 - quad144w/Y20W 轮足机器人控制框架使用说明书</title>
+    <title>4.3 Motion Control - quad144w/Y20W Wheel-Legged Robot Control Framework Manual</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,8 +13,8 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "4.3 \u8fd0\u52a8\u63a7\u5236";
-        var mkdocs_page_input_path = "part-4-sdk/3.motion-control.md";
+        var mkdocs_page_name = "4.3 Motion Control";
+        var mkdocs_page_input_path = "en/part-4-sdk/3.motion-control.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -36,99 +36,99 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
-          <a href="../index.html" class="icon icon-home"> quad144w/Y20W 轮足机器人控制框架使用说明书
+          <a href="../index.html" class="icon icon-home"> quad144w/Y20W Wheel-Legged Robot Control Framework Manual
         </a>
       </div>
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../index.html">首页</a>
+                <li class="toctree-l1"><a class="reference internal" href="../index.html">Home</a>
                 </li>
               </ul>
-              <p class="caption"><span class="caption-text">第一部分 环境配置与快速开始</span></p>
+              <p class="caption"><span class="caption-text">Part 1 Environment and Quick Start</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-1-quick-start/1.framework.html">1.1 框架与机器人</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-1-quick-start/1.framework.html">1.1 Framework and Robot</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-1-quick-start/2.system-requirements.html">1.2 系统与环境</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-1-quick-start/2.system-requirements.html">1.2 System and Environment</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-1-quick-start/3.package-directory.html">1.3 开发包目录</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-1-quick-start/3.package-directory.html">1.3 Package Directory</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-1-quick-start/4.first-run.html">1.4 首次运行</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-1-quick-start/4.first-run.html">1.4 First Run</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">第二部分 MuJoCo 仿真</span></p>
+              <p class="caption"><span class="caption-text">Part 2 MuJoCo Simulation</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-2-mujoco/1.overview.html">2.1 仿真结构</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-2-mujoco/1.overview.html">2.1 Simulation Architecture</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-2-mujoco/2.start.html">2.2 启动与停止</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-2-mujoco/2.start.html">2.2 Start and Stop</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-2-mujoco/3.verify.html">2.3 模型与模式验证</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-2-mujoco/3.verify.html">2.3 Model and Mode Verification</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-2-mujoco/4.debug.html">2.4 仿真调试</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-2-mujoco/4.debug.html">2.4 Simulation Debugging</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">第三部分 实机运行</span></p>
+              <p class="caption"><span class="caption-text">Part 3 Hardware Operation</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-3-hardware/1.overview.html">3.1 实机结构与安全</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-3-hardware/1.overview.html">3.1 Hardware Architecture and Safety</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-3-hardware/2.config.html">3.2 配置实机参数</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-3-hardware/2.config.html">3.2 Configure Hardware Parameters</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-3-hardware/3.run.html">3.3 启动控制器</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-3-hardware/3.run.html">3.3 Start the Controller</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-3-hardware/4.runtime-checks.html">3.4 状态检查与停止</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-3-hardware/4.runtime-checks.html">3.4 State Checks and Stop</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-3-hardware/5.logs-and-viewers.html">3.5 Viewer 与日志</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-3-hardware/5.logs-and-viewers.html">3.5 Viewers and Logs</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">第四部分 Yobotics SDK</span></p>
+              <p class="caption"><span class="caption-text">Part 4 Yobotics SDK</span></p>
               <ul class="current">
-                  <li class="toctree-l1"><a class="reference internal" href="1.overview.html">4.1 SDK 概览</a>
+                  <li class="toctree-l1"><a class="reference internal" href="1.overview.html">4.1 SDK Overview</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="2.build.html">4.2 编译 SDK</a>
+                  <li class="toctree-l1"><a class="reference internal" href="2.build.html">4.2 Build the SDK</a>
                   </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="#">4.3 运动控制</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">4.3 Motion Control</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#api">API 编号</a>
+    <li class="toctree-l2"><a class="reference internal" href="#api-numbers">API Numbers</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_1">方法语义</a>
+    <li class="toctree-l2"><a class="reference internal" href="#method-semantics">Method Semantics</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_2">键盘示例</a>
+    <li class="toctree-l2"><a class="reference internal" href="#keyboard-example">Keyboard Example</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_3">验收与停止</a>
+    <li class="toctree-l2"><a class="reference internal" href="#acceptance-and-stop">Acceptance and Stop</a>
     </li>
     </ul>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="4.state-read.html">4.4 状态读取</a>
+                  <li class="toctree-l1"><a class="reference internal" href="4.state-read.html">4.4 State Reading</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="5.examples.html">4.5 仿真与实机使用</a>
+                  <li class="toctree-l1"><a class="reference internal" href="5.examples.html">4.5 Simulation and Hardware Use</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="6.http.html">4.6 HTTP 服务</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">第五部分 LCM 与外部算法</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/1.structure.html">5.1 通信结构与通道</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/2.messages.html">5.2 16 维消息协议</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/3.development-mode.html">5.3 DEVELOPMENT 模式与框架</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/4.wave.html">5.4 wave 规则示例</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/5.walk-onnx.html">5.5 ONNX 行走示例</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/6.hardware.html">5.6 自定义算法与实机接入</a>
+                  <li class="toctree-l1"><a class="reference internal" href="6.http.html">4.6 HTTP Service</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">第六部分 WebRTC</span></p>
+              <p class="caption"><span class="caption-text">Part 5 LCM and External Algorithms</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-6-webrtc/1.overview.html">6.1 服务结构</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/1.structure.html">5.1 Communication Architecture and Channels</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-6-webrtc/2.config-and-run.html">6.2 配置与启动</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/2.messages.html">5.2 16D Message Protocol</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-6-webrtc/3.datachannel.html">6.3 DataChannel 协议</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/3.development-mode.html">5.3 DEVELOPMENT Mode and Framework</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-6-webrtc/4.troubleshooting.html">6.4 故障排查</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/4.wave.html">5.4 wave Rule Example</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/5.walk-onnx.html">5.5 ONNX Walking Example</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/6.hardware.html">5.6 Custom Algorithms and Hardware Integration</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Part 6 WebRTC</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-6-webrtc/1.overview.html">6.1 Service Architecture</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-6-webrtc/2.config-and-run.html">6.2 Configuration and Startup</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-6-webrtc/3.datachannel.html">6.3 DataChannel Protocol</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-6-webrtc/4.troubleshooting.html">6.4 Troubleshooting</a>
                   </li>
               </ul>
       </div>
@@ -138,15 +138,15 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
       <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">quad144w/Y20W 轮足机器人控制框架使用说明书</a>
+          <a href="../index.html">quad144w/Y20W Wheel-Legged Robot Control Framework Manual</a>
         
       </nav>
       <div class="wy-nav-content">
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../index.html" class="icon icon-home" aria-label="Docs"></a></li>
-          <li class="breadcrumb-item">第四部分 Yobotics SDK</li>
-      <li class="breadcrumb-item active">4.3 运动控制</li>
+          <li class="breadcrumb-item">Part 4 Yobotics SDK</li>
+      <li class="breadcrumb-item active">4.3 Motion Control</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -155,8 +155,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <div><h1 id="43">4.3 运动控制<a class="headerlink" href="#43" title="Permanent link">¶</a></h1>
-<p><code>SportClient</code> 保留以下公共方法：</p>
+                <div><h1 id="43-motion-control">4.3 Motion Control<a class="headerlink" href="#43-motion-control" title="Permanent link">¶</a></h1>
+<p><code>SportClient</code> keeps the following public methods:</p>
 <pre><code class="language-cpp">SportClient client;
 client.EnableLCMControl();
 client.RecoveryStand();
@@ -165,11 +165,11 @@ client.Move(0.2f, 0.0f, 0.0f);
 client.BodyHeight(0.0f);
 client.Euler(0.0f, 0.0f);
 </code></pre>
-<h2 id="api">API 编号<a class="headerlink" href="#api" title="Permanent link">¶</a></h2>
+<h2 id="api-numbers">API Numbers<a class="headerlink" href="#api-numbers" title="Permanent link">¶</a></h2>
 <table>
 <thead>
 <tr>
-<th>方法/模式</th>
+<th>Method/mode</th>
 <th>API</th>
 </tr>
 </thead>
@@ -200,55 +200,55 @@ client.Euler(0.0f, 0.0f);
 </tr>
 </tbody>
 </table>
-<h2 id="_1">方法语义<a class="headerlink" href="#_1" title="Permanent link">¶</a></h2>
+<h2 id="method-semantics">Method Semantics<a class="headerlink" href="#method-semantics" title="Permanent link">¶</a></h2>
 <table>
 <thead>
 <tr>
-<th>方法</th>
-<th>行为</th>
+<th>Method</th>
+<th>Behavior</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>EnableLCMControl()</code></td>
-<td>设置 <code>rc_enable=1</code> 并发布，使控制器接收 LCM 高层输入</td>
+<td>Sets <code>rc_enable=1</code> and publishes, allowing the controller to accept LCM high-level input</td>
 </tr>
 <tr>
 <td><code>DisableLCMControl()</code></td>
-<td>设置 <code>rc_enable=0</code> 并发布</td>
+<td>Sets <code>rc_enable=0</code> and publishes</td>
 </tr>
 <tr>
 <td><code>Passive()</code> / <code>Damp()</code></td>
-<td>切换模式并清零速度、高度和姿态字段</td>
+<td>Switches mode and clears velocity, height, and posture fields</td>
 </tr>
 <tr>
 <td><code>RecoveryStand()</code> / <code>StandDown()</code></td>
-<td>切换模式并清零运动字段</td>
+<td>Switches mode and clears motion fields</td>
 </tr>
 <tr>
 <td><code>RLWalk()</code></td>
-<td>设置 RL 行走 API，保留当前运动字段</td>
+<td>Sets the RL walking API and preserves current motion fields</td>
 </tr>
 <tr>
 <td><code>Development()</code></td>
-<td>设置 DEVELOPMENT API，保留当前运动字段</td>
+<td>Sets the DEVELOPMENT API and preserves current motion fields</td>
 </tr>
 <tr>
 <td><code>Move(vx, vy, vyaw)</code></td>
-<td>更新三个速度分量并立即发布</td>
+<td>Updates three velocity components and publishes immediately</td>
 </tr>
 <tr>
 <td><code>BodyHeight(h)</code></td>
-<td>把高度限制到 <code>[-1.0, 0.2]</code> 后发布</td>
+<td>Clamps height to <code>[-1.0, 0.2]</code> and publishes</td>
 </tr>
 <tr>
 <td><code>Euler(roll, pitch)</code></td>
-<td>分别限制到 <code>[-0.5, 0.5]</code> 后发布</td>
+<td>Clamps each value to <code>[-0.5, 0.5]</code> and publishes</td>
 </tr>
 </tbody>
 </table>
-<p>所有公共方法当前返回 <code>0</code>，表示命令已提交到 SDK 发布路径，不表示控制器已经切换成功。应用应通过状态通道确认结果。</p>
-<p>运动程序应周期发送 <code>EnableLCMControl()</code>、当前模式和运动命令。只发送一次的命令可能被遥控器输入或超时逻辑覆盖。</p>
+<p>All public methods currently return <code>0</code>, meaning the command was submitted to the SDK publish path. It does not mean the controller has switched successfully. Applications should confirm through the state channel.</p>
+<p>Motion programs should periodically send <code>EnableLCMControl()</code>, the current mode, and motion commands. A command sent only once may be overwritten by gamepad input or timeout logic.</p>
 <pre><code class="language-cpp">#include &lt;chrono&gt;
 #include &lt;thread&gt;
 #include "robot/sport/sport_client.hpp"
@@ -271,30 +271,30 @@ client.Move(0.0f, 0.0f, 0.0f);
 client.Damp();
 client.DisableLCMControl();
 </code></pre>
-<p>示例周期约为 25 Hz，仅用于展示持续发送方式；具体业务频率应结合控制器、网络和应用需求验证。</p>
-<h2 id="_2">键盘示例<a class="headerlink" href="#_2" title="Permanent link">¶</a></h2>
+<p>The example period is about 25 Hz and only demonstrates continuous sending. Validate the business frequency according to the controller, network, and application requirements.</p>
+<h2 id="keyboard-example">Keyboard Example<a class="headerlink" href="#keyboard-example" title="Permanent link">¶</a></h2>
 <pre><code class="language-bash">yobotics_sdk/build/yobot_sport_client
 </code></pre>
-<p><img alt="运动控制按键" src="../assets/sdk/sport-client-controls.png"></p>
-<p>方向键控制前后和转向，<code>H/J</code> 横移，<code>Q/A/Z</code> 调整或复位高度，<code>W/S/X</code> 调整或复位横滚，<code>E/D/C</code> 调整或复位俯仰，<code>V</code> 退出。</p>
+<p><img alt="Motion-control keys" src="../assets/sdk/sport-client-controls.png"></p>
+<p>Arrow keys control forward/backward motion and turning. <code>H/J</code> strafe, <code>Q/A/Z</code> adjust or reset height, <code>W/S/X</code> adjust or reset roll, <code>E/D/C</code> adjust or reset pitch, and <code>V</code> exits.</p>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
-<p>SDK 会向真实控制器发布运动命令。连接实机前先在仿真中运行同一示例，并将速度命令保持在保守范围。</p>
+<p>The SDK publishes motion commands to the real controller. Before connecting to hardware, run the same example in simulation and keep velocity commands conservative.</p>
 </div>
-<h2 id="_3">验收与停止<a class="headerlink" href="#_3" title="Permanent link">¶</a></h2>
+<h2 id="acceptance-and-stop">Acceptance and Stop<a class="headerlink" href="#acceptance-and-stop" title="Permanent link">¶</a></h2>
 <ul>
-<li>先运行状态客户端，再运行运动客户端；</li>
-<li>每次模式调用后通过状态确认，而不是只看返回值；</li>
-<li>松开按键或结束业务循环时主动发送零速度；</li>
-<li>退出前切回 <code>DAMP</code>，最后禁用 LCM 控制；</li>
-<li>多个 SDK 客户端不要同时发布到同一控制通道。</li>
+<li>Run the state client before the motion client.</li>
+<li>Confirm through state after every mode call instead of relying only on return values.</li>
+<li>Actively send zero velocity when keys are released or the business loop ends.</li>
+<li>Switch back to <code>DAMP</code> before exiting, then disable LCM control.</li>
+<li>Do not let multiple SDK clients publish to the same control channel at the same time.</li>
 </ul></div>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="2.build.html" class="btn btn-neutral float-left" title="4.2 编译 SDK"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="4.state-read.html" class="btn btn-neutral float-right" title="4.4 状态读取">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="2.build.html" class="btn btn-neutral float-left" title="4.2 Build the SDK"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="4.state-read.html" class="btn btn-neutral float-right" title="4.4 State Reading">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -329,6 +329,7 @@ client.DisableLCMControl();
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
       <script src="../js/copy-code.js"></script>
+      <script src="../js/language-switcher.js"></script>
     <script>
         jQuery(function () {
             SphinxRtdTheme.Navigation.enable(true);

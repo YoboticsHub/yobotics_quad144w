@@ -3,9 +3,9 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="山东优宝特智能机器人有限公司" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Shandong Yobotics Intelligent Robotics Co., Ltd." />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>6.1 服务结构 - quad144w/Y20W 轮足机器人控制框架使用说明书</title>
+    <title>6.1 Service Architecture - quad144w/Y20W Wheel-Legged Robot Control Framework Manual</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,8 +13,8 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "6.1 \u670d\u52a1\u7ed3\u6784";
-        var mkdocs_page_input_path = "part-6-webrtc/1.overview.md";
+        var mkdocs_page_name = "6.1 Service Architecture";
+        var mkdocs_page_input_path = "en/part-6-webrtc/1.overview.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -36,95 +36,95 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
-          <a href="../index.html" class="icon icon-home"> quad144w/Y20W 轮足机器人控制框架使用说明书
+          <a href="../index.html" class="icon icon-home"> quad144w/Y20W Wheel-Legged Robot Control Framework Manual
         </a>
       </div>
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../index.html">首页</a>
+                <li class="toctree-l1"><a class="reference internal" href="../index.html">Home</a>
                 </li>
               </ul>
-              <p class="caption"><span class="caption-text">第一部分 环境配置与快速开始</span></p>
+              <p class="caption"><span class="caption-text">Part 1 Environment and Quick Start</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-1-quick-start/1.framework.html">1.1 框架与机器人</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-1-quick-start/1.framework.html">1.1 Framework and Robot</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-1-quick-start/2.system-requirements.html">1.2 系统与环境</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-1-quick-start/2.system-requirements.html">1.2 System and Environment</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-1-quick-start/3.package-directory.html">1.3 开发包目录</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-1-quick-start/3.package-directory.html">1.3 Package Directory</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-1-quick-start/4.first-run.html">1.4 首次运行</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-1-quick-start/4.first-run.html">1.4 First Run</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">第二部分 MuJoCo 仿真</span></p>
+              <p class="caption"><span class="caption-text">Part 2 MuJoCo Simulation</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-2-mujoco/1.overview.html">2.1 仿真结构</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-2-mujoco/1.overview.html">2.1 Simulation Architecture</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-2-mujoco/2.start.html">2.2 启动与停止</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-2-mujoco/2.start.html">2.2 Start and Stop</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-2-mujoco/3.verify.html">2.3 模型与模式验证</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-2-mujoco/3.verify.html">2.3 Model and Mode Verification</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-2-mujoco/4.debug.html">2.4 仿真调试</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-2-mujoco/4.debug.html">2.4 Simulation Debugging</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">第三部分 实机运行</span></p>
+              <p class="caption"><span class="caption-text">Part 3 Hardware Operation</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-3-hardware/1.overview.html">3.1 实机结构与安全</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-3-hardware/1.overview.html">3.1 Hardware Architecture and Safety</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-3-hardware/2.config.html">3.2 配置实机参数</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-3-hardware/2.config.html">3.2 Configure Hardware Parameters</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-3-hardware/3.run.html">3.3 启动控制器</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-3-hardware/3.run.html">3.3 Start the Controller</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-3-hardware/4.runtime-checks.html">3.4 状态检查与停止</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-3-hardware/4.runtime-checks.html">3.4 State Checks and Stop</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-3-hardware/5.logs-and-viewers.html">3.5 Viewer 与日志</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-3-hardware/5.logs-and-viewers.html">3.5 Viewers and Logs</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">第四部分 Yobotics SDK</span></p>
+              <p class="caption"><span class="caption-text">Part 4 Yobotics SDK</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-4-sdk/1.overview.html">4.1 SDK 概览</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-4-sdk/1.overview.html">4.1 SDK Overview</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-4-sdk/2.build.html">4.2 编译 SDK</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-4-sdk/2.build.html">4.2 Build the SDK</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-4-sdk/3.motion-control.html">4.3 运动控制</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-4-sdk/3.motion-control.html">4.3 Motion Control</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-4-sdk/4.state-read.html">4.4 状态读取</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-4-sdk/4.state-read.html">4.4 State Reading</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-4-sdk/5.examples.html">4.5 仿真与实机使用</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-4-sdk/5.examples.html">4.5 Simulation and Hardware Use</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-4-sdk/6.http.html">4.6 HTTP 服务</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-4-sdk/6.http.html">4.6 HTTP Service</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">第五部分 LCM 与外部算法</span></p>
+              <p class="caption"><span class="caption-text">Part 5 LCM and External Algorithms</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/1.structure.html">5.1 通信结构与通道</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/1.structure.html">5.1 Communication Architecture and Channels</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/2.messages.html">5.2 16 维消息协议</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/2.messages.html">5.2 16D Message Protocol</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/3.development-mode.html">5.3 DEVELOPMENT 模式与框架</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/3.development-mode.html">5.3 DEVELOPMENT Mode and Framework</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/4.wave.html">5.4 wave 规则示例</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/4.wave.html">5.4 wave Rule Example</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/5.walk-onnx.html">5.5 ONNX 行走示例</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/5.walk-onnx.html">5.5 ONNX Walking Example</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/6.hardware.html">5.6 自定义算法与实机接入</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-5-lcm-dev/6.hardware.html">5.6 Custom Algorithms and Hardware Integration</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">第六部分 WebRTC</span></p>
+              <p class="caption"><span class="caption-text">Part 6 WebRTC</span></p>
               <ul class="current">
-                  <li class="toctree-l1 current"><a class="reference internal current" href="#">6.1 服务结构</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">6.1 Service Architecture</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#_1">进程生命周期</a>
+    <li class="toctree-l2"><a class="reference internal" href="#process-lifecycle">Process Lifecycle</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_2">边界</a>
+    <li class="toctree-l2"><a class="reference internal" href="#boundaries">Boundaries</a>
     </li>
     </ul>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="2.config-and-run.html">6.2 配置与启动</a>
+                  <li class="toctree-l1"><a class="reference internal" href="2.config-and-run.html">6.2 Configuration and Startup</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="3.datachannel.html">6.3 DataChannel 协议</a>
+                  <li class="toctree-l1"><a class="reference internal" href="3.datachannel.html">6.3 DataChannel Protocol</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="4.troubleshooting.html">6.4 故障排查</a>
+                  <li class="toctree-l1"><a class="reference internal" href="4.troubleshooting.html">6.4 Troubleshooting</a>
                   </li>
               </ul>
       </div>
@@ -134,15 +134,15 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
       <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">quad144w/Y20W 轮足机器人控制框架使用说明书</a>
+          <a href="../index.html">quad144w/Y20W Wheel-Legged Robot Control Framework Manual</a>
         
       </nav>
       <div class="wy-nav-content">
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../index.html" class="icon icon-home" aria-label="Docs"></a></li>
-          <li class="breadcrumb-item">第六部分 WebRTC</li>
-      <li class="breadcrumb-item active">6.1 服务结构</li>
+          <li class="breadcrumb-item">Part 6 WebRTC</li>
+      <li class="breadcrumb-item active">6.1 Service Architecture</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -151,11 +151,11 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <div><h1 id="61">6.1 服务结构<a class="headerlink" href="#61" title="Permanent link">¶</a></h1>
-<p><code>WebRTC_server/</code> 在机器人端采集视频，通过 WebRTC 推送给客户端，并把 DataChannel JSON 转成 Y20W 高层 LCM 命令。</p>
-<pre><code class="language-text">远端客户端
-  | WebSocket 信令 (8765)
-  | WebRTC 视频 + DataChannel
+                <div><h1 id="61-service-architecture">6.1 Service Architecture<a class="headerlink" href="#61-service-architecture" title="Permanent link">¶</a></h1>
+<p><code>WebRTC_server/</code> captures video on the robot side, streams it to clients through WebRTC, and converts DataChannel JSON into Y20W high-level LCM commands.</p>
+<pre><code class="language-text">remote client
+  | WebSocket signaling (8765)
+  | WebRTC video + DataChannel
   v
 signaling_server.py + publisher.py
                    |
@@ -163,37 +163,37 @@ signaling_server.py + publisher.py
                    &lt;-- QUAD_ROBOT_STATE_Y20W
 </code></pre>
 <ul>
-<li><code>control_publisher.py</code>：推荐入口，管理信令和发布进程。</li>
-<li><code>signaling_server.py</code>：监听 <code>0.0.0.0:8765</code>。</li>
-<li><code>publisher.py</code>：摄像头、WebRTC、DataChannel 和 LCM。</li>
-<li><code>config.json</code>：视频、码率、LCM 通道和信令地址。</li>
+<li><code>control_publisher.py</code>: recommended entry, manages signaling and publisher processes.</li>
+<li><code>signaling_server.py</code>: listens on <code>0.0.0.0:8765</code>.</li>
+<li><code>publisher.py</code>: camera, WebRTC, DataChannel, and LCM.</li>
+<li><code>config.json</code>: video, bitrate, LCM channels, and signaling address.</li>
 </ul>
-<p>WebRTC 是远程传输层，不绕过控制器安全检查。客户端命令仍由 Y20W 状态机处理。</p>
-<h2 id="_1">进程生命周期<a class="headerlink" href="#_1" title="Permanent link">¶</a></h2>
-<p><code>control_publisher.py</code> 先启动信令服务，等待端口 <code>8765</code> 就绪，再等待外部客户端连接。外部客户端生成就绪标记后才启动 publisher。信令断开、publisher 退出或 PeerConnection 失败时，组件通过 <code>restart.flag</code> 请求管理进程重启。</p>
+<p>WebRTC is a remote transport layer and does not bypass controller safety checks. Client commands are still handled by the Y20W state machine.</p>
+<h2 id="process-lifecycle">Process Lifecycle<a class="headerlink" href="#process-lifecycle" title="Permanent link">¶</a></h2>
+<p><code>control_publisher.py</code> starts the signaling service first, waits for port <code>8765</code> to be ready, then waits for an external client connection. The publisher starts only after the external client creates the ready marker. When signaling disconnects, publisher exits, or PeerConnection fails, components request the manager to restart through <code>restart.flag</code>.</p>
 <pre><code class="language-text">control_publisher.py
   +-- signaling_server.py :8765
-  |      +-- 等待外部客户端
-  |      +-- 转发 Offer / Answer
+  |      +-- waits for external client
+  |      +-- forwards Offer / Answer
   +-- publisher.py
-         +-- 读取 USB / RTSP / 虚拟视频
-         +-- 创建 WebRTC Offer 和 DataChannel
-         +-- LCM 命令发布与状态订阅
+         +-- reads USB / RTSP / virtual video
+         +-- creates WebRTC Offer and DataChannel
+         +-- publishes LCM commands and subscribes state
 </code></pre>
-<h2 id="_2">边界<a class="headerlink" href="#_2" title="Permanent link">¶</a></h2>
+<h2 id="boundaries">Boundaries<a class="headerlink" href="#boundaries" title="Permanent link">¶</a></h2>
 <ul>
-<li>信令 WebSocket 只转发会话描述，不承载视频帧；</li>
-<li>DataChannel JSON 被转换为高层 <code>sport_client_cmd_t</code>；</li>
-<li>publisher 固定设置 <code>rc_enable=1</code>，不会替客户端管理完整的模式生命周期；</li>
-<li>当前转发层只做类型转换，没有运动范围限幅；</li>
-<li>控制安全仍需由客户端、控制器状态机和现场急停共同保证。</li>
+<li>The signaling WebSocket only forwards session descriptions; it does not carry video frames.</li>
+<li>DataChannel JSON is converted to high-level <code>sport_client_cmd_t</code>.</li>
+<li>The publisher always sets <code>rc_enable=1</code> and does not manage the full mode lifecycle for the client.</li>
+<li>The current forwarding layer only converts types and does not limit motion ranges.</li>
+<li>Control safety must still be guaranteed by the client, controller state machine, and onsite emergency stop together.</li>
 </ul></div>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../part-5-lcm-dev/6.hardware.html" class="btn btn-neutral float-left" title="5.6 自定义算法与实机接入"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="2.config-and-run.html" class="btn btn-neutral float-right" title="6.2 配置与启动">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../part-5-lcm-dev/6.hardware.html" class="btn btn-neutral float-left" title="5.6 Custom Algorithms and Hardware Integration"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="2.config-and-run.html" class="btn btn-neutral float-right" title="6.2 Configuration and Startup">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -228,6 +228,7 @@ signaling_server.py + publisher.py
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
       <script src="../js/copy-code.js"></script>
+      <script src="../js/language-switcher.js"></script>
     <script>
         jQuery(function () {
             SphinxRtdTheme.Navigation.enable(true);

@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh_Hans_CN" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Shandong Yobotics Intelligent Robotics Co., Ltd." />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>5.5 ONNX 行走示例 - quad144w/Y20W 轮足机器人控制框架使用说明书</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../css/custom.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "5.5 ONNX \u884c\u8d70\u793a\u4f8b";
+        var mkdocs_page_input_path = "zh/part-5-lcm-dev/5.walk-onnx.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/bash.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/cpp.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/python.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/json.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../index.html" class="icon icon-home"> quad144w/Y20W 轮足机器人控制框架使用说明书
+        </a>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航栏">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../index.html">首页</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">第一部分 环境配置与快速开始</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-1-quick-start/1.framework.html">1.1 框架与机器人</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-1-quick-start/2.system-requirements.html">1.2 系统与环境</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-1-quick-start/3.package-directory.html">1.3 开发包目录</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-1-quick-start/4.first-run.html">1.4 首次运行</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">第二部分 MuJoCo 仿真</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-2-mujoco/1.overview.html">2.1 仿真结构</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-2-mujoco/2.start.html">2.2 启动与停止</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-2-mujoco/3.verify.html">2.3 模型与模式验证</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-2-mujoco/4.debug.html">2.4 仿真调试</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">第三部分 实机运行</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-3-hardware/1.overview.html">3.1 实机结构与安全</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-3-hardware/2.config.html">3.2 配置实机参数</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-3-hardware/3.run.html">3.3 启动控制器</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-3-hardware/4.runtime-checks.html">3.4 状态检查与停止</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-3-hardware/5.logs-and-viewers.html">3.5 Viewer 与日志</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">第四部分 Yobotics SDK</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-4-sdk/1.overview.html">4.1 SDK 概览</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-4-sdk/2.build.html">4.2 编译 SDK</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-4-sdk/3.motion-control.html">4.3 运动控制</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-4-sdk/4.state-read.html">4.4 状态读取</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-4-sdk/5.examples.html">4.5 仿真与实机使用</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-4-sdk/6.http.html">4.6 HTTP 服务</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">第五部分 LCM 与外部算法</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="1.structure.html">5.1 通信结构与通道</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="2.messages.html">5.2 16 维消息协议</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="3.development-mode.html">5.3 DEVELOPMENT 模式与框架</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="4.wave.html">5.4 wave 规则示例</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">5.5 ONNX 行走示例</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#_1">执行链路</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_2">启动命令</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_3">配置与优先级</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#_4">策略配置</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_5">模型参数</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#57">57 维观测逐项说明</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#_6">角速度</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_7">重力投影</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_8">速度命令</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_9">关节位置与速度</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_10">历史动作</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_11">观测裁剪</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#encoder-actor">Encoder 与 Actor 推理</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#encoder">Encoder</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#actor">Actor</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#16">16 维动作处理</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_12">模型预热</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_13">替换模型验收表</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_14">仿真验收流程</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_15">故障排查</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_16">成功标志</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="6.hardware.html">5.6 自定义算法与实机接入</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">第六部分 WebRTC</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-6-webrtc/1.overview.html">6.1 服务结构</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-6-webrtc/2.config-and-run.html">6.2 配置与启动</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-6-webrtc/3.datachannel.html">6.3 DataChannel 协议</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../part-6-webrtc/4.troubleshooting.html">6.4 故障排查</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="移动导航栏">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">quad144w/Y20W 轮足机器人控制框架使用说明书</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html" class="icon icon-home" aria-label="文档"></a></li>
+          <li class="breadcrumb-item">第五部分 LCM 与外部算法</li>
+      <li class="breadcrumb-item active">5.5 ONNX 行走示例</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <div><h1 id="55-onnx">5.5 ONNX 行走示例<a class="headerlink" href="#55-onnx" title="Permanent link">¶</a></h1>
+<p><code>walk_algorithm</code> 使用 encoder 和 actor 两个 ONNX 模型，把 Y20W 状态转换为 57 维观测，并输出 16 维轮足动作。该示例展示了完整策略推理链路，也要求模型训练约定与部署端完全一致。</p>
+<h2 id="_1">执行链路<a class="headerlink" href="#_1" title="Permanent link">¶</a></h2>
+<pre><code class="language-text">development_state_t
+  -&gt; 状态重排和缩放
+  -&gt; 57 维 observation
+  -&gt; HumanEncodernet.onnx + 循环状态
+  -&gt; latent
+  -&gt; HumanActornet.onnx + 循环状态
+  -&gt; 16 维 action
+  -&gt; 缩放 + 默认姿态
+  -&gt; q/qd/tau/Kp/Kd
+  -&gt; development_command_t (12+4)
+</code></pre>
+<p>encoder 必须有 3 个输入：观测、hidden、cell。actor 必须有 4 个输入：观测、latent、hidden、cell。代码从 ONNX session 读取实际输入名称和末维形状，并维护两组循环状态。</p>
+<h2 id="_2">启动命令<a class="headerlink" href="#_2" title="Permanent link">¶</a></h2>
+<pre><code class="language-bash">python3 external_algorithms/walk_algorithm/run_algorithm.py \
+  --config external_algorithms/walk_algorithm/config.yaml
+</code></pre>
+<p>相对模型路径以配置文件所在目录为基准，因此默认会加载：</p>
+<pre><code class="language-text">external_algorithms/walk_algorithm/HumanEncodernet.onnx
+external_algorithms/walk_algorithm/HumanActornet.onnx
+</code></pre>
+<p>启动前应先用 wave 完成通信和关节映射验证。这样 ONNX 异常和底层链路异常不会混在一起排查。</p>
+<h2 id="_3">配置与优先级<a class="headerlink" href="#_3" title="Permanent link">¶</a></h2>
+<h3 id="_4">策略配置<a class="headerlink" href="#_4" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>默认值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>policy.type</code></td>
+<td><code>onnx</code></td>
+<td>使用 ONNX Runtime</td>
+</tr>
+<tr>
+<td><code>model_path</code></td>
+<td><code>./HumanActornet.onnx</code></td>
+<td>actor 模型</td>
+</tr>
+<tr>
+<td><code>encoder_path</code></td>
+<td><code>./HumanEncodernet.onnx</code></td>
+<td>encoder 模型</td>
+</tr>
+<tr>
+<td><code>read_metadata</code></td>
+<td><code>false</code></td>
+<td>当前直接使用 YAML 中的模型参数</td>
+</tr>
+<tr>
+<td><code>warmup_count</code></td>
+<td><code>500</code></td>
+<td>使用真实状态执行 500 次预热</td>
+</tr>
+<tr>
+<td><code>action_threshold</code></td>
+<td><code>100.0</code></td>
+<td>预热动作绝对值检查阈值</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_5">模型参数<a class="headerlink" href="#_5" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>默认值摘要</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>num_obs</code></td>
+<td><code>57</code></td>
+<td>观测长度</td>
+</tr>
+<tr>
+<td><code>num_actions</code></td>
+<td><code>16</code></td>
+<td>动作长度</td>
+</tr>
+<tr>
+<td><code>default_joint_pos</code></td>
+<td>每腿 <code>[0, -0.8, 1.6, 0]</code></td>
+<td>位置目标基准</td>
+</tr>
+<tr>
+<td><code>joint_stiffness</code></td>
+<td>腿 <code>8</code>，wheel <code>0</code></td>
+<td>Kp</td>
+</tr>
+<tr>
+<td><code>joint_damping</code></td>
+<td>腿 <code>0.2</code>，wheel <code>0.5</code></td>
+<td>Kd</td>
+</tr>
+<tr>
+<td><code>action_scale</code></td>
+<td>腿 <code>0.25</code>，wheel <code>10</code></td>
+<td>动作到目标的逐轴缩放</td>
+</tr>
+<tr>
+<td><code>dof_pos_scale</code></td>
+<td><code>1.0</code></td>
+<td>关节位置误差缩放</td>
+</tr>
+<tr>
+<td><code>dof_vel_scale</code></td>
+<td><code>0.05</code></td>
+<td>关节速度缩放</td>
+</tr>
+<tr>
+<td><code>ang_vel_scale</code></td>
+<td><code>0.25</code></td>
+<td>机身角速度缩放</td>
+</tr>
+<tr>
+<td><code>command_scale</code></td>
+<td><code>2.0</code></td>
+<td>速度指令缩放</td>
+</tr>
+<tr>
+<td><code>lin_vel_scale</code></td>
+<td><code>2.0</code></td>
+<td>配置中存在，但当前 57 维观测没有机身线速度项</td>
+</tr>
+</tbody>
+</table>
+<p>当 <code>read_metadata: false</code> 时，YAML 是部署参数来源。设置为 <code>true</code> 且安装了 <code>onnx</code> 后，代码会从 actor metadata 读取 <code>joint_names</code>、默认位置、Kp、Kd、动作缩放、动作维度和观测维度，并覆盖对应内存参数。</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>当前 metadata 读取失败只打印警告，程序可能继续使用 YAML 参数。开启该功能后必须阅读启动日志，不能只依据配置文件判断最终参数。</p>
+</div>
+<h2 id="57">57 维观测逐项说明<a class="headerlink" href="#57" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th>索引</th>
+<th style="text-align: right;">长度</th>
+<th>数据</th>
+<th>处理</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0:3</code></td>
+<td style="text-align: right;">3</td>
+<td><code>state.omega[0:3]</code></td>
+<td>乘 <code>ang_vel_scale</code></td>
+</tr>
+<tr>
+<td><code>3:6</code></td>
+<td style="text-align: right;">3</td>
+<td>四元数计算的重力投影</td>
+<td>不额外缩放</td>
+</tr>
+<tr>
+<td><code>6:9</code></td>
+<td style="text-align: right;">3</td>
+<td><code>[v_des[0], v_des[1], omega_des[2]]</code></td>
+<td>乘 <code>command_scale</code></td>
+</tr>
+<tr>
+<td><code>9:25</code></td>
+<td style="text-align: right;">16</td>
+<td><code>(dof_q - default_joint_pos)</code></td>
+<td>乘 <code>dof_pos_scale</code></td>
+</tr>
+<tr>
+<td><code>25:41</code></td>
+<td style="text-align: right;">16</td>
+<td><code>dof_qd</code></td>
+<td>乘 <code>dof_vel_scale</code></td>
+</tr>
+<tr>
+<td><code>41:57</code></td>
+<td style="text-align: right;">16</td>
+<td>上一帧 <code>action_buffer</code></td>
+<td>原值写入</td>
+</tr>
+</tbody>
+</table>
+<p>总维度为 <code>3 + 3 + 3 + 16 + 16 + 16 = 57</code>。</p>
+<h3 id="_6">角速度<a class="headerlink" href="#_6" title="Permanent link">¶</a></h3>
+<p>角速度直接取 <code>development_state_t.omega</code>。训练和部署必须使用相同机体系、轴方向和单位。</p>
+<h3 id="_7">重力投影<a class="headerlink" href="#_7" title="Permanent link">¶</a></h3>
+<p>代码按四元数 <code>[w, x, y, z]</code> 计算机身坐标系中的重力方向。它向策略提供 roll/pitch 姿态信息，同时避免直接使用欧拉角的不连续性。</p>
+<p>若上游四元数顺序是 <code>[x, y, z, w]</code>，计算仍能运行，但观测语义完全错误。替换状态来源时必须先做静止姿态和单轴倾斜测试。</p>
+<h3 id="_8">速度命令<a class="headerlink" href="#_8" title="Permanent link">¶</a></h3>
+<p>观测使用：</p>
+<pre><code class="language-text">[前向速度 v_des[0], 横向速度 v_des[1], 偏航角速度 omega_des[2]]
+</code></pre>
+<p><code>v_des[2]</code> 和 <code>omega_des[0:2]</code> 不进入当前策略观测。</p>
+<h3 id="_9">关节位置与速度<a class="headerlink" href="#_9" title="Permanent link">¶</a></h3>
+<p>LCM 的 12+4 状态重排为：</p>
+<pre><code class="language-text">[LF_hip, LF_thigh, LF_calf, LF_wheel,
+ RF_hip, RF_thigh, RF_calf, RF_wheel,
+ LR_hip, LR_thigh, LR_calf, LR_wheel,
+ RR_hip, RR_thigh, RR_calf, RR_wheel]
+</code></pre>
+<p>位置先减去 <code>default_joint_pos</code>，速度不减零位。两者分别乘各自缩放。</p>
+<h3 id="_10">历史动作<a class="headerlink" href="#_10" title="Permanent link">¶</a></h3>
+<p><code>action_buffer</code> 初始化为全零。每次推理成功并通过有限值检查后，基类在锁保护下保存当前动作；下一次观测读取它作为最后 16 维输入。</p>
+<h3 id="_11">观测裁剪<a class="headerlink" href="#_11" title="Permanent link">¶</a></h3>
+<p><code>compute_observation()</code> 使用 <code>model_params.obs_clip_range</code>，配置未提供时默认裁剪到 <code>[-100, 100]</code>。基类推理前也会对绝对值超过 <code>100</code> 的观测再次裁剪。</p>
+<p>裁剪可以阻止数值爆炸，但持续触发裁剪通常意味着缩放、单位或传感器状态错误，应修复来源而不是依赖裁剪维持运行。</p>
+<h2 id="encoder-actor">Encoder 与 Actor 推理<a class="headerlink" href="#encoder-actor" title="Permanent link">¶</a></h2>
+<h3 id="encoder">Encoder<a class="headerlink" href="#encoder" title="Permanent link">¶</a></h3>
+<ol>
+<li>读取三个输入的名称和末维；</li>
+<li>将观测 reshape 为 <code>(1, obs_dim)</code>；</li>
+<li>首次运行时把 hidden 和 cell 初始化为 <code>(1, 1, hidden_dim)</code> 的全零数组；</li>
+<li>执行 encoder；</li>
+<li>保存输出 latent、新 hidden 和新 cell。</li>
+</ol>
+<h3 id="actor">Actor<a class="headerlink" href="#actor" title="Permanent link">¶</a></h3>
+<ol>
+<li>读取四个输入：observation、latent、hidden、cell；</li>
+<li>将观测和 latent reshape 为二维 batch；</li>
+<li>初始化或复用 actor 的循环状态；</li>
+<li>执行 actor；</li>
+<li>第一个输出展平并转换为 <code>float32</code> 动作；</li>
+<li>如果还有 hidden/cell 输出，则更新循环状态。</li>
+</ol>
+<p>每次重新开始 DEVELOPMENT 时，encoder 和 actor 的循环状态都会清零。</p>
+<h2 id="16">16 维动作处理<a class="headerlink" href="#16" title="Permanent link">¶</a></h2>
+<p><code>process_action()</code> 依次执行：</p>
+<ol>
+<li>拒绝 <code>None</code> 或空动作；</li>
+<li>检查 NaN/Inf；</li>
+<li>异常时尝试读取当前 <code>action_buffer</code>；</li>
+<li>检查 <code>action_scale</code> 与动作长度；</li>
+<li>检查并补齐 <code>default_joint_pos</code>；</li>
+<li>计算位置和速度目标；</li>
+<li>检查结果有限且长度正好为 16；</li>
+<li>读取 Kp、Kd；</li>
+<li>更新最新命令缓存，由发送线程发布。</li>
+</ol>
+<p>当前计算为：</p>
+<pre><code class="language-text">q_des  = action * action_scale + default_joint_pos
+qd_des = action * action_scale
+tau_des = 0
+</code></pre>
+<p>其中 wheel 的 <code>action_scale</code> 默认是 <code>10</code>，腿关节默认是 <code>0.25</code>。这反映当前模型的部署约定，不能直接移植到输出语义不同的模型。</p>
+<div class="admonition warning">
+<p class="admonition-title">NaN 回退的边界</p>
+<p>基类会在更新 <code>action_buffer</code> 前拒绝 NaN/Inf，因此 walk 中对上一动作的回退通常只能使用最近一次有效动作。持续保持旧动作未必安全，自研算法应增加动作新鲜度和连续失败处理。</p>
+</div>
+<h2 id="_12">模型预热<a class="headerlink" href="#_12" title="Permanent link">¶</a></h2>
+<p>默认预热执行 500 次真实状态推理：</p>
+<ol>
+<li>等待 <code>Y20W_development_state</code>；</li>
+<li>构造 57 维观测；</li>
+<li>运行 encoder 和 actor；</li>
+<li>检查每个动作的绝对值是否超过 <code>100</code>；</li>
+<li>打印进度和成功推理次数；</li>
+<li>最终检测到动作异常时打印观测、动作和异常索引并退出。</li>
+</ol>
+<p>预热期间需要控制器持续发布状态，但不应据此认为关节命令已经生效。预热通过只说明模型能够在当前状态上执行且未触发该动作阈值。</p>
+<h2 id="_13">替换模型验收表<a class="headerlink" href="#_13" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>必须确认</th>
+<th>不一致的典型表现</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Encoder 输入</td>
+<td>3 个输入及其形状</td>
+<td>初始化或 reshape 失败</td>
+</tr>
+<tr>
+<td>Actor 输入</td>
+<td>4 个输入及其形状</td>
+<td>推理报错或 latent 不匹配</td>
+</tr>
+<tr>
+<td>数据类型</td>
+<td>当前输入使用 <code>float32</code></td>
+<td>ONNX Runtime 类型错误</td>
+</tr>
+<tr>
+<td>观测维度</td>
+<td>当前为 57</td>
+<td>reshape 失败或输入错位</td>
+</tr>
+<tr>
+<td>观测顺序</td>
+<td>与上表逐维一致</td>
+<td>能运行但运动完全异常</td>
+</tr>
+<tr>
+<td>四元数顺序</td>
+<td><code>[w, x, y, z]</code></td>
+<td>重力方向错误、姿态不稳定</td>
+</tr>
+<tr>
+<td>关节顺序</td>
+<td>每腿 <code>[hip, thigh, calf, wheel]</code></td>
+<td>单腿或 wheel 错位</td>
+</tr>
+<tr>
+<td>训练单位</td>
+<td>弧度、弧度每秒及训练采用的速度单位</td>
+<td>动作幅值异常</td>
+</tr>
+<tr>
+<td>归一化/缩放</td>
+<td>与训练配置一致</td>
+<td>观测饱和或速度不跟随</td>
+</tr>
+<tr>
+<td>默认姿态</td>
+<td>16 项且和训练零位一致</td>
+<td>进入模式瞬间跳变</td>
+</tr>
+<tr>
+<td>动作语义</td>
+<td>当前位置偏移还是速度/力矩</td>
+<td>wheel 或腿控制错误</td>
+</tr>
+<tr>
+<td>动作缩放</td>
+<td>16 项，尤其 wheel 项</td>
+<td>腿无力或 wheel 过快</td>
+</tr>
+<tr>
+<td>PD 参数</td>
+<td>逐轴 16 项</td>
+<td>抖动、滞后或发散</td>
+</tr>
+<tr>
+<td>控制周期</td>
+<td>推理、发送及训练周期匹配</td>
+<td>步态节奏和闭环响应变化</td>
+</tr>
+<tr>
+<td>循环状态</td>
+<td>hidden/cell 形状和重置时机</td>
+<td>第二次启动或长时运行异常</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_14">仿真验收流程<a class="headerlink" href="#_14" title="Permanent link">¶</a></h2>
+<ol>
+<li>用 wave 验证 DEVELOPMENT 链路和 16 维顺序。</li>
+<li>在不进入 DEVELOPMENT 的情况下启动 walk，观察模型加载和 500 次预热。</li>
+<li>确认预热成功次数合理，没有动作阈值、NaN 或 shape 错误。</li>
+<li>保持速度命令为零，进入 DEVELOPMENT，检查站立和切换连续性。</li>
+<li>分别给出小幅前向、横向和偏航命令，一次只验证一个轴。</li>
+<li>检查指令撤回到零后动作能恢复稳定。</li>
+<li>运行较长时间，观察推理错误、频率下降、状态断流和姿态漂移。</li>
+<li>验证 <code>Ctrl+C</code>、模式切换和控制器停止时的退出行为。</li>
+</ol>
+<p>建议记录：状态与命令频率、推理耗时、观测最大绝对值、动作最大绝对值、姿态、16 维位置/速度、轮速和异常计数。</p>
+<h2 id="_15">故障排查<a class="headerlink" href="#_15" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th>现象</th>
+<th>检查</th>
+<th>原因</th>
+<th>处理</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>找不到模型</td>
+<td>配置路径与当前目录</td>
+<td>相对路径解析位置错误</td>
+<td>使用项目根目录命令或检查模型是否位于配置目录</td>
+</tr>
+<tr>
+<td><code>onnxruntime</code> 无法导入</td>
+<td>Python 环境</td>
+<td>依赖未安装在当前解释器</td>
+<td>激活项目环境并检查 <code>python3 -c 'import onnxruntime'</code></td>
+</tr>
+<tr>
+<td>Encoder 输入数量错误</td>
+<td>ONNX 输入列表</td>
+<td>模型结构不是当前 3 输入约定</td>
+<td>修改部署适配层或导出匹配模型</td>
+</tr>
+<tr>
+<td>Actor 输入数量错误</td>
+<td>ONNX 输入列表</td>
+<td>模型结构不是当前 4 输入约定</td>
+<td>不要只改配置维度，需适配推理代码</td>
+</tr>
+<tr>
+<td>metadata 没有生效</td>
+<td><code>read_metadata</code>、<code>onnx</code> 包、启动日志</td>
+<td>metadata 缺失或解析失败</td>
+<td>核对日志并回到明确的 YAML 参数</td>
+</tr>
+<tr>
+<td>预热成功次数为 0</td>
+<td>状态通道和 <code>robot_id</code></td>
+<td>没收到真实状态</td>
+<td>先修复通信，不进入 DEVELOPMENT</td>
+</tr>
+<tr>
+<td>观测经常被裁剪</td>
+<td>原始状态、单位、缩放</td>
+<td>传感器异常或训练归一化不一致</td>
+<td>打印分段观测并定位来源</td>
+</tr>
+<tr>
+<td>输出出现 NaN/Inf</td>
+<td>输入、循环状态和模型</td>
+<td>模型数值不稳定</td>
+<td>退出模式，保存触发帧并离线复现</td>
+</tr>
+<tr>
+<td>机器人进入模式后抖动</td>
+<td>默认姿态、PD、控制周期</td>
+<td>零位或增益不匹配</td>
+<td>切回 DAMP，在仿真降低增益重新验证</td>
+</tr>
+<tr>
+<td>速度不跟随</td>
+<td><code>v_des</code>、<code>omega_des</code> 和 <code>command_scale</code></td>
+<td>上游命令没进入观测或缩放不匹配</td>
+<td>监控状态字段与观测索引 6:9</td>
+</tr>
+<tr>
+<td>wheel 与腿动作错位</td>
+<td>16 维重排和 supplement</td>
+<td>使用了前 12+后 4 的错误顺序</td>
+<td>按 <a href="2.messages.html">索引表</a>逐项核对</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_16">成功标志<a class="headerlink" href="#_16" title="Permanent link">¶</a></h2>
+<ul>
+<li>两个模型加载成功，输入数量和形状符合代码预期；</li>
+<li>500 次预热完成且无最终动作越界；</li>
+<li>57 维观测各分段数值和训练约定一致；</li>
+<li>16 维动作重排、默认姿态和缩放全部核对；</li>
+<li>零命令和小幅单轴命令在仿真中可重复运行；</li>
+<li>异常退出后控制器能够回到安全模式。</li>
+</ul>
+<p>满足这些条件后，再按 <a href="6.hardware.html">自定义算法与实机接入</a>执行分阶段验证。</p></div>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="页脚导航">
+        <a href="4.wave.html" class="btn btn-neutral float-left" title="5.4 wave 规则示例"><span class="icon icon-circle-arrow-left"></span> 上一章</a>
+        <a href="6.hardware.html" class="btn btn-neutral float-right" title="5.6 自定义算法与实机接入">下一章 <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  用<a href="https://www.mkdocs.org/">MkDocs</a>构建，使用<a href="https://readthedocs.org">Read the Docs</a>提供的<a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>。
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="版本">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="4.wave.html" style="color: #fcfcfc">&laquo; 上一章</a></span>
+    
+    
+      <span><a href="6.hardware.html" style="color: #fcfcfc">下一章 &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../js/copy-code.js"></script>
+      <script src="../../js/language-switcher.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
